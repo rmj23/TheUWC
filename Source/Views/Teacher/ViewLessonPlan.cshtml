@@ -1,0 +1,56 @@
+﻿@model Source.Models.ViewLessonPlanViewModel
+
+@{
+    ViewBag.Title = "ViewLessonPlan";
+    Layout = ViewBag.Layout;
+}
+<div id="page-title">
+<div class="panel">
+    <div class="panel-control">
+        <a href="http://www.thewritingcontinuum.com/Docs/resources/Mini%20Lesson%20Planning%20Form.pdf" download="filename">
+            <button class="demo-panel-ref-btn btn-success">
+                <i class="fa fa-plus"></i> Lesson Plan Template
+            </button>
+        </a>
+        <a href="@Url.Action("UploadLessonPlan", "Teacher")">
+            <button class="demo-panel-ref-btn btn-success">
+                <i class="fa fa-plus"></i> Upload Lesson Plan
+            </button>
+        </a>
+    </div>
+    <h3 class="panel-title">View Lesson Plan</h3>
+</div>
+    <div class="panel-body">
+        <div>
+           @using (Html.BeginForm("ViewLessonPlan", "Teacher", FormMethod.Get))
+           {
+               Html.RenderPartial("_CourseSelection", Model);
+           }
+        </div>
+        <table id="viewPapersTable" class="table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+            <!-- View Papers Table Headings -->
+            <thead>
+                <tr>
+                    <th>Leson Plan Title</th>
+                    <th>Upload Date</th>
+                    <th>Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var plan in Model.LessonPlans)
+                {
+                    <tr>
+                        <td>@plan.LessonPlanTitle</td>
+                        <td>@plan.UploadDate</td>
+                        <td>
+                            @Html.ActionLink("View Plan", "ViewIndividualLessonPlan", new { id = plan.ID })
+                    </td>
+                </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+

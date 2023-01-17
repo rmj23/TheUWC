@@ -1,0 +1,217 @@
+﻿@model Source.Models.AssignRoleToTeacherViewModel
+@{
+    ViewBag.Title = "Assign Teachers to Role";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+    <script>
+        $(function () {
+            var tblAssignedTeachers = $('#tblAssignedTeachers');
+            tblAssignedTeachers.footable().on('footable_filtering', function (e) {
+                var selected = $('#tblAssignedTeachers-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            $('#tblAssignedTeachers-filter-status').change(function (e) {
+                e.preventDefault();
+                tblAssignedTeachers.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            $('#tblAssignedTeachers-foo-search').on('input', function (e) {
+                e.preventDefault();
+                tblAssignedTeachers.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            var tblUnassignedTeachers = $('#tblUnassignedTeachers');
+            tblUnassignedTeachers.footable().on('footable_filtering', function (e) {
+                var selected = $('#tblUnassignedTeachers-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            $('#tblUnassignedTeachers-filter-status').change(function (e) {
+                e.preventDefault();
+                tblUnassignedTeachers.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            $('#tblUnassignedTeachers-foo-search').on('input', function (e) {
+                e.preventDefault();
+                tblAssignedTeachers.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+
+<div id="page-content">
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Select Role</h3>
+            </div>
+            <div class="panel-body">
+                <section class="form-horizontal">
+                    <div class="panel-body">
+                        @using (Html.BeginForm("AssignTeacherToRole", "WebAdmin", FormMethod.Get))
+                        {
+                            @Html.HiddenFor(model => model.State)
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.districts, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.DropDownListFor(model => model.districtId, Model.districts, new { @class = "form-control", onchange = "$('#State').val('DistrictSelected');this.form.submit();" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.schools, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.DropDownListFor(model => model.schoolId, Model.schools, Model.readOnly ? new { @class = "form-control", onchange = "$('#State').val('SchoolSelected');this.form.submit();", disabled="disabled"} as object : new { @class = "form-control", onchange = "$('#State').val('SchoolSelected');this.form.submit();"} as object)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.globalRoles, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.DropDownListFor(model => model.roleId, Model.globalRoles, new { @class = "form-control", onchange = "$('#State').val('RoleSelected');this.form.submit();" })
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <!-- Teachers with rolls-->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.assignedTeachersTitle
+                </h3>
+            </div>
+            <div class="panel-body">
+                @if (null != Model.teachersWithRoles)
+                {
+                    <a href="@Url.Action("UnassignAllUsersFromRole", "WebAdmin", new {districtId = Model.districtId, schoolId = Model.schoolId, roleId = Model.roleId, State = Model.State})" style="padding-bottom:10px" class="btn btn-sm btn-default" title="Assign all teachers to selected role.">
+                        <i class="fa fa-plus">Unassign All</i>
+                    </a>
+                    <table id="tblAssignedTeachers" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Role</th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var teacher in Model.teachersWithRoles)
+                            {
+                                <tr>
+                                    <td>@teacher.LastName</td>
+                                    <td>@teacher.FirstName</td>
+                                    <td>@teacher.globalRole</td>
+                                    <td>
+                                        <a href="@Url.Action("UnAssignUserFromRole", "WebAdmin", new {userId = teacher.ID, districtId = Model.districtId, schoolId = Model.schoolId, roleId = Model.roleId, State = Model.State})" class="btn btn-sm btn-default" title="Remove user from assigned role">
+                                            <i class="fa fa-remove">Unassign</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <div class="text-center">
+                                        <ul class="pagination"></ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                }
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Unassigned Teachers
+                    </h3>
+                </div>
+
+                <!--  Teachers with no roles -->
+                <div class="panel-body">
+                    @if(Model.roleId != 0)
+                    {
+                    <a href="@Url.Action("AssignAllUsersToRole", "WebAdmin", new {districtId = Model.districtId, schoolId = Model.schoolId, roleId = Model.roleId, State = Model.State})" class="btn btn-sm btn-default" title="Assign all teachers to selected role." style="padding-bottom:10px">
+                        <i class="fa fa-plus">Assign All</i>
+                    </a>
+                    }
+                    <table id="tblUnassignedTeachers" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Role</th>
+                                @if(Model.roleId != 0)
+                                {
+                                <th></th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var teacher in Model.teachersWithNoRoles)
+                            {
+                                <tr>
+                                    <td>@teacher.LastName</td>
+                                    <td>@teacher.FirstName</td>
+                                    <td>@teacher.globalRole</td>
+                                    @if(Model.roleId != 0)
+                                    {
+                                    <td>
+                                        <a href="@Url.Action("AssignUserToRole", "WebAdmin", new {userId = teacher.ID, districtId = Model.districtId, schoolId = Model.schoolId, roleId = Model.roleId, State = Model.State})" class="btn btn-sm btn-default" title="Assign user to role.">
+                                            <i class="fa fa-plus">Assign</i>
+                                        </a>
+                                    </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <div class="text-center">
+                                        <ul class="pagination"></ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+

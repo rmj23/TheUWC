@@ -1,0 +1,18 @@
+﻿@model Source.Models.ProjectContinuumModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ProjectHtmlViewer</title>
+</head>
+<body>
+<div>
+    @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Guideline))
+</div>
+</body>
+</html>

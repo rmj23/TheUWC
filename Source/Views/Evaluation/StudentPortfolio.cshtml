@@ -1,0 +1,267 @@
+﻿
+@{
+    ViewBag.Title = "Student Portfolio";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#tableStudentPortfolio');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableStudentPortfolio-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableStudentPortfolio-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableStudentPortfolio-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Selections Panel -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewBag.Title</h3>
+            </div>
+            <div class="panel-body">
+
+                <!-- Selections Form -->
+                <section class="form-horizontal">
+                    <div class="panel-body">
+
+                        @using (Html.BeginForm(null, null, FormMethod.Post))
+                        {
+
+                            <!-- Academic Year Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="selectAcademicYear">Academic Year: </label>
+                                <div class="col-sm-6">
+
+                                    <select class="form-control" name="selectAcademicYear" id="selectAcademicYear">
+                                        <option value="0">Show All Years</option>
+                                        <option value="1" selected="selected">2016-2017</option>
+                                        <option value="2">2015-2016</option>
+                                        <option value="3">2014-2015</option>
+                                        <option value="4">2013-2014</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <!-- Class Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="selectClass">Class: </label>
+                                <div class="col-sm-6">
+
+                                    <select class="form-control" name="selectClass" id="selectClass">
+                                        <option value="0" selected="selected">-- Select a Class --</option>
+                                        <option value="1">Show All Classes</option>
+                                        <option value="2">Eighth Grade, English, Year Round, 2</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <!-- Student Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="selectStudent">Student: </label>
+                                <div class="col-sm-6">
+
+                                    <select class="form-control" name="selectStudent" id="selectStudent">
+                                        <option value="1" selected="selected">-- Select a Student --</option>
+                                        <option value="2">Avis, Katharine, A.</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <!-- Class Records Panel -->
+        <div class="panel">
+
+            <!-- Panel Heading -->
+            <div class="panel-heading">
+                <h3 class="panel-title">
+
+                    <!-- Selected Student -->
+                    <span class="btn-group">
+                        <button class="btn btn-default">
+                            <i class="fa fa-user"></i>
+                        </button>
+                        <button class="btn btn-default">Avis, Katharine, A.</button>
+                    </span>
+
+                    <!-- Selected Class -->
+                    <span class="btn-group">
+                        <button class="btn btn-default">
+                            <i class="fa fa-university"></i>
+                        </button>
+                        <button class="btn btn-default">Eighth Grade, English, Year Round, 2</button>
+                    </span>
+
+                    <!-- Selected Academic Year-->
+                    <span class="btn-group">
+                        <button class="btn btn-default">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                        <button class="btn btn-default">2016-2017</button>
+                    </span>
+
+                </h3>
+            </div>
+
+            <!-- Panel Body -->
+            <div class="panel-body">
+
+                <!-- Student Portfolio Table -->
+                <table id="tableStudentPortfolio" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <th>Paper Title, Type, Draft</th>
+                            <th>Evaluation Period</th>
+                            <th>Proficiency</th>
+                            <th>Holistic Band</th>
+                            <th>Evaluation Status</th>
+                            <th>Tasks</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Controls -->
+                    <div class="pad-btm form-inline">
+                        <div class="row">
+
+                            <!-- Table Control: Dropdown -->
+                            <div class="col-sm-6 text-xs-center">
+                                <div class="form-group">
+                                    <label class="control-label">Evaluation Status</label>
+                                    <select id="tableStudentPortfolio-filter-status" class="form-control">
+                                        <option value="">Show all</option>
+                                        <option value="incomplete">Incomplete</option>
+                                        <option value="scored">Scored</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Table Control: Search -->
+                            <div class="col-sm-6 text-xs-center text-right">
+                                <div class="form-group">
+                                    <input id="tableStudentPortfolio-foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Table Content -->
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span class="text-overflow">Recycling Transport Containers</span>
+                                <span>Argument: Opinion, 4</span>
+                            </td>
+                            <td>Middle of Spring (Ap)</td>
+                            <td>Proficient</td>
+                            <td>H1</td>
+                            <td><span class="label label-table label-danger">Incomplete</span></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-default" title="Evaluate paper.">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default" title="View paper.">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default" title="Delete paper." onclick="return confirm('Are you sure that you would like to delete this paper?')">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Let There Be Dragons, Narrative, 4</td>
+                            <td>April</td>
+                            <td>Proficient</td>
+                            <td>H3</td>
+                            <td><span class="label label-table label-success">Scored</span></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-default" title="View paper results.">
+                                        <i class="fa fa-bar-chart"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default" title="View paper.">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default" title="Delete paper." onclick="return confirm('Are you sure that you would like to delete this paper?')">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Table Footer -->
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <div class="text-center">
+                                    <ul class="pagination"></ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+

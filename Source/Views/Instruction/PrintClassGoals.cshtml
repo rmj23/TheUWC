@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Source.Models.ClassGoalsModel>
+
+@{
+    Layout = null;
+
+    string courseTitle = "";
+    string goalCompleted = "";
+    foreach (var x in Model)
+    {
+        courseTitle = x.CourseTitle;
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/Bundles/Bootstrap/css/bootstrap.min.css"/>
+
+    <title>Print Class Goals</title>
+</head>
+<body>
+    <div class="container" style="margin-bottom: 1%;">
+        <h1>@courseTitle Class Goals</h1>
+    </div>
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>Writing Element</th>
+                <th>Goal</th>
+                <th>Date Assigned</th>
+                <th>Deadline</th>
+                <th>Date Completed</th>
+            </tr>
+    
+        @foreach (var item in Model) {
+            <tr>
+                <td>@item.ShortDescription</td>
+                <td>@item.FullDescription</td>
+                <td>@item.DateAdded.ToShortDateString()</td>
+                <td>@item.DeadlineDate.ToShortDateString()</td>
+                <td>@{ if (!item.DateFinished.ToString().IsEmpty())
+                        {
+                            goalCompleted = item.DateFinished.ToString().Substring(0, 10);
+                        }
+                        else
+                        {
+                            goalCompleted = "Not Yet Completed";
+                        }
+                    }
+                    @goalCompleted
+                </td>
+            </tr>
+        }
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Source.Models.TeacherBookshelfRequestModel>
+@{
+    ViewBag.Title = "Bookshelf Request Queue";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+
+<div class="page-content">
+    <h3>@ViewBag.Title</h3>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">@ViewBag.Title</h1>
+            </div>
+            <div class="card-body">
+                <table class="" id="bookshelfTable" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Approve</th>
+                            <th>Deny</th>
+                            <th>Title</th>
+                            <th>Student</th>
+                            <th>Media</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var request in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("ApproveBookshelfRequest", new { bookshelfID = request.Id })" class="btn btn-sm btn-default">Approve</a>                                  
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("DenyBookshelfRequest", new { bookshelfID = request.Id })" class="btn btn-sm btn-default">Deny</a>
+                                </td>
+                                <td>@request.PaperTitle</td>
+                                <td>@request.FirstName  @request.LastName</td>
+                                <td>
+                                    <span class="bg-greenJewel" style="color:white; padding:3px; text-align:center">
+                                        <a style="color: white" href="#" onclick="window.open('@Url.Action("ViewIndividualPaper", new {id = request.PaperID})'
+                                            ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">Download</a>
+                                    </span>
+                                </td>
+                                <td>@request.Date</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+    $("#bookshelfTable").dataTable();
+    </script>
+}

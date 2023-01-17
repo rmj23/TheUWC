@@ -1,0 +1,118 @@
+﻿@model Source.Models.SubscriptionRequestModel
+@{
+    ViewBag.Title = "UpgradeSubscription";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title pull-left">Upgrade Subscription</h1>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                @{ Html.EnableClientValidation();}
+                @using (Html.BeginForm("UpgradeSubscription", "RoleInterdiction", FormMethod.Post))
+                {
+                    <section class="form-horizontal">
+                        <section class="panel panel-default">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <p>Uni-SPIRE offers two K-12 developmental products, the Universal Writing Continuum and the Universal Inquiry Continuum to enhance students’ readiness for higher education and careers.</p>
+                                    <p>If you would like for us to send an invitation to your school administrator to try out our school or district edition, please fill out the form below.</p>
+                                    <br />
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">
+                                            Yes, please send a request to my school administrator responsible for curriculum purchasing decisions:
+                                        </label>
+                                        <input type="checkbox" id="sendRequestCheckbox" />
+                                    </div>
+                                    <div id="formWrapper" style="display:none">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Prefix</label>
+                                            <div class="col-sm-6">
+                                                @Html.DropDownListFor(model => model.Prefix, Model.Prefixes, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <!-- First Name Field -->
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FirstName, "First Name", new { @class = "col-sm-4 control-label", @for = "fname" })
+                                            <div class="col-sm-6">
+                                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @required="required" })
+                                            </div>
+                                        </div>
+
+                                        <!-- Last Name Field -->
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.LastName, "Last Name", new { @class = "col-sm-4 control-label", @for = "lname" })
+                                            <div class="col-sm-6">
+                                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @required = "required" })
+                                                @Html.ValidationMessageFor(model => model.LastName)
+                                            </div>
+                                        </div>
+
+                                        <!-- Email Field -->
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Email, "Email Address", new { @class = "col-sm-4 control-label", @for = "email" })
+                                            <div class="col-sm-6">
+                                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @required = "required" })
+                                                @Html.ValidationMessageFor(model => model.Email)
+                                            </div>
+                                        </div>
+
+                                        <!-- Phone Number Field -->
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Phone, "Phone Number (Optional)", new { @class = "col-sm-4 control-label", @for = "phone" })
+                                            <div class="col-sm-6">
+                                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control"})
+                                                @Html.ValidationMessageFor(model => model.Phone)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">
+                                                I think we would be most interested in:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                @Html.DropDownListFor(model => model.ContinuumType, Model.ContinuumTypes, new { @class = "form-control"})
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">
+                                                Edition:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                @Html.DropDownListFor(model => model.Edition, Model.Editions, new { @class = "form-control"})
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#sendRequestCheckbox').click(function () {
+        if ($('#sendRequestCheckbox').is(':checked')) {
+            $('#formWrapper').show();
+        }
+        else {
+            $('#formWrapper').hide();
+        }
+        
+    });
+</script>
+
+
+
+

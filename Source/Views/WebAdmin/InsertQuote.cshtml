@@ -1,0 +1,101 @@
+﻿@model Source.Models.InsertQuoteViewModel
+@{
+    ViewBag.Title = "InsertQuote";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+@section Styles {
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+    <script>
+        $(function () {
+            $("#quoteTable").dataTable({
+                "pageLength": 25
+            });
+        })
+    </script>
+}
+
+<div id="page-content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Insert New Quote</h3>
+        </div>
+        @using (Html.BeginForm("InsertQuote", "WebAdmin", FormMethod.Post))
+        {
+            <section class="form-horizontal">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="author">Author</label>
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => model.Quote.Author)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="description">Description</label>
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => model.Quote.Description)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success">Insert</button>
+                </div>
+            </section>
+        }
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Quotes
+            </h3>
+        </div>
+        <div class="card-body">
+            <table id="quoteTable" class="table table-bordered table-hover toggle-circle" data-page-size="20">
+
+                <thead>
+                    <tr>
+                        <th>Author</th>
+                        <th>Description</th>
+                        <th>Modify</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var quote in Model.Quotes)
+                    {
+                        <tr>
+                            <td>@quote.Author</td>
+                            <td>@quote.Description</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <!--To do: edit and delete should be implemented as js functions-->
+                                    @*@Url.Action("EditQuote", new {QuoteId = quote.ID})*@
+                                    <button class="btn btn-warning" title="Edit Guidline.">
+                                        Edit
+                                    </button>
+                                    @*"@Url.Action("DeleteQuote", new { QuoteId = quote.ID })"*@
+                                    <button class="btn btn-danger" title="Delete Continuum Entry." onclick="return confirm('Are you sure that you would like to delete this entry?')">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+

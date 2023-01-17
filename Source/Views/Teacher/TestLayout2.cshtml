@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "TestLayout2";
+    Layout = "~/Views/Shared/_TeacherLayout2.cshtml";
+    ViewBag.Debug = true;
+    List<string[]> DebugActions = new List<string[]>();
+    DebugActions.Add(new string[] {
+        "AddClass", //Page
+        "Teacher", //Controller
+        "Add Class" //Name
+    });
+    ViewBag.DebugActions = DebugActions;
+    ViewBag.PageHeader = "Test";
+    List<string[]> ActionBar = new List<string[]>();
+    ActionBar.Add(new string[]{
+        "Error", //Page
+        "Teacher", //Controller
+        "New" //Name
+    });
+    ActionBar.Add(new string[]{
+        "Error", //Page
+        "Teacher", //Controller
+        "Save" //Name
+    });
+    ViewBag.ActionBar = ActionBar;
+    List<string[]> BreadCrumbs = new List<string[]>();
+    BreadCrumbs.Add(new string[]{
+        "Index", //Page
+        "Teacher", //Controller
+        "Home" //Name
+    });
+    BreadCrumbs.Add(new string[]{
+        "AddClass", //Page
+        "Teacher", //Controller
+        "Add Class" //Name
+    });
+    ViewBag.BreadCrumbs = BreadCrumbs;
+}
+
+Hello, World!

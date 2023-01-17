@@ -1,0 +1,210 @@
+﻿@{
+    ViewBag.Title = "My Points";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content">
+
+    <!-- Information Panel -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Teacher Points</h3>
+                </div>
+                <div class="panel-body">
+
+                    <!--Paragraph-->
+                    <!--===================================================-->
+                    <p class="text-main text-semibold">My Points</p>
+                    <p>
+                        Your dedication to improving students' writing is important to us.
+                        As you use the Universal Writing Continuum, you are accumulating points.
+                        At the end of each month, all teachers that achieve the required number of
+                        points are entered into a random drawing for a <strong>$100 grant for your classroom</strong>.
+                        Really, no kidding! <small>You may only win once in a calendar year</small>.
+                    </p>
+                    <!--===================================================-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Progress -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Your Progress</h3>
+                </div>
+                <div class="panel-body">
+                    @*<div class="progress progress-xl progress-striped active"><div style="width: 80%;" class="progress-bar progress-bar-success">225 of 300</div></div>
+                    <p><strong>300</strong> points are required for the month of <strong>November</strong>.</p>
+                    <p>You are only <strong>75</strong> points away for your chance to win a <strong>$100 grant for your classroom</strong>! Keep up the great work!</p>*@
+                    <h2>Current Total</h2>
+                    <div>@Source.Models.SessionModel.GetUserPoints(HttpContext.Current.Request.RequestContext)</div>
+                    <h3>This Month's Goal</h3>
+                    <div>@Source.Models.UserPointsModelDb.SelectRequiredPoints()</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Progress -->
+    <div class="row">
+
+        <!-- Last Month's Winner -->
+        <div class="col-xs-4">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Last Month's Winner</h3>
+                </div>
+                <div class="panel-body">
+                    <!-- Winner Widget -->
+                    <div class="panel widget">
+                        <div class="widget-header bg-warning text-center">
+                            <h4 class="mar-no pad-top">Ralph West</h4>
+                            <p class="mar-btm">Teacher</p>
+                        </div>
+                        <div class="widget-body">
+                            <img alt="Profile Picture" class="widget-img img-circle img-border-light" src="@Url.Content("~/Images/avatar.png")">
+
+                            <div class="list-group bg-trans mar-no text-center">
+                                <a class="list-group-item list-item-sm" href="#">
+                                    Ball's Bluff Elementary
+                                </a>
+                                <a class="list-group-item list-item-sm" href="#">
+                                    Virginia
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Past Winners -->
+        <div class="col-xs-8">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <div class="panel-control" style="margin-top: -8px;">
+                            <select class="form-control">
+                                <option>January</option>
+                                <option>February</option>
+                                <option>March</option>
+                                <option>April</option>
+                                <option>May</option>
+                                <option>June</option>
+                                <option>July</option>
+                                <option>August</option>
+                                <option>September</option>
+                                <option>October</option>
+                                <option>November</option>
+                                <option>December</option>
+                            </select>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">Past Winners for November</h3>
+                </div>
+                
+                <div class="panel-body">
+                    @foreach (var item in Source.Models.UserPointsModelDb.SelectPreviousWinners("January"))
+                    {
+                        <p>@Source.Models.UserModelDb.SelectOneByID(item).LastName.ToString()  @Source.Models.UserModelDb.SelectOneByID(item).LastName.ToString()</p>
+                        
+                    }
+
+                    @*<!-- Winner Widgets -->
+                    <div class="row">
+
+                        <!-- Winner Widget -->
+                        <div class="col-md-4">
+                            <div class="panel widget">
+                                <div class="widget-header bg-danger text-center">
+                                    <h4 class="mar-no pad-top">Ralph West</h4>
+                                    <p class="mar-btm">Teacher</p>
+                                </div>
+                                <div class="widget-body">
+                                    <img alt="Profile Picture" class="widget-img img-circle img-border-light" src="@Url.Content("~/Images/avatar.png")">
+
+                                    <div class="list-group bg-trans mar-no text-center">
+                                        <a class="list-group-item list-item-sm" href="#">
+                                            Ball's Bluff Elementary
+                                        </a>
+                                        <a class="list-group-item list-item-sm" href="#">
+                                            Virginia
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Winner Widget -->
+                        <div class="col-md-4">
+                            <div class="panel widget">
+                                <div class="widget-header bg-success text-center">
+                                    <h4 class="mar-no pad-top">Ralph West</h4>
+                                    <p class="mar-btm">Teacher</p>
+                                </div>
+                                <div class="widget-body">
+                                    <img alt="Profile Picture" class="widget-img img-circle img-border-light" src="@Url.Content("~/Images/avatar.png")">
+
+                                    <div class="list-group bg-trans mar-no text-center">
+                                        <a class="list-group-item list-item-sm" href="#">
+                                            Ball's Bluff Elementary
+                                        </a>
+                                        <a class="list-group-item list-item-sm" href="#">
+                                            Virginia
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Winner Widget -->
+                        <div class="col-md-4">
+                            <div class="panel widget">
+                                <div class="widget-header bg-info text-center">
+                                    <h4 class="mar-no pad-top">Ralph West</h4>
+                                    <p class="mar-btm">Teacher</p>
+                                </div>
+                                <div class="widget-body">
+                                    <img alt="Profile Picture" class="widget-img img-circle img-border-light" src="@Url.Content("~/Images/avatar.png")">
+
+                                    <div class="list-group bg-trans mar-no text-center">
+                                        <a class="list-group-item list-item-sm" href="#">
+                                            Ball's Bluff Elementary
+                                        </a>
+                                        <a class="list-group-item list-item-sm" href="#">
+                                            Virginia
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>*@
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

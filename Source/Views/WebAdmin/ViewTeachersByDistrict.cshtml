@@ -1,0 +1,115 @@
+﻿@model Source.Models.EmailTeacherViewModel
+@{
+    ViewBag.Title = "View Teachers By District";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+    <script>
+        $(function () {
+
+
+            var teacherTable = $('#teacherTable');
+            teacherTable.footable().on('footable_filtering', function (e) {
+                var selected = $('#teacherTable-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            $('#teacherTable-filter-status').change(function (e) {
+                e.preventDefault();
+                teacherTable.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            $('#teacherTable-foo-search').on('input', function (e) {
+                e.preventDefault();
+                teacherTable.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+        });
+    </script>
+}
+
+
+@using (Html.BeginForm("ViewTeachersByDistrict", "WebAdmin", FormMethod.Post))
+{
+    <div id="page-title">
+        <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+    </div>
+
+    <div id="page-content">
+        <div class="container-fluid">
+            <div class="panel">
+                <section class="form-horizontal">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Select District:</label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.districtId, Model.districts, new { @class = "form-control", onchange = "this.form.submit();" })
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            @if (Model.teachers != null)
+            {
+                <div class="panel">
+                    <div class="panel-body">
+                        <table id="teacherTable" class="table table-bordered table-hover toggle-circle" data-page-size="20">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>School Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var teacher in Model.teachers)
+                                {
+                                    <tr>
+                                        <td>@teacher.FirstName</td>
+                                        <td>@teacher.LastName</td>
+                                        <td>@teacher.Email</td>
+                                        <td>@teacher.SchoolName</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="text-center">
+                                            <ul class="pagination"></ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <section class="form-horizontal">
+                            <div class="panel-footer">
+                                <!-- Submit Button -->
+                                <div class="form-group text-center">
+                                    @Html.ActionLink("Email Blast", "EmailTeachersByDistrict", new { districtId = Model.districtId })
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+}

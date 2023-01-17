@@ -1,0 +1,209 @@
+﻿@model Source.Models.LessonPlanModel
+@{
+    ViewBag.Title = "Lesson Plan";
+    Layout = ViewBag.Layout;
+
+    string[] learningCycleHeadings = new string[6]
+    {
+        "Engage",
+        "Model",
+        "Explore",
+        "Explain",
+        "Apply",
+        "Share"
+    };
+    string[] learningCycleSubHeadings = new string[6]
+    {
+        "",
+        "(Use Mentor Text)",
+        "(Use Mentor Text)",
+        "(Make Anchor Chart in Students' Words)",
+        "",
+        ""
+    };
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#tableLessonPlan');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableLessonPlan-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableLessonPlan-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableLessonPlan-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Insert Class Goals Form -->
+        <div class="card">
+            <div class="card-heading">
+                <h3 class="card-title">@ViewBag.Title</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            <form class="form-horizontal">
+                <div class="card-body">
+
+                    <!-- Title -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+
+                    <!-- Objective -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Objective, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => model.Objective, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+
+                    <!-- Standard -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Standard, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => model.Standard, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+
+                    <!-- Lesson Plan Record Table -->
+                    <table id="tableLessonPlan" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                        <!-- Table Headings -->
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">Learning Cycle</th>
+                                <th data-sort-ignore="true" style="width: 70%;">My Plan</th>
+                            </tr>
+                        </thead>
+
+                       <!-- Table Content -->
+                        <tbody>
+
+                            <!-- Engage -->
+                            <tr>
+                                <td>
+                                    Engage
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(model => model.EngageDesc, new { @class = "form-control", @readonly = "readonly", @style = "resize: none;" })
+                                </td>
+                            </tr>
+
+                            <!-- Model -->
+                            <tr>
+                                <td>
+                                    Model <br />
+                                    (Use Mentor Text)
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(model => model.ModelDesc, new { @class = "form-control", @readonly = "readonly", @style = "resize: none;" })
+                                </td>
+                            </tr>
+
+
+                            <!-- Explore -->
+                            <tr>
+                                <td>
+                                    Explore <br />
+                                    (Use Mentor Text)
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(model => model.ExploreDesc, new { @class = "form-control", @readonly = "readonly", @style = "resize: none;" })
+                                </td>
+                            </tr>
+
+
+                            <!-- Explain -->
+                            <tr>
+                                <td>
+                                    Explain <br />
+                                    (Make Anchor Chart in Students' Words)
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(model => model.ExplainDesc, new { @class = "form-control", @readonly = "readonly", @style = "resize: none;" })
+                                </td>
+                            </tr>
+
+                            <!-- Apply -->
+                            <tr>
+                                <td>
+                                    Apply
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(model => model.ApplyDesc, new { @class = "form-control", @readonly = "readonly", @style = "resize: none;" })
+                                </td>
+                            </tr>
+
+                            <!-- Share -->
+                            <tr>
+                                <td>
+                                    Share
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(model => model.ShareDesc, new { @class = "form-control", @readonly = "readonly", @style = "resize: none;" })
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+                @*<div class="panel-footer text-center">
+                    <button class="btn btn-default btn-print" onclick="print();">
+                        Print
+                    </button>
+                    <a href="@Url.Action("LessonPlanPrint", new {lessonPlanID = Model.ID})" class="btn btn-sm btn-default" title="Printer Friendly Version" target="_blank"></a>
+                </div>*@
+            </form>
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+    </div>
+</div>

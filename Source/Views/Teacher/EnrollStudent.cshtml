@@ -1,0 +1,129 @@
+﻿@model Source.Models.EnrollStudentViewModel
+
+@{
+    ViewBag.Title = "Enroll Students";
+    Layout = ViewBag.Layout;
+
+}
+
+@section Styles {
+
+}
+
+
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-info"></div>
+    <h1 class="ml-1 ml-md-3">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container">
+        <!-- Selections Panel -->
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="card-title">@ViewBag.Title</h4>
+                    </div>
+                    <div class="col">
+                        <div class="float-right">
+                            <a href="@Url.Action("AddClass", "Teacher")" class="btn btn-blueTradewind">
+                                <i class="fas fa-plus"></i> Add Class
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+
+            <div class="card-body">
+
+                @Html.Partial("_YearCourseSelection")
+
+            </div>
+
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+        <!-- Students Not Enrolled In The Selected Class -->
+        <div class="card" id="DistrictRosterPanel" style="display: none; margin-top: 20px;">
+            <div class="card-header">
+                <div class="row">
+                    <div class="row col">
+                        <h4 class="card-title">District Roster</h4>
+                        <i data-toggle="tooltip" data-placement="right" class="fas fa-info-circle fa-md" title="Type the 1st few letters of student’s last name or student number in search box, click enroll, then scroll to view your class roster."></i>
+
+                    </div>
+                    @*<div class="col">
+                        <div class="float-right">
+                            <a href="@Url.Action("EnrollStudent", "Teacher")" class="btn btn-blueTradewind">
+                                <i class="fas fa-plus"></i> Enroll Student In District
+                            </a>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+            <div class="card-body">
+
+                <!-- Student Portfolio Table -->
+                <table id="DistrictRoster" style="width: 100%;" class="table table-striped table-bordered dt-responsive">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Student Number</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+
+
+        </div>
+
+        <!-- Students Enrolled In Class -->
+        <div class="card" id="ClassRosterPanel" style="display: none; margin-top: 20px;">
+            <div class="card-header">
+                <div class="row">
+                    <h3 class="card-title" style="padding-left: 10px;">Class Roster</h3>
+                    <i data-toggle="tooltip" data-placement="right" class="fas fa-info-circle fa-md" title="Students enrolled in selected class."></i>
+
+                </div>
+            </div>
+            <div class="card-body">
+
+                <!-- New Class Roster Table-->
+                <table id="ClassRosterTable" style="width: 100%;" class="table table-striped table-bordered dt-responsive">
+                    <thead>
+                        <tr>
+                            <td>Last Name</td>
+                            <td>First Name</td>
+                            <td>Middle Name</td>
+                            <td>Student Number</td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Teacher/EnrollStudent.js"></script>
+}

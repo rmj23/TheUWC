@@ -1,0 +1,184 @@
+﻿@using Microsoft.Ajax.Utilities
+@model Source.Models.ViewClassGoalsViewModel
+@{
+    ViewBag.Title = "Class Goals";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#tableClassGoals');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableClassGoals-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableClassGoals-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableClassGoals-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<!-- Page Title -->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Controls -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewBag.Title</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("ClassGoals", "Evaluation", FormMethod.Get))
+            {
+                <section class="form-horizontal">
+                    <div class="panel-body">
+
+                        @{ Html.RenderPartial("_CourseSelection", Model); }
+
+                    </div>
+                </section>
+                            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+        <!-- Class Records Panel -->
+        <div class="panel">
+
+            <!-- Panel Heading -->
+            <div class="panel-heading">
+                <div class="panel-control">
+
+                    @Html.ActionLink("Add Class Goal", "AddClassGoal", "Evaluation", null, new { @class = "btn btn-blueTradewind" })
+
+                </div>
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+
+            <!-- Panel Body -->
+            <div class="panel-body">
+
+                <!-- Student Portfolio Table -->
+                <table id="tableClassGoals" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <th>Goal Title</th>
+                            <th>Goal Description</th>
+                            <th data-sort-ignore="true">Date Assigned</th>
+                            <th>Deadline</th>
+                            <th>Completion Status</th>
+                            <th>Tasks</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Controls -->
+                    <div class="pad-btm form-inline">
+                        <div class="row">
+
+                            <!-- Table Control: Dropdown -->
+                            <div class="col-sm-6 text-xs-center hidden">
+                                <div class="form-group">
+                                    <label class="control-label">Goal Status</label>
+                                    <select id="tableClassGoals-filter-status" class="form-control">
+                                        <option value="">Show all</option>
+                                        <option value="Completed"></option>
+                                        <option value="Mark as Complete"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Table Control: Search -->
+                            <div class="col-sm-6 col-xs-push-6 text-xs-center text-right">
+                                <div class="form-group">
+                                    <input id="tableClassGoals-foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Table Content -->
+                    <tbody>
+                        @foreach (var goal in Model.Goals)
+                        {
+                            <tr>
+                                <th>@goal.shortDescription</th>
+                                <th>@goal.fullDescription</th>
+                                <th>@goal.dateAdded</th>
+                                <th>@goal.deadlineDate</th>
+                                <th>
+                                    @if (goal.dateFinished == null)
+                                    {
+                                        @Html.ActionLink("Mark Completed", "CompleteClassGoal", new { goalID = @goal.ID, courseID = Model.CourseID })
+                                    }
+                                    else
+                                    {
+                                        @goal.dateFinished
+                                    }
+                                </th>
+                                <th>
+                                    <a href="@Url.Action("DeleteClassGoal", "Evaluation", new {id = goal.ID})">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+
+                    <!-- Table Footer -->
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <div class="text-center">
+                                    <ul class="pagination"></ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>

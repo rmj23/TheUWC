@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Assessment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Scripts {
+
+
+}
+
+@section Styles {
+
+
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+
+        $(function () {
+            var toggleImageChart = $("#toggleImageChart");
+            var imageChart = $("#imageChart");
+
+            toggleImageChart.on("click", function () {
+                if (imageChart.hasClass("hidden")) {
+                    imageChart.removeClass("hidden");
+                    toggleImageChart.text("See Less");
+                } else {
+                    imageChart.addClass("hidden");
+                    toggleImageChart.text("See More");
+                }
+            });
+
+        });
+
+    </script>
+}
+
+<!-- BREADCRUMBS -->
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title pull-left">ASSESSMENT-INFORMED WRITING INSTRUCTION</h1>
+    </div>
+</div>
+<!-- END BREADCRUMBS -->
+
+<!-- PAGE CONTENT -->
+<div class="page-content">
+    <div class="container">
+        <section>
+            <h2 class="section-heading">WHAT IS THE UNIVERSAL WRITING CONTINUUM?</h2>
+            <p class="lead">
+                The Universal Writing Continuum (UWC) is a PreK-12 formative assessment tool consistent with
+                writers' workshop and the process approach to teaching writing. Our formative assessment informs the
+                next instructional steps needed for the class, small groups and individuals while recording
+                students’ progress on a continuum of 42 progress points.
+            </p>
+            <p>
+                The UWC IS NOT a computer-scored assessment. Teachers make all of the assessment and instructional
+                decisions---the computer is just a tool to make this process more reliable, efficient, and
+                informative.
+            </p>
+            <p>
+                All content teachers in grades 6-12 will find this website invaluable for evaluating writing across
+                the curriculum. Teachers can easily assess and monitor students' progress, set goals for their
+                students, and plan instruction based on assessment results.
+            </p>
+            <p>
+                The UWC has been evaluated based on the criteria established by the National Council of Teachers of
+                English (NCTE) for <a href="http://www.ncte.org/positions/statements/formative-assessment"
+                                      target="_blank">formative assessment (2013)</a> and by the standards for <a href="http://www.ncte.org/standards/assessmentstandards/taskforce" target="_blank">
+                    reading and
+                    writing assessment
+                </a> established by NCTE and International Literacy Association (2009).
+            </p>
+            <p>
+                How Does the Universal Writing Continuum (UWC) measure up to NCTE & IRA standards for formative
+                writing assessment? <a href="javascript:void(0);" id="toggleImageChart">See More</a>
+            </p>
+            <img src="http://test.thewritingcontinuum.com/Images/NCTEChart.png" class="img-responsive hidden"
+                 id="imageChart" alt="" title="" />
+
+            <hr>
+
+            <h2 class="section-heading">RESOURCES THAT AID INSTRUCTION</h2>
+            <ul class="list-padding">
+                <li>
+                    Searchable Teaching Strategies: Over 500 strategies for management and mini-lessons are
+                    included.
+                </li>
+                <li>
+                    Glossary of Terms: Over 130 terms used in the standards and continuum are defined and
+                    illustrated
+                </li>
+                <li>
+                    Interactive Mentor Texts
+                </li>
+                <li>
+                    Student Self-Evaluation Checklists
+                </li>
+                <li>
+                    28 Writable Graphic Organizers
+                </li>
+                <li>380 Writing Quotes of the Day to Inspire Teachers and Writers</li>
+                <li>A Comment Bank to Store the Comments Teachers Use Repeatedly</li>
+                <li>Anchor Papers for Comparison and to Share with Students</li>
+            </ul>
+
+            <hr>
+            @* TODO: Uncomment the following once we instate points and avatars for teachers *@
+            @*<h2 class="section-heading">MOTIVATION FOR TEACHERS</h2>
+            <p class="lead">
+                We know that teaching writing isn’t an easy task. For the fun of it, we’ve included avatars that
+                teachers can change according to how their day is going. As teachers use the UWC, they accumulate
+                points. Each month, the target number of points increases. All teachers who reach the minimum points
+                for the month are entered into a random drawing for $100 for their classroom. REALLY!
+            </p>*@
+
+        </section>
+    </div>
+</div>

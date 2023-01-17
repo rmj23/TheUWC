@@ -1,0 +1,26 @@
+﻿@model Source.Models.DefualtClassSettings
+<li>
+    @using (Html.BeginForm("DefaultClassSettingsLayout", "Teacher", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => Model.SettingDefualtId)
+        @Html.HiddenFor(model => Model.DefualtEnabled)
+        if (Model != null)
+        {
+            if (Model.DefualtEnabled && Model.CourseDropDown.Count != 0)
+            {
+                @Html.DropDownListFor(model => Model.DefualtClass, Model.CourseDropDown, new { @class = "form-control, navbar-logo", onchange = "this.form.submit();" })
+
+            }
+        }
+    }
+</li>
+<li>
+    @if (Model != null)
+    {
+        if (Model.DefualtEnabled && Model.CourseDropDown.Count != 0)
+        {
+            <i class="fa fa-info fa-rounded add-tooltip text-muted" data-toggle="tooltip" data-container="body" data-placement="bottom" 
+               data-original-title="Please select the default class for navigation around the site. You can change this selection at anytime, or you can disable this feature in your settings."></i>
+        }
+    }
+</li>

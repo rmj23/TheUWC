@@ -1,0 +1,83 @@
+﻿@model Source.Models.ViewBenchmarkReportsViewModel
+@{
+    ViewBag.Title = "ViewBenchMarkReports";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<h2>View Benchmark Reports</h2>
+
+<div class="row">
+    <div class="col-lg-12">
+        @using (Html.BeginForm("ClassData", "Evaluation", FormMethod.Get))
+            {
+            <section class="form-horizontal">
+                <div class="panel-body">
+
+                    <!-- Academic Year Field -->
+
+                    @{ Html.RenderPartial("_EvaluationPeriodCourseSelection", Model); }
+                </div>
+            </section>
+             }
+    </div>
+</div>
+
+
+<h5>Below Basic</h5>
+@foreach (var student in Model.BenchmarkReports.components)
+{
+    if (student.ProfLevel.ID == 1)
+    {
+        foreach (var x in student.Students)
+        {
+            @x.ToString()
+        }
+    }
+}
+<h5>Basic</h5>
+@foreach (var student in Model.BenchmarkReports.components)
+{
+    if (student.ProfLevel.ID == 2)
+    {
+        foreach (var x in student.Students)
+        {
+            @x.ToString()
+        }
+    }
+}
+<h5>Proficient</h5>
+@foreach (var student in Model.BenchmarkReports.components)
+{
+    if (student.ProfLevel.ID == 3)
+    {
+        foreach (var x in student.Students)
+        {
+            @x.ToString()
+        }
+    }
+}
+<h5>Advanced</h5>
+@foreach (var student in Model.BenchmarkReports.components)
+{
+    if (student.ProfLevel.ID == 4)
+    {
+        foreach (var x in student.Students)
+        {
+            @x.ToString()
+        }
+    }
+}
+<h5>Advanced ++</h5>
+@foreach (var student in Model.BenchmarkReports.components)
+{
+    if (student.ProfLevel.ID == 5)
+    {
+        foreach (var x in student.Students)
+        {
+            @x.ToString()
+        }
+    }
+}
+
+
+

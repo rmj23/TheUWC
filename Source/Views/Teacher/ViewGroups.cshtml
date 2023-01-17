@@ -1,0 +1,78 @@
+﻿@model Source.Models.ViewGroupsViewModel
+@{
+    ViewBag.Title = "View Groups";
+    Layout = ViewBag.Layout;
+}
+
+<h2 style="padding: 3px 20px">@ViewBag.Title</h2>
+<div id="page-content">
+    <div class="container-fluid">
+        <div class="panel">
+            <section class="form-horizontal">
+                <div class="panel-heading">
+                    <div class="panel-control">
+                        <a href="@Url.Action("MyProjects", "Teacher", new{ courseId = Model.project.courseId, State = Source.Models.ACourseSelectionViewModel.CourseSelectionState.CourseSelected , clearTemp = true})" class="btn btn-blueTradewind">
+                            <i class="fa fa-arrow-left"></i> My Projects
+                        </a>
+                    </div>
+                    <h3 class="panel-title">Groups Created for Project: @Model.project.projectName</h3>
+                </div>
+                <div class="panel-body">
+                    @for (int i = 0; i < Model.groupIds.Count; i++)
+                    {
+                        if (Model.students[i].Count > 0)
+
+
+                        {
+                            <p>Group @Model.groups[i].groupNumber - @Model.groups[i].projectSubtitle</p>
+                            <table class="table table-bordered table-hover toggle-circle" data-page-size="10">
+                                <thead>
+                                    <tr>
+                                        <th data-sort-initial="true">Last Name</th>
+                                        <th>First Name</th>
+                                        <th data-sort-ignore="true">Middle Name</th>
+                                        <th>
+                                            <a href="@Url.Action("UploadGroupMedia", "Teacher", new{ projectId = Model.project.projectId, groupId = Model.groupIds[i]})" class="btn btn-sm btn-default" title="Upload Group Media">
+                                                <i class="fa fa-upload"></i>
+                                            </a>
+                                            <a href="@Url.Action("ViewGroupMedia", "Teacher", new {projectId = Model.project.projectId, groupId = Model.groupIds[i]})" class="btn btn-sm btn-default" title="View Group Media">
+                                                <i class="fa fa-folder-open"></i>
+                                            </a>
+                                            
+                                            <a href="@Url.Action("EvaluateProject", "Evaluation", new{ projectId = Model.project.projectId, groupId = Model.groupIds[i]})" class="btn btn-sm btn-default" title="Evaluate Group">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int j = 0; j < Model.students[i].Count; j++)
+                                    {
+                                        var student = Model.students[i][j];
+                                        <tr>
+                                            <td>
+                                                @student.LastName
+                                            </td>
+                                            <td>
+                                                @student.FirstName
+                                            </td>
+                                            <td>
+                                                @student.MiddleName
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p style="color: red; font-weight: bold;">There are no groups for this porject</p>
+                        }
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+

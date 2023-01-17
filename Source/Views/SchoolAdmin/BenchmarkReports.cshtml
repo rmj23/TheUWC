@@ -1,0 +1,169 @@
+﻿@model Source.Models.ViewSchoolAdminBenchmarkReportsViewModel
+@{
+    ViewBag.Title = "BenchmarkReports";
+    Layout = "~/Views/Shared/_SchoolAdminLayout.cshtml";
+}
+@*@{ 
+    string[] Evaluations = new string[5]
+{
+        "Below Basic",
+        "Basic",
+        "Proficient",
+        "Advanced",
+        "Advanced+"
+};
+}*@
+@{
+    string[] Evaluations = new string[5]
+        {
+        "Below Basic",
+        "Basic",
+        "Proficient",
+        "Advanced",
+        "Advanced+"
+        };
+
+    string[] EvaluationPanelStyleClass = new string[5]
+    {
+        "panel-orangeRoughy",
+        "panel-yellowFuel",
+        "panel-greenJewel",
+        "panel-blueTradewind",
+        "panel-blueBluemine"
+    };
+
+    int[] GraphData = new int[5] { 0, 0, 0, 0, 0 };
+}
+<div id="page-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Monthly Benchmark Reports</h3>
+            </div>
+            <section class="form-horizontal">
+                <div class="panel-body">
+                    @using (Html.BeginForm("BenchmarkReports", "SchoolAdmin", FormMethod.Get))
+                    {
+                        Html.RenderPartial("_GradeEvaluationPeriodSelection", Model);
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+    @if (Model.State != Source.Models.AGradeEvaluationPeriodViewModel.GradeEvaluationPeriod.Invalid && Model.BenchmarkReports != null)
+    {
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Class At A Glance</h3>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div id="chart_div"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            @for (var i = 0; i < 5; i++)
+            {
+            <div class="card @EvaluationPanelStyleClass[i]">
+                <div class="card-header">
+                    <h3 class="card-title">@Evaluations[i]</h3>
+                </div>
+                <div class="card-body">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="list-group">
+                                @foreach (var student in Model.BenchmarkReports.components)
+                                {
+                                    if (student.ProfLevel.ID == i + 1)
+                                    {
+                                        if (student.Students.Count > 0)
+                                        {
+                                            foreach (var x in student.Students)
+                                            {
+                                                GraphData[i] += 1;
+                                                <a class="list-group-item" href="javascript:void();">@x.ToString()</a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a class="list-group-item" href="javascript:void();"><span class="text-danger">No students found.</span></a>
+                                        }
+                                    }
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            }
+        </div>
+    }
+    else if(Model.CourseID != 0 && Model.BenchmarkReports == null)
+    {
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">No Reports</h3>
+                </div>
+                <div class="card-body">
+                    <p>There are currently no Benchmark Reports for this class for this month.</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (Model.State != Source.Models.AGradeEvaluationPeriodViewModel.GradeEvaluationPeriod.Invalid && Model.BenchmarkReports != null)
+{
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+          // Create the data table.
+          var bb = @GraphData[0];
+          var b = @GraphData[1];
+          var p = @GraphData[2];
+          var a = @GraphData[3];
+          var ap = @GraphData[4];
+
+          var data = google.visualization.arrayToDataTable([
+             ['Proficiency Band', 'Students', { role: 'style' }],
+             ['Below Basic', bb, '#be4916'],            // RGB value
+             ['Basic', b, '#ebae26'],            // English color name
+             ['Proficient', p, '#12723a'],
+             ['Advanced',a,'#6ca9b0'],
+             ['Advanced Plus',ap,'#1e5f8b']
+          ]);
+
+          // Set chart options
+          var options = {
+              'width': 500,
+              'height': 400,
+              legend: { position: "none" }
+          };
+
+          // Instantiate and draw our chart, passing in some options.
+          var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+          chart.draw(data, options);
+
+
+      }
+    </script>
+}

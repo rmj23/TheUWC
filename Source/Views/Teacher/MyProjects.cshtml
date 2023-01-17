@@ -1,0 +1,89 @@
+﻿@model Source.Models.TeacherProjectsViewModel
+@{
+    ViewBag.Title = "Class Projects";
+    Layout = ViewBag.Layout;
+}
+<div id="page-title">
+    <h1 style="padding: 3px 20px"class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+@using (Html.BeginForm("MyProjects", "Teacher", FormMethod.Get))
+{
+    <div id="page-content">
+        <div class="container-fluid">
+            <div class="panel">
+                <section class="form-horizontal">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> View Projects</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        @Html.HiddenFor(model => model.State)
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Select Class</label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.CourseID, Model.CourseDropDown, new { @class = "form-control", onchange = "$('#State').val('CourseSelected');this.form.submit();" })
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.projects != null)
+                    {
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table id="viewProjectsTable" class="table table-bordered table-hover toggle-circle">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>Project Title</th>
+                                        <th>Due Date</th>
+                                        <th>Continuum Type</th>
+                                        <th>Tasks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var project in Model.projects)
+                                    {
+                                        <tr>
+                                            
+                                            <td>
+                                                @project.projectName
+                                            </td>
+                                            <td>
+                                                @project.dueDate
+                                            </td>
+                                            <td>@project.continuumType</td>
+                                            <td>
+                                                <a href="@Url.Action("ViewGroups", new { projectId = project.projectId })" class="btn btn-sm btn-default" title="View & Evaluate Groups.">
+                                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="@Url.Action("EditProjects", new { projectId = project.projectId })" class="btn btn-sm btn-default" title="Edit Project Details.">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="@Url.Action("DeleteProject", new { projectId = project.projectId, courseId = project.courseId })" class="btn btn-sm btn-default" title="Delete Project.">
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="container">
+                                <!-- If there is no project for this class; Display message -->
+                                @if (Model.projects.Count == 0 && !Model.CourseDropDown[0].Selected)
+                                {
+                                    <h5 style="color: red;">No projects have been set up for this class this year.</h5>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+﻿@model Source.Models.DistrictModelViewModel
+@{
+    ViewBag.Title = "BulkInsertSchool";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+<h2>BulkInsert School</h2>
+
+<h1>DO NOT USE THIS! THIS IS SOMEWHAT BROKEN.</h1>
+@* TODO:See why this doesn't work *@
+
+<div class="fallback">
+    @if (Model != null)
+    {
+        using (Html.BeginForm("BulkInsertSchool", "WebAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <h3>Step 1: Select District</h3>
+            @Html.DropDownListFor(model => model.DistrictModel.ID, Model.DistrictSelectList)
+
+            <h3>Step 2: Upload .CSV</h3>
+            <input type="file" name="file" accept=".csv" />
+            <input type="submit" name="Submit" id="Submit" value="Upload" />
+        }
+    }
+    else
+    {
+       <p>Feedback</p>
+    }
+
+</div>
+
+
+

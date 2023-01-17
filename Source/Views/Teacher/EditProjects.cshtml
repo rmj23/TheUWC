@@ -1,0 +1,102 @@
+﻿@model Source.Models.ViewGroupsViewModel
+@{
+    ViewBag.Title = "Edit Project";
+    Layout = ViewBag.Layout;
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("EditProject", "Teacher", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.project.courseId)
+    @Html.HiddenFor(model => model.project.projectId)
+    <div id="page-content">
+
+        <div class="container-fluid">
+            <div class="panel">
+
+                <section class="form-horizontal">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="padding: 3px 20px">Edit Project</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.project.projectName, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.project.projectName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.project.dueDate, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-6">
+                                @Html.EditorFor(model => model.project.dueDate, new { @type = "date", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Add Groups</label>
+                            <div class="col-sm-6">
+                                <a href="@Url.Action("EditAddGroups", new { projectId = Model.project.projectId, hasTempData = true })" class="btn btn-sm btn-default" title="Add Groups.">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        @for (int i = 0; i < Model.groupIds.Count; i++)
+                        {
+                            if (Model.students[i].Count > 0)
+                            {
+                                <p>Group @Model.groups[i].groupNumber - @Model.groups[i].projectSubtitle</p>
+                                <table class="table table-bordered table-hover toggle-circle" data-page-size="10">
+                                    <thead>
+                                        <tr>
+                                            <th data-sort-initial="true">Last Name</th>
+                                            <th>First Name</th>
+                                            <th data-sort-ignore="true">Middle Name</th>
+                                            <th>Tasks 
+                                                
+                                                <a href="@Url.Action("EditGroupInfo", "Teacher", new {groupId = Model.groups[i].groupId})" class="btn btn-sm btn-default" title="Edit Group Info">
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                </a>
+                                                
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int j = 0; j < Model.students[i].Count; j++)
+                                        {
+                                            var student = Model.students[i][j];
+                                            <tr>
+                                                <td>
+                                                    @student.LastName
+                                                </td>
+                                                <td>
+                                                    @student.FirstName
+                                                </td>
+                                                <td>
+                                                    @student.MiddleName
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+
+
+
+                        <!-- Redirect to MyProjects Module after postback-->
+                        <div class="panel-footer">
+                            <!-- Submit Button -->
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,402 @@
+﻿<ul class="nav navbar-nav">
+
+    @*Home*@
+    <li class="active btn-custom">
+        @Html.Action("Home", "Teacher", "Index")
+    </li>
+
+    @*Resources*@
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+           aria-haspopup="true" aria-expanded="false">Resources<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="http://thewritingcontinuum.com/Teacher/glossary.aspx">Glossary</a>
+            </li>
+            <li>
+                <a href="http://thewritingcontinuum.com/Teacher/ManageComments.aspx">
+                    My
+                    Comment Bank
+                </a>
+            </li>
+            <li>
+                <a href="http://thewritingcontinuum.com/Teacher/WritingStandards.aspx">
+                    Writing
+                    Standards
+                </a>
+            </li>
+            <li>
+
+
+                <a class="trigger right-caret">Graphic Organizers</a>
+                <ul class="dropdown-menu sub-menu"> <!--Check in -->
+                    <li>
+                        <a class="trigger right-caret">Argumentative</a>
+                        <ul class="dropdown-menu sub-menu">
+                            <li>
+                                <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/ARGUMENT/Opinion%20K-1%20Organizer-1.pdf')">
+                                    K-1
+                                    Opinion Organizer
+                                </a>
+                            </li>
+                            <li>
+                                <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/ARGUMENT/Opinion%202-5%20Organizer-2.pdf')">
+                                    2-5
+                                    Opinion Organizer
+                                </a>
+                            </li>
+                            <li>
+                                <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/ARGUMENT/Argument%206-12%20Organizer.pdf')">
+                                    6-12
+                                    Argument Organizer
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="trigger right-caret">Informational</a>
+                        <ul class="dropdown-menu sub-menu">
+                            <li>
+                                <a class="trigger right-caret">Description</a>
+                                <ul class="dropdown-menu sub-menu">
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Description/Informational%20Description%20K-1.pdf')">
+                                            K-1
+                                            Opinion Organizer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Description/Informational%20Description%202-5.pdf')">
+                                            2-5
+                                            Opinion Organizer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Description/Informational%20Description%206-12.pdf')">
+                                            6-12
+                                            Argument Organizer
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="trigger right-caret">Explanation</a>
+                                <ul class="dropdown-menu sub-menu">
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Explanation/Explanation%20is%20not%20available%20for%20K-1.pdf')">
+                                            K-1
+                                            Opinion Organizer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Explanation/Informational%20Explanation%202-5.pdf')">
+                                            2-5
+                                            Opinion Organizer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Explanation/Informational%20Explanation%206-12.pdf')">
+                                            6-12
+                                            Argument Organizer
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="trigger right-caret">Procedure</a>
+                                <ul class="dropdown-menu sub-menu">
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Procedure/Informational%20Procedure%20K-1.pdf')">
+                                            K-1
+                                            Opinion Organizer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Procedure/Informational%20Procedure%202-5.pdf')">
+                                            2-5
+                                            Opinion Organizer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Procedure/Informational%20Procedure%206-12.pdf')">
+                                            6-12
+                                            Argument Organizer
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="trigger right-caret">Recount</a>
+                                <ul class="dropdown-menu sub-menu">
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Recount/Informational%20Recount%20K-1.pdf')">
+                                            K-1
+                                            Opinion Organizer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Recount/Informational%20Recount%202-5.pdf')">
+                                            2-5
+                                            Opinion Organizer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Recount/Informational%20Recount%206-12.pdf')">
+                                            6-12
+                                            Argument Organizer
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="trigger right-caret">Report</a>
+                                <ul class="dropdown-menu sub-menu">
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Report/Informational%20Report%20K-1.pdf')">
+                                            K-1
+                                            Opinion Organizer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Report/Informational%20Report%202-5.pdf')">
+                                            2-5
+                                            Opinion Organizer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/INFORMATIONAL/Report/Informational%20Report%206-12.pdf')">
+                                            6-12
+                                            Argument Organizer
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="trigger right-caret">Narrative</a>
+                        <ul class="dropdown-menu sub-menu">
+                            <li>
+                                <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/NARRATIVE/2-5%20Narrative%20Organizer-2%20Write%20in%20boxes%20NEW.pdf')">
+                                    Narrative
+                                    K-1
+                                </a>
+                            </li>
+                            <li>
+                                <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/NARRATIVE/Narrative%206-12%20Organizer.pdf')">
+                                    Narrative
+                                    2-5
+                                </a>
+                            </li>
+                            <li>
+                                <a onclick="_new(getState()+'Teacher/resources/GraphicOrganizers/NARRATIVE/Narrative%20K-1%20Organizer-4.pdf')">
+                                    Narrative
+                                    6-12
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li>
+
+                <a class="trigger right-caret">Interactive Mentor Texts</a>
+                <ul class="dropdown-menu sub-menu">
+                    <li>
+                        <a onclick="_new(getState()+'Teacher/InteractiveMentorText2/B.3.Whales%20See%20with%20Their%20Ears.Informational/WhalesSeeWithTheirEars/story_html5.html')">
+                            B3 Whales See with Their Ears
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Teacher/InteractiveMentorText2/C.1.The%20Rainbow.Opinion%20V2/C.1.The%20Rainbow.Opinion/story_html5.html')">
+                            C1 The Rainbow
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Teacher/InteractiveMentorText2/D.%20Dinosaurs.Informational/d.%20Dinosaurs/story_html5.html')">
+                            D Dinosaurs
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Teacher/InteractiveMentorText2/E.Whale%20of%20a%20Tale.Narrative/A%20Whale%20of%20a%20Tale%20Published%202/story_html5.html')">
+                            E Whale of a Tale
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Teacher/InteractiveMentorText2/F.The%20Battle%20of%20Little%20Big%20Horn.%20Informational/F.1.The%20Battle%20of%20Little%20Big%20Horn/story_html5.html')">
+                            F The Battle of Little Big Horn
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Teacher/InteractiveMentorText2/G.2.Gemstone%20Mining%20with%20Dad.Narrative%20V2/G.2.Gemstone%20Mining%20with%20Dad.Narrative%20V2%20output/story_html5.html')">
+                            G2 Gemstone Mining with Dad
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Teacher/InteractiveMentorText2/H.On%20the%20Boat%20with%20Cromwell.Narrative%20V2/H.On%20the%20Boat%20with%20Cromwell.Narrative%20V2%20output/story_html5.html')">
+                            H On the Boat with Cromwell
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Teacher/InteractiveMentorText2/H.The%20Battle%20Cry%20of%20Freedom.Informational%20Narrative/H.The%20Battle%20Cry%20of%20Freedom.Informational%20Narrative%20output/story_html5.html')">
+                            H The Battle Cry of Freedom
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Teacher/InteractiveMentorText2/I.2.Letter%20to%20State%20Board%20of%20Education.Argument%20V2/I.2.Letter%20to%20State%20Board%20of%20Education.Argument%20V2%20output/story_html5.html')">
+                            I2.Letter to Board of Education
+                        </a>
+                    </li>
+                </ul>
+
+
+            </li>
+
+        </ul>
+    </li>
+
+    @*Anchor Papers*@
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+           aria-haspopup="true" aria-expanded="false">Anchor Papers<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="trigger right-caret">Argumentative</a>
+                <ul class="dropdown-menu sub-menu">
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Argument/A2.You%20Are%20My%20Best%20Teacher.Opinion.pdf')">A2</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Argument/B1.Baseball.Opinions.pdf')">B1</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Argument/C1.TheRainbow.%20Opinion.pdf')">C1</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Argument/D1.Reading.%20Opinion.pdf')">D1</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Argument/E1.Nature%20in%20the%20Woods.%20Opinion.Informational.pdf')">E1</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Argument/G.Recycling%20will%20save%20the%20earth.Opinion.pdf')">G</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Argument/I.Letter%20to%20State%20Board%20of%20Education.%20Argument.pdf')">I</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Argument/K.Risks%20Due%20to%20Obesity.%20Argument.pdf')">K</a>
+                    </li>
+                </ul>
+
+            </li>
+            <li>
+                <a class="trigger right-caret">Informational</a>
+                <ul class="dropdown-menu sub-menu">
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Informational/A3.Orange%20Pumpkin..Informational.pdf')">A3</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Informational/B3.Whales%20see%20with%20their%20ears.%20Informational.pdf')">B3</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Informational/C3.The%20Snake%20Book.%20Informational.pdf')">C3</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Informational/D.Dinosaurs.Informational.pdf')">D</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Informational/D3.Recipe%20for%20a%20Smoothie.%20Informational.pdf')">D3</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Informational/E1.Nature%20in%20the%20Woods.Informational.Opinion.pdf')">E1</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Informational/E3.%20Diabetes.%20Informational.pdf')">E3</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Informational/F.Recreation%20in%20the%20future.%20Informational.pdf')">F</a>
+                    </li>
+                </ul>
+
+            </li>
+            <li>
+                <a class="trigger right-caret">Narrative</a>
+                <ul class="dropdown-menu sub-menu">
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Narrative/A1.Three%20Billy%20Goats%20Gruff.%20Narrative.pdf')">A1</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Narrative/B2.At%20School%20Today.%20Narrative.pdf')">B2</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Narrative/B3.A%20GhostIs%20a%20BadSpirit.%20Narrative.pdf')">B3</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Narrative/C1.My%20Kitten.%20Narrative.pdf')">C1</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Narrative/C2.A%20story.A%20Bird%20Is%20a%20Bird.Narrative.pdf')">C2</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Narrative/C3.Sheldon%20the%20Turtle.Narrative.pdf')">C3</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Narrative/E2.Doug%20Dracula,%20the%20Pizza-eater.%20Narrative.pdf')">E2</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Narrative/G.%20Gemstone%20Mining%20with%20Dad.Narrative.pdf')">G</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Narrative/H.Battle%20Cry%20of%20Freedom.%20Narrative.pdf')">H</a>
+                    </li>
+                    <li>
+                        <a onclick="_new(getState()+'Docs/AnchorPapers/Narrative/J.Maria.Poem.pdf')">J</a>
+                    </li>
+                </ul>
+
+            </li>
+            <li>
+                <a class="trigger right-caret">Response</a>
+                <ul class="dropdown-menu sub-menu">
+                    <li>
+                        <a onclick="_new(getState() + 'Docs/AnchorPapers/Response/E.Nana%20Upstairs%20and%20Nana%20Downstairs.Response.pdf')">E</a>
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
+    </li>
+
+    @*Help*@
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+           aria-haspopup="true" aria-expanded="false">Help<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="javascript:alert('Reference Needed.');">Setting Up Classes</a></li>
+            <li><a href="javascript:alert('Reference Needed.');">Using Teacher Resources</a></li>
+            <li><a href="javascript:alert('Reference Needed.');">Accessing Student Data</a></li>
+            <li><a href="javascript:alert('Reference Needed.');">Evaluating Writing</a></li>
+            <li>
+                <a href="javascript:alert('Reference Needed.');">
+                    Using Class Data to Inform
+                    Instruction
+                </a>
+            </li>
+            <li>
+                <a onclick="window.open(getState() + 'Docs/resources/Uploading%20Writing%20Samples.pdf')">
+                    How
+                    to Upload Writing Samples
+                </a>
+            </li>
+            <li>
+                <a onclick="window.open(getState() + 'Docs/resources/Downloading%20ZIPPED%20files.pdf')">
+                    Downloading
+                    Zipped files on a Mac
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>

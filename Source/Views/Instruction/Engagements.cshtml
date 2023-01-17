@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Search Engagements";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles {
+
+}
+
+@section Scripts {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-success"></div>
+    <h1 class="">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<div class="row pad-ver bg-trans-dark">
+    <form action="pages-search-results.html" method="post" class="col-xs-12 col-sm-10 col-sm-offset-1 pad-hor">
+        <input type="text" class="form-control input-lg" placeholder="Search..">
+    </form>
+</div>
+
+<!-- Main Content -->
+<div id="page-content">
+
+    <div class="panel">
+        <div class="panel-body">
+            <div class="pad-hor mar-top">
+                <h2 class="text-thin mar-no">160 results found for: <i class="text-primary text-normal">"Search String"</i></h2>
+                <small>Request time  (0.23 seconds)</small>
+            </div>
+
+            <hr>
+
+            <ul class="list-group bord-no">
+                <li class="list-group-item list-item-lg">
+                    <div class="media-heading mar-no">
+                        <a class="h4 text-primary" href="#">Match Title</a>
+                    </div>
+                    <a class="btn-link text-success box-inline" href="#">http://www.thewritingcontinuum.com/path/to/match</a>
+                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                </li>
+                <li class="list-group-item list-item-lg">
+                    <div class="media-heading mar-no">
+                        <a class="h4 text-primary" href="#">Match Title</a>
+                    </div>
+                    <a class="btn-link text-success box-inline" href="#">http://www.thewritingcontinuum.com/path/to/match</a>
+                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                </li>
+                <li class="list-group-item list-item-lg media">
+                    <div class="pull-left">
+                        <img class="img-md" alt="Image" src="@Url.Content("~/Images/avatar.png")">
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">
+                            <a class="h4 text-primary mar-no" href="#">Match Title</a>
+                        </div>
+                        <a class="btn-link text-success box-inline" href="#">http://www.thewritingcontinuum.com/path/to/match</a>
+                        <p class="text-sm">Lorem ipsum dolor sit amet, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </li>
+                <li class="list-group-item list-item-lg">
+                    <div class="media-heading">
+                        <a class="h4 text-primary mar-no" href="#">Match Title</a>
+                    </div>
+                    <a class="btn-link text-success box-inline" href="#">http://www.thewritingcontinuum.com/path/to/match</a>
+                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
+
+                    <div class="pad-btm">
+                        <small class="text-muted">Matching Keywords:</small>
+                        <a class="label label-mint" href="#">Lorem</a>
+                        <a class="label label-purple" href="#">Ipsum</a>
+                        <a class="label label-success" href="#">Dolor</a>
+                    </div>
+                </li>
+                <li class="list-group-item list-item-lg">
+                    <div class="media-heading">
+                        <a class="h4 text-primary mar-no" href="#">Match Title</a>
+                    </div>
+                    <a class="btn-link text-success box-inline" href="#">http://www.thewritingcontinuum.com/path/to/match</a>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </p>
+                </li>
+            </ul>
+            <hr class="hr-wide">
+
+            <!--Pagination-->
+            <div class="text-center">
+                <ul class="pagination mar-no">
+                    <li class="disabled"><a class="fa fa-chevron-left" href="#"></a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><span>...</span></li>
+                    <li><a href="#">20</a></li>
+                    <li><a class="fa fa-chevron-right" href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

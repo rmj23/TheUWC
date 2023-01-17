@@ -1,0 +1,122 @@
+﻿@model Source.Models.InsertRoleViewModel
+@{
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+@section Styles {
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#roleTable');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#roleTable-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#roleTable-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#roleTable-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<div id="page-title">
+    <h1 class="page-header text-overflow">Insert Role</h1>
+</div>
+
+<div id="page-content">
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Insert New Role</h3>
+        </div>
+        @using (Html.BeginForm("InsertRole", "WebAdmin", FormMethod.Post))
+        {
+            <section class="form-horizontal">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="author">Role</label>
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => model.role.Role)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-default">Insert</button>
+                </div>
+            </section>
+        }
+    </div>
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Quotes
+            </h3>
+        </div>
+        <div class="panel-body">
+            <table id="roleTable" class="table table-bordered table-hover toggle-circle" data-page-size="20">
+
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Modify</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var role in Model.allRoles)
+                    {
+                        <tr>
+                            <td>@role.Role</td>
+                            <td>
+                                <a href="@Url.Action("EditRole", new {roleId = role.Id})" class="btn btn-sm btn-default" title="Edit Role.">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </a>
+                                <a href="@Url.Action("DeleteRole", new { roleId = role.Id })" class="btn btn-sm btn-default" title="Delete Role." onclick="return confirm('Are you sure that you would like to delete this entry?')">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+                <!-- Table Footer -->
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <div class="text-center">
+                                <ul class="pagination"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+

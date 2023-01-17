@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Source.Models.GlossaryModel>
+
+@{
+    ViewBag.Title = "Glossary";
+    Layout = ViewBag.Layout;
+
+}
+
+@section Styles {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-info"></div>
+    <h1 class="ml-1 ml-md-3">Glossary</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content" class="container">
+    <!-- Glossary Panel -->
+    <!-- Basic Data Tables -->
+    <!--===================================================-->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Glossary</h3>
+        </div>
+        <div class="card-body">
+            <table id="glossaryTable" class="table table-bordered table-striped dt-responsive" width="100%">
+                
+                <!-- Glossary Table Headings -->
+                <thead>
+                    <tr>
+                        <th>@(Html.DisplayNameFor(model => model.Term))</th>
+                        <th>@(Html.DisplayNameFor(model => model.Definition))</th>
+                    </tr>
+                </thead>
+
+                <!-- Glossary Table Content -->
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Term</td>
+                            <td>@Html.Raw(item.Definition)</td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <!--===================================================-->
+    <!-- End Striped Table -->
+
+</div>
+@section Scripts {
+    <script>
+        var glostable = $("#glossaryTable").dataTable({
+            searching: true,
+            "dom": '<"#toolbar.toolbar"l>rtip'
+        });
+
+        // create div tags with search inputs inside of them
+        var termDivTag = '<div class="dataTables_filter col-md-4 col-sm-2" id="glossaryTable_filter"><label>Search By Term:<input id="searchByTerm" type="search" class="form-control form-control-sm" placeholder="" aria-controls="glossaryTable"></label></div>';
+        var definitionDivTag = '<div class="dataTables_filter col-md-4 col-sm-2" id="glossaryTable_filterByDef"><label>Search By Definition:<input id="searchByDef" type="search" class="form-control form-control-sm" placeholder="" aria-controls="glossaryTable"></label></div>';
+        var toolbarElement = $("#toolbar");
+
+        // add class to toolbar element and append div tags above
+        toolbarElement.addClass("row");
+        toolbarElement.append(termDivTag);
+        toolbarElement.append(definitionDivTag);
+        
+        // add class to the "Show entries"
+        $("#glossaryTable_length").addClass("col-md-4 col-sm-2");
+
+        // search function for search by term
+        $("#searchByTerm").on("keyup", function () {
+            $("#glossaryTable").DataTable().columns(0).search(this.value).draw();
+        });
+
+
+        // search function for search by definition
+        $("#searchByDef").on("keyup", function () {
+            $("#glossaryTable").DataTable().columns(1).search(this.value).draw();
+        });
+
+    </script>
+}

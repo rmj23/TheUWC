@@ -1,0 +1,41 @@
+﻿@model Source.Models.MonthlyPointsViewModel
+@{
+    ViewBag.Title = "MonthlyPoints";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+<h2>Points</h2>
+
+@using (Html.BeginForm("MonthlyPoints", "WebAdmin", FormMethod.Get))
+{
+    <div class="container container-fluid">
+        <div class="panel">
+            <div class="panel-heading">
+                <br />
+                <h4 style="padding-left:20px;">Monthly Point Breakdown</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover" style="max-width: 800px;">
+                    <thead>
+                        <tr>
+                            <th style="max-width:200px;"></th>
+                            <th style="max-width:300px;">Month</th>
+                            <th style="max-width:300px;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var month in Model.Months)
+                        {
+                            <tr>
+                                <td style="max-width:200px;">@Html.ActionLink("Update Total", "MonthlyPointsUpdate", new { ID = month.ID })</td>
+                                <td style="max-width:300px;">@month.Month</td>
+                                <td style="max-width:300px;">@month.Total</td>
+                            </tr>
+                        }                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+

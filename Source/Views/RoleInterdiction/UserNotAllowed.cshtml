@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "UserDenied";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">Access Not Allowed</h1>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="conatiner">
+        <div class="col-md-8 col-md-offset-1">
+            <div class="panel">
+                <div class="panel-body">
+                    <p>
+                        Unfortunately, with your current subscription, you are not allowed to view this page. If you'd like to
+                        look at our pricing options, click @Html.ActionLink("here", "UpgradeSubscription", "RoleInterdiction", new { style = "color:blue"}). If you'd like to return to the previous page, please click your browser's "back" button.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

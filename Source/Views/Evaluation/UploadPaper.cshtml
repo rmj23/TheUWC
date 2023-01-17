@@ -1,0 +1,140 @@
+﻿@model Source.Models.UploadPaperViewModel
+@{
+    ViewBag.Title = "Upload Paper";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+
+}
+
+@section Styles {
+}
+
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-danger"></div>
+    <h1 class="ml-1 ml-md-3">Upload Paper</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+
+    <div class="container">
+
+        <!-- Selections -->
+        <div class="card">
+            <div class="card-header">
+
+                <h3 class="card-title">Class Selection</h3>
+
+            </div>
+
+
+
+
+            <div class="card-body">
+                @Html.Partial("_StudentCourseYearSelection")
+
+            </div>
+
+
+
+        </div>
+
+        <!-- Form Data -->
+        <!-- Upload Paper Form -->
+        <!-- Paper Details -->
+        <div class="card" id="PaperDetailsPanel" style="display: none; margin-top: 20px;">
+            <div class="card-header">
+
+                <h3 class="card-title">Paper Details</h3>
+
+            </div>
+            <div class="card-body">
+                <div class="form-horizontal">
+                    @using (Html.BeginForm("UploadPaper", "Evaluation", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadPaperForm" }))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.HiddenFor(x => x.Paper.StudentID)
+                        @Html.HiddenFor(x => x.Paper.CourseID)
+                        @Html.HiddenFor(x => x.Paper.YearID)
+                        <!--Paper Title Field -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Paper Title: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => Model.Paper.PaperTitle, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Paper.PaperTitle, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Paper Type Field -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Paper Type: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(x => Model.PaperTypeID, new SelectList(Model.PaperTypeDropdown, "Value", "Text"), new { @class = "form-control", id = "PaperType" })
+                                @Html.ValidationMessageFor(x => x.PaperTypeID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Evaluation Period Field -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Evaluation Period: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(x => Model.EvaluationPeriodID, new SelectList(Model.EvaluationPeriodDropdown, "Value", "Text"), new { @class = "form-control dropdown", id = "EvaluationPeriodType" })
+                                @Html.ValidationMessageFor(x => x.EvaluationPeriodID, "", new { @class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <!-- Continuing Field -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Continuing</label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(x => x.Paper.Continuing, new SelectListItem[] { new SelectListItem { Text = "Continuing", Value = "true" }, new SelectListItem { Text = "Final", Value = "false" } }, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <!-- Draft Field -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Draft:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.Paper.Draft, new { @class = "form-control", @type = "number", required = "required" })
+                                @Html.ValidationMessageFor(x => x.Paper.Draft, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- file-->
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Select a file: </label>
+                            <div class="col-sm-6">
+                                <input class="form-control-file" type="file" id="fileInput" name="file" />
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group row">
+                            <!-- Submit Button -->
+
+                            <div class="col text-center">
+                                <button id="submitBtn" type="submit" class="btn btn-outline-secondary">Submit</button>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <!-- Pages Scripts -->
+
+    <script src="~/Scripts/Teacher/UploadPaper.js"></script>
+    <script src="~/Scripts/Teacher/StudentCourseSelection.js"></script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

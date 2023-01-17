@@ -1,0 +1,72 @@
+﻿@model Source.Models.EmailTeacherViewModel
+@{
+    ViewBag.Title = "Email Teachers BySchool";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("EmailTeachersBySchool", "WebAdmin", FormMethod.Post))
+{
+    @Html.HiddenFor(model => Model.schoolId)
+    <div id="page-title">
+        <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+    </div>
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="panel">
+                <section class="form-horizontal">
+                    <div class="panel-header">
+                        <h4>Recipients:</h4>
+                    </div>
+                    <div class="panel-body">
+                        <table id="teacherTable" class="table table-bordered table-hover toggle-circle" data-page-size="20">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>School Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var teacher in Model.teachers)
+                                {
+                                    <tr>
+                                        <td>@teacher.FirstName</td>
+                                        <td>@teacher.LastName</td>
+                                        <td>@teacher.Email</td>
+                                        <td>@teacher.SchoolName</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <label class="col-sm-3 form-group">
+                                Email Subject
+                            </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => Model.emailSubject, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 form-group">
+                                Email Body
+                            </label>
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(model => Model.emailMessage, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <section class="form-horizontal">
+                        <div class="panel-footer">
+                            <!-- Submit Button -->
+                            <div class="form-group text-center">
+                                <button>Email</button>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </div>
+    </div>
+}
+

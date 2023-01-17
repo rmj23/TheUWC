@@ -1,0 +1,99 @@
+﻿@model Source.Models.ProjectContinuumEditViewModel
+    @{
+        ViewBag.Title = "Edit Inquiry Continuum";
+        Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+    }
+
+    <!--Page Title-->
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <div id="page-title">
+        <h1 class="page-header text-overflow">Update Continuum</h1>
+    </div>
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <!--End page title-->
+    <!-- Main Content -->
+    <div id="page-content">
+
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="panel-control">
+                            <a href="@Url.Action("EditContinuum", "WebAdmin")">
+                                <a href="@Url.Action()"
+                            <button class="demo-panel-ref-btn btn btn-default">
+                                <i class="fa fa-arrow-left"></i> Back
+                            </button>
+                        </a>
+                        </div>
+                        <h3 class="panel-title">@ViewBag.Title</h3>
+                    </div>
+
+                    <!--Horizontal Form-->
+                    <!--===================================================-->
+                    @using (Html.BeginForm("EditProjectContinuum", "WebAdmin", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.Continuum.Id)
+
+                    <section class="form-horizontal">
+                        <div class="panel-body">
+
+                            <!--ElementTypeID ELEMENT TYPE Field -->
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ElementTypes, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+
+                                    @Html.DropDownListFor(model => Model.ElementID, Model.ElementTypes, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+                            <!--CharacteristicID Characteristicss Field -->
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Characteristics, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+
+                                    @Html.DropDownListFor(model => model.CharacteristicID, Model.Characteristics, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+                            <!--LevelID LEVEL Field -->
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Levels, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+
+                                    @Html.DropDownListFor(model => model.LevelID, Model.Levels, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+                            <!--Guidelines GUIDELINES Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="guidelines">Guideline: </label>
+                                <div class="col-sm-6">
+
+                                    @Html.TextAreaFor(model => model.Continuum.Guideline, new { @class = "form-control", @id = "guidelines", @name = "guidelines" })
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-footer">
+                            <!-- Submit Button -->
+                            <div class="form-group text-center">
+                                <button type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </section>
+            }
+                    <!--===================================================-->
+                    <!--End Horizontal Form-->
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Source.Models.ParentModel>
+@{
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="">
+    <div class="p-3 mb-2 bg-info"></div>
+    <h1 class="ml-3">
+        <a class="link-header" @*href="@Url.Action("ParentStudentAccounts", new {State = Source.Models.ACourseSelectionViewModel.CourseSelectionState.CourseSelected, CourseID = ViewBag.CourseID})"*@>Parent Accounts</a>
+
+    </h1>
+    @*<div>
+            <a href="@Url.Action("ParentStudentAccounts", new { State = Source.Models.ACourseSelectionViewModel.CourseSelectionState.CourseSelected, CourseID = ViewBag.CourseID })">
+            <button class="demo-panel-ref-btn btn btn-success">
+                <i class="fa fa-arrow-left">Parent Student Accounts</i>
+            </button></a>
+        </div>*@
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <div class="container">
+
+        @if (!String.IsNullOrEmpty(ViewBag.Message))
+        {
+            <p>@ViewBag.Message</p>
+        }
+
+        <!-- Basic Data Tables -->
+        <!--===================================================-->
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-2 float-right">
+                    <a class="demo-panel-ref-btn btn btn-success" href="@Url.Action("AddParent", new { ID = ViewBag.StudentID, courseID = ViewBag.CourseID })">
+                        <i class="fa fa-plus"></i> Add a Parent
+                    </a>
+                </div>
+                <h3 class="panel-title">@ViewBag.Title</h3>
+            </div>
+            <div class="card-body">
+                <table id="viewParentsTable" class="table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+                    <!-- View Papers Table Headings -->
+                    @if (Model.ToList().Count > 0)
+                    {
+                        <thead>
+                            <tr>
+                                <th>Prefix</th>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Suffix</th>
+                                <th>Email</th>
+                                <th>Tasks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var parent in Model)
+                            {
+                                <tr>
+                                    <td>@parent.Prefix</td>
+                                    <td>@parent.LastName</td>
+                                    <td>@parent.FirstName</td>
+                                    <td>@parent.Suffix</td>
+                                    <td>@parent.Email</td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "EditParent", new { parentID = parent.ID, StudentID = ViewBag.StudentID, courseID = ViewBag.CourseID })
+                                        &nbsp;&nbsp;
+                                        @Html.ActionLink("Delete", "DeleteParent", new { studentID = ViewBag.StudentID, parentID = parent.ID })
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    }
+                    else
+                    {
+                        <tbody> <tr>No parents added.</tr></tbody>
+
+                    }
+                </table>
+            </div>
+        </div>
+        <!--===================================================-->
+        <!-- End Striped Table -->
+
+    </div>
+</div>
+<script type="text/javascript">
+    $('#viewParentsTable').DataTable({
+        responsive: true
+    });
+</script>

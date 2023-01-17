@@ -1,0 +1,245 @@
+﻿@using Source.Utilities
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewBag.Title | Uni-SPIRE - The Universal Writing Continuum</title>
+    <!--Favicon-->
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/repute144x144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/repute114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/repute72x72.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/repute57x57.png">
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+
+    <!-- Regular Meta Info - used by search engines and browsers -->
+    <!-- Regular Meta Info - used by search engines and browsers -->
+    <!-- COMMON TAGS -->
+    <meta charset="utf-8">
+    <title>The Universal Writing Continuum</title>
+
+    <!-- Search Engine -->
+    <meta name="description" content="The Universal Writing Continuum. Inspiring K-12 Writers. Share experiences, teach students to think and reflect, and writing will improve.  Add a knowledgeable teacher who provides demonstrations, gives meaningful feedback,  and encourages risk taking, and writing will soar.">
+    <meta name="image" content="https://test-writingcontinuum.azurewebsites.net/Images/stock/LogoColors.png">
+
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="The Universal Writing Continuum">
+    <meta itemprop="description" content="The Universal Writing Continuum. Inspiring K-12 Writers. Share experiences, teach students to think and reflect, and writing will improve.  Add a knowledgeable teacher who provides demonstrations, gives meaningful feedback,  and encourages risk taking, and writing will soar.">
+    <meta itemprop="image" content="https://test-writingcontinuum.azurewebsites.net/Images/stock/LogoColors.png">
+
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta name="og:title" content="The Universal Writing Continuum">
+    <meta name="og:description" content="The Universal Writing Continuum. Inspiring K-12 Writers. Share experiences, teach students to think and reflect, and writing will improve.  Add a knowledgeable teacher who provides demonstrations, gives meaningful feedback,  and encourages risk taking, and writing will soar.">
+    <meta name="og:image" content="https://test-writingcontinuum.azurewebsites.net/Images/stock/LogoColors.png">
+    <meta name="og:type" content="website">
+
+
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Repute v1.3 -->
+
+    <link href="@Url.Content("~/Bundles/Repute/css/repute.css")" rel="stylesheet">
+
+    <!-- Custom Stylesheet -->
+    <link href="@Url.Content("~/Styles/Public/main.min.css")" rel="stylesheet">
+
+   
+
+    @RenderSection("Scripts", false)
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-default " role="navigation">
+        <div class="container">
+
+            <!-- COMPANY LOGO AND MOBILE NAVIGATION TOGGLE -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand navbar-logo navbar-logo-bigger">
+                    <img src="@Url.Content("~/Images/logo.png")" alt="Company Logo">
+                </a>
+            </div>
+
+            <!-- MAIN NAVIGATION -->
+            <div id="main-nav" class="navbar-collapse collapse navbar-mega-menu">
+
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="@Html.IsActive("Index", "Home")">
+                        <a href="@Url.Action("Index", "Home")">Home</a>
+                    </li>
+                    <li class="@Html.IsActive("About", "Home")">
+                        <a href="@Url.Action("About", "Home")">About Us</a>
+                    </li>
+                    <li class="@Html.IsActive("Contact", "Home")">
+                        <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="@Html.IsActive("Login", "Authentication")">
+                        <a href="@Url.Action("Login", "Authentication")">Login</a>
+                    </li>
+                    <li class="@Html.IsActive("Register", "Authentication")">
+                        <a href="@Url.Action("Register", "Authentication")">Register</a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- END MAIN NAVIGATION -->
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+
+        @RenderBody()
+
+    </main>
+
+    <footer class="footer-gradient">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4 col-xs-6">
+                    <!-- COLUMN 1 -->
+                    <h3 class="sr-only">ABOUT US</h3>
+                    <img src="@Url.Content("~/Images/logo.png")" class="logo" alt="Uni-SPIRE">
+                    <br>
+                    <address class="margin-bottom-30px">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="https://goo.gl/maps/JRTUom6zuk72" target="_blank">
+                                    803-G S. College Rd., Suite 1131
+                                    <br /> Wilmington, NC 28403
+                                </a>
+                            </li>
+                            <li>Phone: <a href="tel:9105563284">(910) 556-3284</a></li>
+                            <li>Email: <a href="mailto:info@uni-spire.com">info@uni-spire.com</a></li>
+                        </ul>
+                    </address>
+                    <div class="social-connect hidden">
+                        <h3 class="footer-heading">GET CONNECTED</h3>
+                        <ul class="list-inline social-icons">
+                            <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#" class="googleplus-bg"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- END COLUMN 1 -->
+                </div>
+                <div class="col-md-4 col-xs-6">
+                    <!-- COLUMN 2 -->
+                    <h3 class="footer-heading">IMPORTANT LINKS</h3>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <ul class="list-unstyled footer-nav">
+                                <li><a href="@Url.Action("About", "Home")">About Us</a></li>
+                                <li><a href="@Url.Action("Contact", "Home")">Contact Us</a></li>
+                                <li><a href="@Url.Action("Testimonials", "Home")">Testimonials</a></li>
+                                <li><a href="@Url.Action("Contact", "Home", new { @reason = "Demo" })">Request A Demo</a></li>
+                                <li><a href="@Url.Action("Research", "Home")">Research</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-4">
+                            <ul class="list-unstyled footer-nav">
+                                <li><a href="@Url.Action("PrivacyPolicy", "Home")">Privacy Policy</a></li>
+                                <li><a href="@Url.Action("TermsAndConditions", "Home")">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-4">
+                            <ul class="list-unstyled footer-nav">
+                                <li><a href="@Url.Action("Login", "Authentication")">Login</a></li>
+                                <li><a href="@Url.Action("Register", "Authentication")">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END COLUMN 2 -->
+                </div>
+                <div class="col-md-4">
+                    <!-- COLUMN 3 -->
+                    <div class="newsletter hidden">
+                        <h3 class="footer-heading">NEWSLETTER</h3>
+                        <p>Get the latest updates from us by subscribing to our newsletter.</p>
+                        <form class="newsletter-form" method="POST">
+                            <div class="input-group input-group-lg">
+                                <input type="email" class="form-control" name="email" placeholder="youremail@domain.com">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button"><i class="fa fa-spinner fa-spin"></i><span>SUBSCRIBE</span></button>
+                                </span>
+                            </div>
+                            <div class="alert"></div>
+                        </form>
+                    </div>
+                    <div class="social-connect">
+                        <h3 class="footer-heading">GET CONNECTED</h3>
+                        <ul class="list-inline social-icons">
+                            <li><a href="https://www.facebook.com/theuniversalwritingcontinuum/" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
+                            <li class="hidden"><a href="#" class="googleplus-bg"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="https://www.linkedin.com/company/12954758" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COPYRIGHT STATEMENT -->
+        <div class="text-center copyright">
+            Copyright &copy; 2011-
+            <!-- Current Year for copywrite-->
+            <script>
+                var d = new Date();
+                document.write(d.getFullYear());</script>
+            <img src="@Url.Content("~/Images/logo.png")" title="" alt="" style="height:22px;">
+            <br>
+            Developed in association with the <a href="http://uncw.edu/" target="_blank">University of North Carolina Wilmington</a> and its
+            <a href="http://uncw.edu/ed/" target="_blank">Watson College of Education</a>
+        </div>
+
+    </footer>
+
+
+
+    <!-- Slick -->
+    <!--
+    <script src="Url.Content("~/Bundles/Repute/plugins/slick/js/slick.min.js")"></script>
+    -->
+    <!-- Stellar -->
+    <!--
+    <script src="Url.Content("~/Bundles/Repute/plugins/stellar/js/jquery.stellar.min.js")"></script>
+    -->
+    <!-- Repute -->
+    <!--
+    <script src="Url.Content("~/Bundles/Repute/js/repute-scripts.js")"></script>
+    -->
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    @RenderSection("Styles", false)
+
+
+    @RenderSection("RenderBlockingScripts", false)
+
+
+
+</body>
+</html>

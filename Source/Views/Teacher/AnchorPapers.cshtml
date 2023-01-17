@@ -1,0 +1,212 @@
+﻿@{
+    ViewBag.Title = "Anchor Papers";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+    
+
+}
+
+@section Scripts {
+    
+
+}
+
+@section RenderBlockingScripts {
+    
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content">
+
+
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Select an Anchor Paper</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+                <section class="form-horizontal">
+                    <div class="panel-body">
+
+                        <!-- Anchor Paper Type Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="anchorPaperType">Select Anchor Paper Type: </label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="anchorPaperType" onchange="change(anchorPaperType.options[anchorPaperType.selectedIndex].value)">
+                                    <option>-- Sample Data --</option>
+                                    <option value="a">Argumentative</option>
+                                    <option value="i">Informational</option>
+                                    <option value="n">Narrative</option>
+                                    <option value="r">Response</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Anchor Paper Type Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="anchorPaperLevel">Select the Anchor Paper Level: </label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="anchorPaperLevel" onchange="show(anchorPaperLevel.options[anchorPaperLevel.selectedIndex].value)">
+                                    <option>-- Sample Data --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <iframe src="" id="pdfviewer" class="hidden" style="width:100%; min-height:650px;" allowfullscreen webkitallowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var data = [{
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Narrative/A1.Three%20Billy%20Goats%20Gruff.%20Narrative.pdf",
+        text: "A1 (Narrative)",
+        set: "n"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Argument/A2.You%20Are%20My%20Best%20Teacher.Opinion.pdf",
+        text: "A2 (Argumentative)",
+        set: "a"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Informational/A3.Orange%20Pumpkin..Informational.pdf",
+        text: "A3 (Informational)",
+        set: "i"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Argument/B1.Baseball.Opinions.pdf",
+        text: "B1 (Argumentative)",
+        set: "a"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Narrative/B2.At%20School%20Today.%20Narrative.pdf",
+        text: "B2 (Narrative)",
+        set: "n"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Informational/B3.Whales%20see%20with%20their%20ears.%20Informational.pdf",
+        text: "B3 (Narrative)",
+        set: "n"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Informational/B3.Whales%20see%20with%20their%20ears.%20Informational.pdf",
+        text: "B3 (Informational)",
+        set: "i"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Argument/C1.TheRainbow.%20Opinion.pdf",
+        text: "C1 (Argumentative)",
+        set: "a"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Narrative/C1.My%20Kitten.%20Narrative.pdf",
+        text: "C1 (Narrative)",
+        set: "n"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Narrative/C2.A%20story.A%20Bird%20Is%20a%20Bird.Narrative.pdf",
+        text: "C2 (Narrative)",
+        set: "n"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Narrative/C3.Sheldon%20the%20Turtle.Narrative.pdf",
+        text: "C3 (Narrative)",
+        set: "n"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Informational/C3.The%20Snake%20Book.%20Informational.pdf",
+        text: "C3 (Informational)",
+        set: "i"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Argument/D1.Reading.%20Opinion.pdf",
+        text: "D1 (Argumentative)",
+        set: "a"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Informational/D3.Recipe%20for%20a%20Smoothie.%20Informational.pdf",
+        text: "D3 (Informational)",
+        set: "i"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Informational/D.Dinosaurs.Informational.pdf",
+        text: "D (Informational)",
+        set: "i"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Argument/E1.Nature%20in%20the%20Woods.%20Opinion.Informational.pdf",
+        text: "E1 (Argumentative)",
+        set: "a"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Informational/E1.Nature%20in%20the%20Woods.Informational.Opinion.pdf",
+        text: "E1 (Informational)",
+        set: "i"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Narrative/E2.Doug%20Dracula,%20the%20Pizza-eater.%20Narrative.pdf",
+        text: "E2 (Narrative)",
+        set: "n"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Informational/E3.%20Diabetes.%20Informational.pdf",
+        text: "E3 (Informational)",
+        set: "i"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Response/E.Nana%20Upstairs%20and%20Nana%20Downstairs.Response.pdf",
+        text: "E (Response)",
+        set: "r"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Informational/F.Recreation%20in%20the%20future.%20Informational.pdf",
+        text: "F (Informational)",
+        set: "i"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Argument/G.Recycling%20will%20save%20the%20earth.Opinion.pdf",
+        text: "G (Argumentative)",
+        set: "a"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Narrative/G.%20Gemstone%20Mining%20with%20Dad.Narrative.pdf",
+        text: "G (Narrative)",
+        set: "n"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Narrative/H.Battle%20Cry%20of%20Freedom.%20Narrative.pdf",
+        text: "H (Narrative)",
+        set: "n"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Argument/I.Letter%20to%20State%20Board%20of%20Education.%20Argument.pdf",
+        text: "I (Argumentative)",
+        set: "a"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Narrative/J.Maria.Poem.pdf",
+        text: "J (Narrative)",
+        set: "n"
+    }, {
+        value: "http://www.thewritingcontinuum.com/Docs/AnchorPapers/Argument/K.Risks%20Due%20to%20Obesity.%20Argument.pdf",
+        text: "K (Argumentative)",
+        set: "a"
+    }];
+    function change(value) {
+        $('#anchorPaperLevel').find('option').remove();
+        $('#anchorPaperLevel').append('<option>-- Sample Data --</option>');
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].set == value) {
+                $('#anchorPaperLevel').append('<option value="' + data[i].value + '">' + data[i].text + '</option>');
+            }
+        }
+    }
+    function show(value) {
+        //if ($("#pdfviewer").hasClass("hidden")) {
+        //    $("#pdfviewer").removeClass("hidden");
+        //}
+        //$('#pdfviewer').prop('src', value);
+        window.open(value);
+    }
+</script>

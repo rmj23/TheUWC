@@ -1,0 +1,85 @@
+﻿@model Source.Models.InsertConferenceNotesViewModel
+@{
+    ViewBag.Title = "InsertConferenceNotes";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-success"></div>
+    <h1 class="text-center">Add Conference Notes</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container">
+        @if(ViewBag.Message != null)
+        {
+            <h4 class="text-center">@ViewBag.Message</h4>
+        }
+        @using (Html.BeginForm("InsertConferenceNotes", "Instruction", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => Model.YearID)
+            @Html.HiddenFor(model => Model.ReturnDate)
+            @Html.HiddenFor(model => Model.ConferenceNotes.StudentID)
+            @Html.HiddenFor(model => Model.ConferenceNotes.CourseID)
+            <!-- Conference Details -->
+            <div class="card">
+                <div class="card-header">
+                    <!--Display name-->
+                    <h3 class="card-title">New Conference Notes for @Html.DisplayTextFor(model => model.StudentName) </h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-horizontal">
+
+                        <!-- Date Field -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label" for="date">Conference Date: </label>
+                            <div class="col-sm-6">
+                                @Html.DisplayTextFor(model => Model.ReturnDate)
+                            </div>
+                        </div>
+
+                        <!-- Conference Type -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label" for="cndescription">Description: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => Model.ConferenceNotes.ConferenceTypeID, Model.ConferenceTypeDescription, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <!-- Stage/Draft -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label" for="stageordraft">Stage/Draft: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => Model.ConferenceNotes.StageOrDraftID, Model.StageOrDraft, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <!-- Comments -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label" for="comments">Comments: </label>
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(model => Model.ConferenceNotes.Comments, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Submit Button -->
+                <div class="card-footer">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Add Conference Note</button>
+                    </div>
+                    <!--End Panel Body-->
+                </div>
+                <!--End Details-->
+            </div>
+         }
+        <!--End Container-->
+    </div>
+</div>

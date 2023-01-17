@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>The Universal Writing Continuum - @ViewBag.Title</title>
+
+    <!--Favicon-->
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+
+    <!-- Boostrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Nifty CSS -->
+    @*<link href="@Url.Content("~/Bundles/Nifty/v2.5/css/nifty.min.css")" rel="stylesheet">*@
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link href="~/Styles/Teacher/main.min.css" rel="stylesheet" />
+
+    <link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- data tables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/datatables.min.css" />
+
+    <!-- Page CSS-->
+    @RenderSection("Styles", false)
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Bundles/jQuery/js/jquery-2.2.4.min.js")"></script>
+    @*<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>*@
+    @*<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>*@
+
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!--Datatables-->
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css
+        " rel="stylesheet" />
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="welcomeUserHeader">
+                <h5>Hello @Convert.ToString(Session["UserFirstName"] + " " + Session["UserLastName"])!</h5>
+            </div>
+            <ul class="list-unstyled components">
+                <li class="sideNavHeaders">Navigation</li>
+                <li>
+                    <a href="@Url.Action("Dashboard", "Web Admin")" class="sideNavLinks">
+                        <i class="fas fa-home fa-sm"></i>
+                        <span>Web Admin Dashboard</span>
+                    </a>
+                </li>
+                <li class="sideNavHeaders">Site Management</li>
+                <li>
+                    <a href="#SiteManagementMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="siteMgtMenu">
+                        <i class="fas fa-circle fa-sm" style="color: #6ca9b0;"></i>
+                        <span>Change Site Content</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" aria-expanded="false" id="SiteManagementMenu">
+                        <li>
+                            <a href="@Url.Action("InsertQuote", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Insert New Quote
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("InsertGlossaryTerm", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Insert Glossary Term
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ContinuumInsert","WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Update Writing Continuum
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ViewProjectContinuumInsert","WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Update Inquiry Continuum
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("EngagementsInsert", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Insert Engagements
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ProjectIdeasInsert", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Insert Project Ideas
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("CulminatingActivitiesInsert", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Insert Culminating Activities
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#DistrictManagementMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="districtManagementMenu">
+                        <i class="fas fa-circle fa-sm" style="color: #be4916;"></i>
+                        <span>District Management</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" aria-expanded="false" id="DistrictManagementMenu">
+                        <li>
+                            <a href="@Url.Action("ViewDistrict", "WebAdmin")">
+                                <span class="dropDownLinks">View District</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("AddDistrict", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Add District
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("BulkInsertSchool", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Bulk Insert Schools
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("BulkInsertStudent", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Bulk Insert Student (School)
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("BulkInsertStudentDistrict","WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Bulk Insert Student (District)
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#RolesMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="rolesMenuHeader">
+                        <i class="fas fa-circle fa-sm" style="color: #ebae26;"></i>
+                        <span>User Role Management</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" aria-expanded="false" id="RolesMenu">
+                        <li>
+                            <a href="@Url.Action("AssignView", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Assign Views to Role/Subscription
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("InsertRole", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Insert Role/Subscription
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("AssignTeacherToRole", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Assign Teacher to Role/Subscription
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#MiscMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="miscMenu">
+                        <i class="fas fa-circle fa-sm" style="color: #6ca9b0;"></i>
+                        <span>Misc.</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="MiscMenu">
+                        <li>
+                            <i class="demo-psi-tactic"></i>
+                            <span class="sideNavHeaders">Point Management</span>
+                            <i class="arrow"></i>
+                        <li>
+                            <a href="@Url.Action("MonthlyPoints", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    View/Update Monthly Goal
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("MonthlyPointsContestants", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Monthly Contestants
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <i class="demo-psi-tactic"></i>
+                            <span class="sideNavHeaders">User Management</span>
+                            <i class="arrow"></i>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ViewTeachersBySubject", "WebAdmin")">
+                                <span class="dropDownLinks">View Teachers - Subject</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("ViewTeachersBySchool", "WebAdmin")">
+                                <span class="dropDownLinks">View Teachers - School</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("ViewTeachersByDistrict", "WebAdmin")">
+                                <span class="dropDownLinks">View Teachers - District</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ViewDistrictAdmins", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    View District Admins
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="demo-psi-tactic"></i>
+                                <span class="sideNavHeaders">Other</span>
+                                <i class="arrow"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ViewContactRequests", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    View Contact Requests
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ErrorLog", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Error Log
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ConferenceToolViewer", "WebAdmin")">
+                                <span class="dropDownLinks">
+                                    Feedback Viewer
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- top navigation-->
+        <div class="content">
+            <nav class="navbar navbar-expand-sm fixed-top">
+                <button class="btn btn-outline-secondary mr-auto" type="button" id="sidebarCollapse">
+                    <i class="fas fa-align-justify fa-lg"></i>
+                </button>
+                <a class="navbar-brand mx-auto" href="@Url.Action("Index", "Home")" target="_blank">
+                    <img src="~/Images/logo.png" alt="Uni-Spire Logo" class="navbar-logo" />
+                </a>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user fa-lg"></i>  @Convert.ToString(Session["UserFirstName"] + " " + Session["UserLastName"])
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-id-badge fa-sm"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-envelope fa-sm"></i>&nbsp; Messages
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-exclamation fa-sm"></i>&nbsp; Notifications
+                            </a>
+                            <div class="btn-group" style="padding: 10px;">
+                                <a class="btn btn-primary" href="@Url.Action("Settings", "Teacher")">
+                                    <i class="fas fa-cog fa-md"></i>&nbsp; Settings
+                                </a>
+                                <a class="btn btn-danger" href="@Url.Action("Logout", "Authentication")">
+                                    <i class="fas fa-sign-out-alt fa-md"></i>&nbsp; Logout
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div id="" class="mainContent" style="border: thin solid green;">
+            @RenderBody()
+            <footer id="footer" class="text-center">
+
+                <p class="pad-lft">
+                    Copyright © 2011-
+                    <!-- Current Year for copywrite-->
+                    <script>
+                        var d = new Date();
+                        document.write(d.getFullYear());
+                    </script>
+                    Uni-Spire
+                </p>
+
+            </footer>
+        </div>
+    </div>
+
+    <!-- Blocking Scripts-->
+    @RenderSection("RenderBlockingScripts", false)
+
+    <!-- Jquery-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <!-- jquery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+    <!-- DataTables-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
+    <!-- bootstrap 4-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- jquery scrollbar-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="~/Scripts/Shared/sideBarNav.js"></script>
+
+    <!-- Page Scripts -->
+    @RenderSection("Scripts", false)
+
+    @*<script type="text/javascript">
+            function show(value) {
+                //if ($("#pdfviewer").hasClass("hidden")) {
+                //    $("#pdfviewer").removeClass("hidden");
+                //}
+                //$('#pdfviewer').prop('src', value);
+                window.open(value);
+            }
+        </script>*@
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+﻿@model Source.Models.StudentUploadPaperViewModel
+@{
+    ViewBag.Title = "Upload Paper";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-info"></div>
+    <h1 class="ml-1 ml-md-3">Upload Paper</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container">
+
+        <!-- Form Data -->
+        <!-- Upload Paper Form -->
+        @using (Html.BeginForm("UploadPaper", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Class Selection</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-center">
+                        <div class="col-md-3 col">
+                            <label>Course:</label>
+                        </div>
+                        <div class="col-md-6 col">
+                            @Html.DropDownListFor(model => Model.CourseID, new SelectList(Model.CourseDropDown, "Value", "Text"), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.CourseID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Paper Details -->
+            <div class="card mt-1">
+                <div class="card-header">
+
+                    <h3 class="card-title">Paper Details</h3>
+
+                </div>
+                <div class="card-body">
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danager" })
+                        <!-- Paper Title Field -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-sm-3 control-label" for="paperTitle">Paper Title: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => Model.Paper.PaperTitle, new { @class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(x => x.Paper.PaperTitle, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <!-- Paper Type Field -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-sm-3 control-label" for="ddlpaperType">Paper Type: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(x => Model.PaperTypeID, new SelectList(Model.PaperTypeDropdown, "Value", "Text"), new { @class = "form-control", id = "PaperType" })
+                                @Html.ValidationMessageFor(x => x.PaperTypeID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Evaluation Period Field -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-sm-3 control-label" for="ddlpaperType">Evaluation Period: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => Model.EvaluationPeriodID, new SelectList(Model.EvaluationPeriodDropDown, "Value", "Text"), new { @class = "form-control", id = "EvaluationPeriodType" })
+                                @Html.ValidationMessageFor(x => x.EvaluationPeriodID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Continuing Field -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-sm-3 control-label" for="Continuing">Continuing </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => Model.Paper.Continuing, new SelectListItem[] { new SelectListItem { Text = "Continuing", Value = "true" }, new SelectListItem { Text = "Final", Value = "False" } }, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <!-- Draft Field -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-sm-3 control-label" for="Draft">Draft: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => Model.Paper.Draft, new { @class = "form-control", @type = "number", required = "required" })
+                                @Html.ValidationMessageFor(x => x.Paper.Draft, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Select The Paper -->
+            <div class="card mt-1">
+                <div class="card-header">
+
+                    <h3 class="card-title">Select The Paper</h3>
+
+                </div>
+                <div class="card-body">
+                    <div class="form-horizontal">
+
+                        <p class="text-center">Please select the file that you would like to upload.</p>
+                        <p class="text-center">We currently accept <strong>.PDF, .DOC, .DOCX, .JPEG, .JPG, and .PNG</strong> file types for papers. The maximum size for papers is 5MB.</p>
+                        <p class="text-center">We also accept <strong>.MP4, .MPEG, and .MOV</strong> file types for video assignments. The maximum size for videos is 500MB.</p>
+                        <div class="form-group row justify-content-center">
+                            <label class="col-md-2 control-label">Select a File:</label>
+                            <div class="col-md-3">
+                                <input class="form-control-file" name="file" type="file" accept="application/pdf, .doc, .docx, .jpg, .png, .mp4, .mpeg, .mov">
+                            </div>
+                        </div>
+                        @if (TempData["notice"] != null)
+                        {
+                            var mess = TempData["notice"].ToString();
+                            <p style="color:red">@mess</p>
+                        }
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <!-- Submit Button -->
+                    <div class="form-group text-center">
+                        <button type="submit" name="submit" class="btn btn-success disabled" onclick="alert('Feature Coming Soon!'); return false;">Upload Paper </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+
+    </div>
+</div>
+@section Scripts {
+    <!-- PAGE SCRIPTS-->
+    <script>
+        $(document).ready(function () {
+            alert("Feature Coming Soon! We are working on letting you be able to upload papers!")
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

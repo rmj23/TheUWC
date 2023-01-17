@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Student Goals";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles {
+
+}
+
+
+<!-- Page Title -->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-success"></div>
+    <h1 class="ml-1 ml-md-3">@ViewBag.Title</h1>
+</div>
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container">
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Student Selection</h3>
+            </div>
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            <div class="card-body">
+                @Html.Partial("_StudentCourseYearSelection")
+            </div>
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+        
+            <!-- Student Goals Panel -->
+            <div class="card mt-3" style="display: none;" id="studentGoalsPanel">
+
+                <!-- Panel Heading -->
+                <div class="card-header">
+                    <div class="row">
+                        <h3 class="card-title col">
+                            @ViewBag.Title Records
+                        </h3>
+                        <div class="col">
+                            <div class="btn-group-justified float-right">
+                                <!-- Print Student Goals Button -->
+                                <button id="printStudentGoalsBtn" class="mb-1 mb-md-0 btn btn-greenJewel">Print Student Goals</button>
+                                <!-- Add Goal Button -->
+                                <button id="addGoalBtn" class="btn btn-greenJewel">Add Goal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel Body -->
+                <div class="card-body">
+
+                    <!-- Class Goals Table -->
+                    <table id="tableStudentGoals" class="table table-bordered table-striped dt-responsive" style="width: 100%;">
+
+                        <!-- Table Headings -->
+                        <thead>
+                            <tr>
+                                <th>Paper Title</th>
+                                <th>Writing Element</th>
+                                <th>Goal Description</th>
+                                <th>Date Assigned</th>
+                                <th>Deadline</th>
+                                <th>Mark Completed/Date Completed</th>
+                                <th>Tasks</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="~/Scripts/Teacher/StudentCourseSelection.js"></script>
+    <script src="~/Scripts/Teacher/StudentGoals.js"></script>
+}

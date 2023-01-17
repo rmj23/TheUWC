@@ -1,0 +1,183 @@
+﻿@model Source.Models.ContinuumBuilderViewModel
+@{
+
+    ViewBag.Title = "ContinuumInsert";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+
+    ViewBag.paperTypes = new[]
+    {
+        "Argument/Opinion",
+        "Informational",
+        "Letter",
+        "Narrative",
+        "Poem",
+        "Response",
+        "Visual Text"
+    };
+}
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+              $('#tableContinuum').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Selections Panel -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">@ViewBag.Title</h3>
+            </div>
+            <div class="card-body">
+
+                <!-- Selections Form -->
+                <section class="form-horizontal">
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("ContinuumInsert", "WebAdmin", FormMethod.Post))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Levels, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+
+                                    @Html.DropDownListFor(model => model.Continuum.LevelID, Model.Levels, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PaperTypes, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+
+                                    @Html.DropDownListFor(model => model.Continuum.PaperTypeID, Model.PaperTypes, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EvaluationTypes, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+
+                                    @Html.DropDownListFor(model => model.Continuum.EvaluationTypeID, Model.EvaluationTypes, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Guidelines, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+
+                                    @Html.TextAreaFor(model => model.Continuum.Guidelines, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-success">Insert</button>
+                            </div>
+
+                        }
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <!-- Class Records Panel -->
+        <div class="card">
+
+            <!-- Panel Heading -->
+            <div class="card-header">
+                <h3 class="panel-title">
+                    Continuum
+                </h3>
+            </div>
+
+            <!-- Panel Body -->
+            <div class="card-body">
+
+                <!-- Student Portfolio Table -->
+                <table id="tableContinuum" class="table table-bordered table-hover toggle-circle" data-page-size="20">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <!--Name of Paper Type-->
+                            <th>Paper Type</th>
+                            <!--Evaluation Types-->
+                            <th>Element</th>
+                            <!--Name of Level. Letter Desc-->
+                            <th>Level</th>
+                            <!--Guidelines-->
+                            <th>Guidelines</th>
+                            <!--Name of Level. Grade Level Desc-->
+                            <th>Grade Level</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>                   
+
+                    <!-- Table Content -->
+                    <tbody>
+                        @foreach (var c in Model.ContinuumData)
+                        {
+                            <tr>
+                                <td>
+                                    @c.PaperType
+                                </td>
+                                <td>
+                                    @c.EvalTitle
+                                </td>
+                                <td>
+                                    @c.Letter
+                                </td>
+                                <td>
+                                    @c.Guidelines
+                                </td>
+                                <td>
+                                    @c.Timeframe
+                                </td>
+                                <td>
+                                    <!--Edit the guidline-->
+                                    <a href="@Url.Action("EditContinuum", new {ContinuumID = c.ContinuumID})" class="btn btn-sm btn-warning" title="Edit Guidline.">
+                                        Edit
+                                    </a>
+                                    <!--Delete the entry in the continuum-->
+                                    <a href="@Url.Action("ContinuumEntryDelete", new { ContinuumID = c.ContinuumID
+                                            })" class="btn btn-sm btn-danger" title="Delete Continuum Entry." onclick="return confirm('Are you sure that you would like to delete this entry?')">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>               
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>

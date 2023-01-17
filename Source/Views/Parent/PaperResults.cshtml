@@ -1,0 +1,129 @@
+﻿@model Source.Models.PaperResultsViewModel
+@{
+    ViewBag.Title = "Paper Results";
+    Layout = "~/Views/Shared/_ParentLayout.cshtml";
+}
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">
+        <a class="link-header"
+           href="@Url.Action("ParentPortfolio",
+                 new{Model.Paper.StudentID})">@ViewBag.Title</a>
+            </h1>
+        </div>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--End page title-->
+        <!-- Main Content -->
+        @if (Model.Paper.Continuing == false)
+        {
+            <div id="page-content">
+                <div class="container-fluid">
+                    <!--Panel Head-->
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@Model.Reports[0].lastName, @Model.Reports[0].firstName - @Model.Reports[0].PaperTitle</h3>
+                        </div>
+                        <!--Paper Details-->
+                        <div style="padding-top: 2em; padding-left:2em; padding-right: 2em">
+                            <p style="color:black"><strong>Title:</strong> @Model.Paper.PaperTitle - <strong>Draft:</strong> @Model.Paper.Draft - <strong>Stage:</strong> Continuing </p>
+                            <p style="color:black"><strong>Holistic Band:</strong> @Model.Reports[0].holisticScore</p>
+                            <p style="color:black"><strong>Proficiency:</strong> @Model.Paper.ProficiencyLevel</p>
+                            <p style="color:black"><strong>Student Feedback:</strong>@Model.StudentFeedback</p>
+                        </div>
+                        <div>
+                            <!--Panel Body-->
+                            <div class="panel-body">
+                                <table id="viewPaperResults" class="table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Writing Element</th>
+                                            <th>Score</th>
+                                            <th>Proficiency</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var x in Model.Reports)
+                                        {
+                                            if (x.scoreType == "Spelling" || x.scoreType == "Usage/Mechanics")
+                                            {
+                                                <tr>
+                                                    <td class="text-center" style="max-height: 20px; max-width: 20px">@x.scoreType</td>
+                                                    <td>@x.scoreData</td>
+                                                    <td>@x.proficiency</td>
+                                                </tr>
+                                            }
+                                            else if (x.scoreType == "Conventions")
+                                            {
+                                                <tr>
+                                                    <td>Conventions</td>
+                                                    <td>@x.scoreData</td>
+                                                    <td>@x.proficiency</td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td>@x.scoreType</td>
+                                                    <td>@x.scoreData</td>
+                                                    <td>@x.proficiency</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="page-content">
+                <div class="container-fluid">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4>@Model.Reports[0].lastName, @Model.Reports[0].firstName</h4>
+                            <h4>Title:</h4> @Model.Paper.PaperTitle - Draft: @Model.Paper.Draft - Stage: Final
+                            <h4>Holistic Band: @Model.Reports[0].holisticScore</h4>
+                            <h4>Proficiency: @Model.Reports[0].proficiency</h4>
+                            <h4>Teacher Comments: @Model.Comments</h4>
+                            <h4>Student Feedback: @Model.StudentFeedback</h4>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-body">
+                                <table id="viewPaperResults" class="table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Writing Element</th>
+                                            <th>Score</th>
+                                            <th>Proficiency</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var x in Model.Reports)
+                                        {
+                                            if (x.scoreType == "Spelling" || x.scoreType == "Usage/Mechanics")
+                                            {
+                                                <tr>
+                                                    <td>@x.scoreType</td>
+                                                    <td>@x.scoreData</td>
+                                                    <td>@x.proficiency</td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td>@x.scoreType</td>
+                                                <td>@x.scoreData</td>
+                                                <td>@x.proficiency</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }

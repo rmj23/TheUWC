@@ -1,0 +1,185 @@
+﻿@using System.Web.UI.WebControls
+@model Source.Models.CourseSemesterViewModel
+@{
+    ViewBag.Title = "CourseSemester";
+    Layout = "~/Views/Shared/_SchoolAdminLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+    
+    <!-- Datepicker CSS -->
+    <link href="@Url.Content("~/Bundles/Datepicker/css/bootstrap-datepicker.min.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+    
+    <!-- Datepicker JS -->
+    <script src="@Url.Content("~/Bundles/Datepicker/js/bootstrap-datepicker.min.js")"></script>
+}
+
+
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">Midterm Date by Subject</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+        
+        <!-- Selections Panel -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Select Subject</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            <section class="form-horizontal">
+                @using (Html.BeginForm("CourseSemester", "SchoolAdmin", FormMethod.Post))
+                {
+                    <div class="card-body">
+
+                        <!-- Subject Selection Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="subjectSelection"> Select Subject:</label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => Model.SubjectID, Model.SubjectDropDown, new {@class = "form-control"})
+                            </div>
+                        </div>
+
+                        <!-- Semester Selection Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="semesterSelection">Select Semester:</label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => Model.SemesterID, Model.SemesterDropDown, new {@class = "form-control"})
+                            </div>
+                        </div>
+
+                        <!-- Date Selection Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="dateSelection">Enter Date:</label>
+                            <div class="col-sm-6">
+                                <div class="date">
+                                    @Html.EditorFor(model => Model.CourseSemesterModel.MidtermDate, new {  @class = "datepicker form-control", @Value = @DateTime.Now.ToShortDateString() })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        @*@Html.ActionLink("Submit", null, null, new { @type = "submit", @class = "btn btn-success" })*@
+                    </div>
+                }
+            </section>
+
+        </div>
+        
+        @if (Model.CourseSemesterList.Count != 0)
+        {
+        <!-- Records -->
+        <div class="card">
+
+            <!-- Panel Heading -->
+            <div class="card-header">
+                <h3 class="card-title">
+                    Midterm Date By Subject Results
+                </h3>
+            </div>
+
+            <!-- Panel Body -->
+            <div class="card-body">
+
+                <!-- Student Portfolio Table -->
+                <table id="tableMidtermDates" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <th>Subject Description</th>
+                            <th>Semester Description</th>
+                            <th>Midterm Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>                   
+
+                    <!-- Table Content -->
+                    <tbody>
+                        @foreach (var x in Model.CourseSemesterList)
+                        {
+                        <tr>
+                            <td>
+                                @x.SubjectDescription
+                            </td>
+                            <td>
+                                @x.SemesterDescription
+                            </td>
+                            <td>
+                                @x.MidtermDate.ToString("MM/dd/yyyy")
+                            </td>
+                            <td>
+                                <div class="btn-toolbar">
+                                    <a href="@Url.Action("EditMidtermDates", new { ID = x.ID, SubjectID = x.SubjectID, SemesterID = x.SemesterID, MidtermDate = x.MidtermDate})" type="button" class="btn btn-sm btn-warning" title="Edit">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                        Edit
+                                    </a>
+                                    <button class="btn btn-sm btn-danger"  onclick="deleteMidtermDate(@x.ID.ToString())" style="margin-left: 3px;" title="Delete">
+                                        <i class="fa fa-trash-o"></i>
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        }
+
+    </div>
+</div>
+<script type="text/javascript">
+     $(document).ready(function () {  
+         $('.datepicker').datepicker().datepicker('setDate', new Date()); 
+     });  
+    $('#tableMidtermDates').DataTable({
+        responsive: true,
+        "langauge": {
+            "emptyTable": "No students in roster."
+        }
+        });
+    function deleteMidtermDate(ID) {
+        $.ajax({
+            type: "POST",
+            url: "/SchoolAdmin/DeleteMidtermDate",
+            data: JSON.stringify({'ID': ID}),  
+                contentType: "application/json; charset=utf-8",  
+                dataType: "json",  
+                success: function(response) {  
+                    if (response.Success) {
+                        location.reload();
+                    }   
+                },  
+                failure: function(response) {  
+                    alert(response.responseText);  
+                },  
+                error: function(response) {  
+                    alert(response.responseText);  
+                }  
+            });  
+    }
+</script>
+

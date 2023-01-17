@@ -1,0 +1,93 @@
+﻿@model Source.Models.ClassModel
+@{
+    ViewBag.Title = "Add a Class";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+
+}
+
+<!-- Page Title -->
+<div>
+    <div class="p-3 mb-2 bg-info"></div>
+    <h1 class="ml-1 ml-md-3">@ViewBag.Title</h1>
+</div>
+
+<!-- Main Content -->
+<div id="">
+    <div class="container">
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Add a Class</h3>
+            </div>
+
+            @using (Html.BeginForm("AddClass", "Teacher", FormMethod.Post))
+            {
+
+                <!--Horizontal Form-->
+                <!--===================================================-->
+                <section class="form-horizontal">
+                    <div class="card-body">
+
+                        <!-- Grade Field -->
+                        <div class="row">
+                            <label class="col-sm-3 control-label" for="grade">Grade: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.GradeID, new List<SelectListItem>(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <!-- Academic Year Field -->
+                        <div class="row">
+                            <label class="col-sm-3 control-label" for="academicYear">Academic Year: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.YearID, new List<SelectListItem>(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <!-- Semester Field -->
+                        <div class="row">
+                            <label class="col-sm-3 control-label" for="semester">Length of Course: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.SemesterID, new List<SelectListItem>() ,new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <!-- Subject Field-->
+                        <div class="row">
+                            <label class="col-sm-3 control-label" for="subject">Subject: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.SubjectID, new List<SelectListItem>(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <!-- Block/Period Field -->
+                        <div class="row">
+                            <label class="col-sm-3 control-label" for="blockPeriod">Block/Period: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.Period, new List<SelectListItem>(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <!-- Submit Button -->
+                        <div class="col text-center">
+                            <button id="submitBtn" disabled="disabled" type="submit" class="disabled btn btn-primary" @*onclick="return confirm('Remember to enroll students into class.')"*@>Add Class</button>
+                        </div>
+                    </div>
+                </section>
+                <!--===================================================-->
+                <!--End Horizontal Form-->
+            }
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Teacher/AddClass.js"></script>
+}

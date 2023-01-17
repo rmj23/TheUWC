@@ -1,0 +1,64 @@
+﻿
+
+@{
+    ViewBag.Title = "My Writing";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+
+@section Styles {
+
+    <!-- Datatables Styles -->
+    <link href="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/css/dataTables.bootstrap.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/css/dataTables.responsive.css")" rel="stylesheet">
+}
+
+@section Scripts {
+
+    <!-- Datatables Scripts -->
+    <script src="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/js/jquery.dataTables.js")"></script>
+    <script src="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/js/dataTables.bootstrap.js")"></script>
+    <script src="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/js/dataTables.responsive.min.js")"></script>
+    <script src="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/js/tables-datatables.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+
+}
+
+
+
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">My Writing</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+
+<h3>@Source.Models.SessionModel.GetUserName(HttpContext.Current.Request.RequestContext)  - Papers</h3>
+
+<div class="panel-body">
+    <table id="viewPapersTable" class="table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+        <!-- View Papers Table Headings -->
+        <thead>
+            <tr>
+                <th>Paper Title</th>
+                <th>Evaluation Date</th>
+                <th>Holistic Score</th>
+                <th>View Paper</th>
+                <th>View Results</th>
+
+            </tr>
+        </thead>
+
+        
+ 
+</div>
+    </div>
+<!--===================================================-->
+<!-- End Striped Table -->
+</div>

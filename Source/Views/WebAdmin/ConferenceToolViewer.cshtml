@@ -1,0 +1,145 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Feedback Tool Viewer";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#tableFeedbackStudents');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableFeedbackStudents-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableFeedbackStudents-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableFeedbackStudents-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+        <!-- Student Goals Panel -->
+        <div class="panel">
+            <!-- Panel Heading -->
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <!-- Panel Body -->
+            <div class="panel-body">
+                <!-- Feedback Table -->
+                @if (true)
+                {
+                    <table id="tableFeedbackStudents" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                        <!-- Table Headings -->
+                        <thead>
+                            <tr>
+                                <th class="col-sm-3">Paper Title</th>
+                                <th>Student Feedback</th>
+                            </tr>
+                        </thead>
+
+                        <!-- Table Controls -->
+                        <div class="pad-btm form-inline">
+                            <div class="row">
+
+                                <!-- Table Control: Dropdown -->
+                                <div class="col-sm-6 text-xs-center hidden">
+                                    <div class="form-group">
+                                        <label class="control-label">Evaluation Status</label>
+                                        <select id="tableFeedbackStudents-filter-status" class="form-control">
+                                            <option value="">Show all</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Table Control: Search -->
+                                <div class="col-sm-6 col-xs-push-6 text-xs-center text-right">
+                                    <div class="form-group">
+                                        <input id="tableFeedbackStudents-foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Table Content -->
+                        <tbody>
+                            <tr>
+                                @foreach (var x in Model.StudentFeedback)
+                                {
+                                    if (x.studentFeedback == "" || x.studentFeedback == null)
+                                    {
+                                    <tr>
+
+                                        <td>@x.PaperTitle</td>
+                                        <td>Feedback was not left on this paper.</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@x.PaperTitle</td>
+                                        <td>@x.studentFeedback</td>
+                                    </tr>
+                                }
+                            }
+                            </tbody>
+
+                            <!-- Table Footer -->
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="text-center">
+                                            <ul class="pagination"></ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+
+                        </table>
+                    }
+                    else
+                    {
+                        <div>
+                            <p>No goals have been assigned yet.</p>
+                        </div>
+
+                    }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

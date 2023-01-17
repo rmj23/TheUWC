@@ -1,0 +1,123 @@
+﻿@model Source.Models.InsertClassGoalsViewModel
+@{
+    ViewBag.Title = "Insert Class Goals";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Datepicker CSS -->
+    <link href="@Url.Content("~/Bundles/Datepicker/css/bootstrap-datepicker.min.css")" rel="stylesheet" />
+}
+
+@Html.Hidden("CurrentYear", (int)ViewBag.CurrentYear)
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-success"></div>
+    <h1 class="ml-1 ml-md-3">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container">
+
+        <!-- Class Selection Table -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3 class="card-title">@ViewBag.Title</h3>
+            </div>
+            <div class="card-body">
+
+
+                <section class="form-horizontal">
+                    <div class="">
+                        @{Html.RenderPartial("_CoursePaperEvaluationViewModel", Model);}
+                    </div>
+                </section>
+
+
+            </div>
+        </div>
+        <!--Next two divs for testing purpose-->
+        <div class="card" id="continuum" style="display: none;">
+            <div class="card-body">
+                <table class="table-responsive" id="continuumTable">
+                    <thead>
+                        <tr id="tableRow"></tr>
+                    </thead>
+                    <tbody>
+                        <tr id="tableData"></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- Insert Class Goals Form -->
+        <!-- Insert Class Goals Form -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h3 class="card-title">@ViewBag.Title</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("InsertClassGoal", "Instruction", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken();
+                
+                @Html.HiddenFor(model => model.EvalTitleTemp);
+                
+
+                <div class="card-body">
+
+                    <!-- Full Description -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label" for="Description">Goal</label>
+                        <div class="col-sm-9">
+                            @Html.TextAreaFor(model => model.Goal.FullDescription, new { @placeholder = "Goal", @name = "Goal", @id = "Goal", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Goal.FullDescription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- Deadline -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label" for="deadlineDateSelection">Deadline</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.Goal.DeadlineDate, "{MM/0:d/yyyy}", new { @id = "deadlineDateSelection", @class = "form-control", @Value = DateTime.Today.ToString("MM/dd/yyyy") })
+                            @Html.ValidationMessageFor(model => model.Goal.DeadlineDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @Html.HiddenFor(model => model.CourseID)
+
+                </div>
+                <div class="card-footer text-right">
+                    <button class="btn btn-success" type="submit">Add Goal</button>
+                </div>
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+
+    </div>
+</div>
+@section Scripts {
+    <!-- Datepicker JS -->
+    <script src="@Url.Content("~/Bundles/Datepicker/js/bootstrap-datepicker.min.js")"></script>
+
+    <script>
+        $('#deadlineDateSelection').datepicker({
+            format: "mm/dd/yyyy",
+            assumeNearbyYear: true,
+            autoclose: true,
+            todayBtn: true
+        });
+    </script>
+
+    <script src="~/Scripts/Teacher/InsertClassGoals.js"></script>
+
+}

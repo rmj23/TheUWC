@@ -1,0 +1,63 @@
+﻿@model Source.Models.MonthlyPointWinnersViewModel
+@{
+    ViewBag.Title = "MonthlyPointsWinners";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+<div class="container container-fluid">
+    <h2>Monthly Winners</h2>
+    <div class="panel">
+        <div class="panel-header">
+            <h3 style="margin-left: 20px;">Winner for @DateTime.Now.AddMonths(-1).ToString("MMMM")</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Winners)
+                    {
+                        <tr>
+                            <td>@user.LastName</td>
+                            <td>@user.FirstName</td>
+                            <td>@user.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <div class="panel">
+            <div class="panel-header">
+                <h3 style="padding-left: 15px;">Previous Winners</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Email</th>
+                            <th>Month</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.PreviousWinners.Count; i++)
+                        {
+                            <tr>
+                                <td>@Model.PreviousWinners[i].LastName</td>
+                                <td>@Model.PreviousWinners[i].FirstName</td>
+                                <td>@Model.PreviousWinners[i].Email</td>
+                                <td>@Model.PreviousMonths[i].ToString()</td>
+                            </tr>                           
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+

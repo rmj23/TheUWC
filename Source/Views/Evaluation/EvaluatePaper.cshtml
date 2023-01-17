@@ -1,0 +1,790 @@
+﻿@model Source.Models.EvaluatePaperViewModel
+
+@{
+    ViewBag.Title = "Evaluate Paper";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+
+    //grade = Source.Models.ContinuumHelperModel.GetLevelByMonthAndGrade(Source.Models.PaperModelDb.GetMonthByPaperID(Model.Paper_ID), Source.Models.ClassModelDb.SelectOneByID(Model.CourseID).GradeID);
+    ViewBag.temp = "";
+}
+
+@section Styles {
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+
+    <style>
+        .fa-times {
+            color: red;
+            font-weight: bold;
+        }
+
+        .list-group-item.active {
+            border: 1px solid #e9e9e9;
+            border-left: 4px solid #12723a;
+            background-color: white;
+            color: gray;
+            margin-left: -4px;
+        }
+
+        .btn.active {
+            background-color: #12723a;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .fa-check {
+            color: #12723a;
+            font-weight: bold;
+        }
+
+        .tab-base .tab-content {
+            box-shadow: none;
+            padding-top: 0;
+        }
+
+        .list-group-item.active:hover, .list-group-item.active:focus {
+            background-color: rgba(160, 160, 160, 0.1);
+            border-color: #12723a;
+            color: inherit;
+        }
+
+        .clickBlock {
+            display: block;
+            color: black !important;
+        }
+
+        th.active, td.active {
+            background-color: rgba(160, 160, 160, 0.1);
+        }
+
+        .subtab {
+            padding-left: 45px !important;
+            display: none;
+        }
+    </style>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+@using (Html.BeginForm("EvaluatePaper", "Evaluation", FormMethod.Post))
+{
+    @Html.HiddenFor(model => Model.Paper_ID)
+    @Html.HiddenFor(model => Model.CourseID)
+    @Html.HiddenFor(model => Model.StringScores, new { id = "StringID" })
+
+    <div id="page-title">
+        <div class="p-3 mb-2 bg-danger"></div>
+        <h1 class="ml-3">@ViewBag.Title</h1>
+    </div>
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <!--End page title-->
+    <!-- Main Content -->
+    <div id="page-content" class="container">
+
+        @if (ViewBag.PaperID == null)
+        {
+            <p class="text-danger">Error: No paper selected or error on uploading paper.</p>
+        }
+        else
+        {
+            <!-- Evaluate Paper Panel -->
+            <div class="card">
+                <!-- Panel heading -->
+                <div class="card-header">
+                    <div class="card-columns">
+                        @*<ul class="pager pager-rounded">
+                                <li><a href="#" id="category-previous">Previous</a></li>
+                                <li><a href="#" id="category-next">Next</a></li>
+                            </ul>*@
+                    </div>
+                    <h3 class="card-title">
+                        <!--Name of Student and paper information-->
+                        <!--TODO:  Need to incorporate Model.Paper.Continuuing instead of Draft.  This is not getting pulled up at this time.-->
+                        @if (Model.Paper.Draft == 0)
+                        {
+                            @(Model.StudentName + " - " + Model.Paper.PaperTitle + " - " + Model.Paper.paperType + " - Draft Number: N/A");
+                        }
+                        else
+                        {
+                            @(Model.StudentName + " - " + Model.Paper.PaperTitle + " - " + Model.Paper.paperType + " - Draft Number: " + Model.Paper.Draft);
+                        }
+
+                    </h3>
+                </div>
+
+                <!-- Panel body -->
+                <div class="card-body">
+                    <div class="tab-base row">
+
+                        <!-- Navigation Tabs For Score Type (Left Hand Side)-->
+                        <div class="col-3">
+                            <ul class="list-group list-categories">
+
+                                @for (var i = 0; i < Model.EvaluationTypes.Count; i++)
+                                {
+                                    if (Model.EvaluationTypes[i].Title.Equals("Conventions"))
+                                    {
+                                        <li class="list-group-item conventions @((i == 0) ? "active" : "")">
+                                            <a data-toggle="tab" href="" class="clickBlock">
+                                                @Model.EvaluationTypes[i].Title
+                                                <i class="fa fa-info fa-rounded add-tooltip text-muted" 
+                                                   title="The Conventions rating is the average of the Spelling + Usage/Mechanics. It is not required to evaluate both."></i>
+                                            </a>
+                                        </li>
+                                        continue;
+                                    }
+                                    if (Model.EvaluationTypes[i].Title.Equals("Spelling") || Model.EvaluationTypes[i].Title.Equals("Usage/Mechanics"))
+                                    {
+                                        <li class="list-group-item subtab @((i == 0) ? "active" : "")">
+                                            <a data-toggle="tab" href="#tab-@Model.EvaluationTypes[i].ID" class="clickBlock">
+                                                @Model.EvaluationTypes[i].Title
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-group-item @((i == 0) ? "active" : "")">
+                                            <a data-toggle="tab" href="#tab-@Model.EvaluationTypes[i].ID" class="clickBlock">
+                                                @Model.EvaluationTypes[i].Title
+                                            </a>
+                                        </li>
+                                    }
+
+                                }
+
+                            </ul>
+                        </div>
+
+                        @{
+                            int grade = Model.ClassInfo.GradeNumber;
+                            int date = DateTime.Now.Month;
+
+                            // continuum standards
+
+                            // if it is a year long course
+                            if (Model.ClassInfo.SemesterType == 1)
+                            {
+                                // if it is a kindergarden class adjust time
+                                if (Model.ClassInfo.GradeNumber == 2)
+                                {
+                                    // if it is between July and Oct
+                                    if (date >= 7 && date <= 10)
+                                    {
+                                        grade = grade - 1;
+                                    }
+                                    // if it is between nov and feb
+                                    else if (date == 11 || date == 12 || date == 1 || date == 2)
+                                    {
+                                        // grade stays the same
+                                    }
+                                    // if it is between march and june
+                                    else if (date >= 3 && date <= 6)
+                                    {
+                                        grade = grade + 1;
+                                    }
+                                }
+                                // if it is a first grade class til nineth grade
+                                else if (Model.ClassInfo.GradeNumber >= 3 && Model.ClassInfo.GradeNumber <= 11)
+                                {
+                                    // if it is between july and dec
+                                    if (date >= 7 && date <= 12)
+                                    {
+                                        // grade stays the same
+                                    }
+                                    else if (date >= 1 && date <= 6)
+                                    {
+                                        grade = grade + 1;
+                                    }
+                                }
+
+                            }
+                        }
+
+                        <!-- Tab Content -->
+                        <div class="col-9">
+                            <div class="tab-content">
+
+                                @for (var i = 0; i < Model.EvaluationTypes.Count; i++) //Question for Adam: Did I write this or did you & y?
+                                {
+                                    {
+                                        <div id="tab-@Model.EvaluationTypes[i].ID" class="tab-pane fade @((i == 0) ? "active" : "") in show">
+
+                                            <!-- Continuum Shift Controls -->
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button type="button" class="float-left btn btn-outline-light btn-shift-left" onclick="javascript: void (0);"><i class="fa fa-chevron-left" style="color:#BE4916"></i></button>
+                                                </div>
+                                                <div class="col">
+                                                    <h3 class="text-center text-main text-semibold">
+                                                        @Model.EvaluationTypes[i].Title
+                                                    </h3>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="button" class="float-right btn btn-outline-light text-right btn-shift-right" onclick="javascript: void (0);"><i class="fa fa-chevron-right" style="color:#1E5F8B"></i></button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Continuum Evaluation Table -->
+                                            <table id="tableEvaluationType-@Model.EvaluationTypes[i].ID" class="table table-bordered table-hover table-responsive toggle-circle" data-page-size="7">
+
+                                                <!-- Continuum Evaluation Table Headers -->
+                                                <thead>
+                                                    <tr>
+                                                        @for (var level = 1; level < Model.Continuum[i].Count + 1; level++)
+                                                        {
+                                                            // hightlights item if it is not the first or last
+                                                            if (grade != 1)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    ViewBag.temp = "active";
+                                                                }
+                                                                else if (level == grade - 1)
+                                                                {
+                                                                    ViewBag.temp = "prevActive";
+                                                                }
+                                                                else if (level == grade + 1)
+                                                                {
+                                                                    ViewBag.temp = "postActive";
+                                                                }
+                                                                else
+                                                                {
+                                                                    ViewBag.temp = "";
+                                                                }
+                                                            }
+                                                            //hightlights very first item in continuum
+                                                            else if (grade == 1)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    ViewBag.temp = "active";
+                                                                }
+                                                                else if (level == grade + 1)
+                                                                {
+                                                                    ViewBag.temp = "postActive";
+                                                                }
+                                                                else if (level == grade + 2)
+                                                                {
+                                                                    ViewBag.temp = "postPostActive";
+                                                                }
+                                                                else
+                                                                {
+                                                                    ViewBag.temp = "";
+                                                                }
+                                                            }
+                                                            //highlights last item in continuum
+                                                            else if (grade == 14)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    ViewBag.temp = "active";
+                                                                }
+                                                                else if (level == grade - 1)
+                                                                {
+                                                                    ViewBag.temp = "prevActive";
+                                                                }
+                                                                else if (level == grade - 2)
+                                                                {
+                                                                    ViewBag.temp = "prevPrevActive";
+                                                                }
+                                                                else
+                                                                {
+                                                                    ViewBag.temp = "";
+                                                                }
+                                                            }
+                                                            <th data-sort-ignore="true" class="continuumContentHeader text-center @ViewBag.temp">
+                                                                @Model.Levels[level - 1].Letter<br />
+                                                                @Model.Levels[level - 1].TimeFrame
+                                                            </th>
+                                                        }
+                                                    </tr>
+                                                </thead>
+                                                <!-- Continuum Evaluation Table Radio Buttons -->
+                                                <tbody>
+                                                    <tr>
+                                                        @for (var level = 1; level < Model.Continuum[i].Count + 1; level++)
+                                                        {
+                                                            string temp = "";
+                                                            if (grade != 1)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    temp = "active";
+                                                                }
+                                                                else if (level == grade - 1)
+                                                                {
+                                                                    temp = "prevActive";
+                                                                }
+                                                                else if (level == grade + 1)
+                                                                {
+                                                                    temp = "postActive";
+                                                                }
+                                                                else
+                                                                {
+                                                                    temp = "";
+                                                                }
+                                                            }
+                                                            else if (grade == 1)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    temp = "active";
+                                                                }
+                                                                else if (level == grade + 1)
+                                                                {
+                                                                    temp = "postActive";
+                                                                }
+                                                                else if (level == grade + 2)
+                                                                {
+                                                                    temp = "postPostActive";
+                                                                }
+                                                                else
+                                                                {
+                                                                    temp = "";
+                                                                }
+                                                            }
+                                                            else if (grade == 14)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    temp = "active";
+                                                                }
+                                                                else if (level == grade - 1)
+                                                                {
+                                                                    temp = "prevActive";
+                                                                }
+                                                                else if (level == grade - 2)
+                                                                {
+                                                                    temp = "prevPrevActive";
+                                                                }
+                                                                else
+                                                                {
+                                                                    temp = "";
+                                                                }
+                                                            }
+                                                            <td class="continuumContent text-center @temp">
+                                                                <input type="radio" name="@Model.EvaluationTypes[i].ID" id="@(Model.Levels[level - 1].Letter)1" />
+                                                                @Html.Label(Model.Levels[level - 1].Letter.ToString() + 1)
+                                                                <input type="radio" name="@Model.EvaluationTypes[i].ID" id="@(Model.Levels[level - 1].Letter)2" />
+                                                                @Html.Label(Model.Levels[level - 1].Letter.ToString() + 2)
+                                                                <input type="radio" name="@Model.EvaluationTypes[i].ID" id="@(Model.Levels[level - 1].Letter)3" />
+                                                                @Html.Label(Model.Levels[level - 1].Letter.ToString() + 3)
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                </tbody>
+                                                <!-- Continuum Evaluation Table Basic IDs -->
+                                                <tbody>
+                                                    <tr>
+                                                        @for (var level = 1; level < Model.Continuum[i].Count + 1; level++)
+                                                        {
+                                                            string temp = "";
+                                                            string profLevel = "";
+                                                            string backgroundColor = "";
+                                                            // if grade level is not the first or last in the continuum
+                                                            if (grade != 1)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    temp = "active";
+                                                                    profLevel = "Proficient";
+                                                                    backgroundColor = "bg-greenJewel";
+
+                                                                }
+                                                                else if (level == grade - 1)
+                                                                {
+                                                                    temp = "prevActive";
+                                                                    profLevel = "Basic";
+                                                                    backgroundColor = "bg-yellowFuel";
+                                                                }
+                                                                else if (level == grade + 1)
+                                                                {
+                                                                    temp = "postActive";
+                                                                    profLevel = "Advanced";
+                                                                    backgroundColor = "bg-blueTradewind";
+                                                                }
+                                                                else if (level < grade - 1)
+                                                                {
+                                                                    temp = "";
+                                                                    profLevel = "Below Basic";
+                                                                    backgroundColor = "bg-orangeRoughy";
+                                                                }
+
+                                                                else if (level > grade + 1)
+                                                                {
+                                                                    temp = "";
+                                                                    profLevel = "Advanced+";
+                                                                    backgroundColor = "bg-blueBluemine";
+                                                                }
+                                                            }
+                                                            // if grade level is the first in the continuum
+                                                            else if (grade == 1)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    temp = "active";
+                                                                    profLevel = "Proficient";
+                                                                    backgroundColor = "bg-greenJewel";
+                                                                }
+                                                                else if (level == grade + 1)
+                                                                {
+                                                                    temp = "postActive";
+                                                                    profLevel = "Advanced";
+                                                                    backgroundColor = "bg-blueTradewind";
+                                                                }
+                                                                else if (level == grade + 2)
+                                                                {
+                                                                    temp = "postPostActive";
+                                                                    profLevel = "Advanced+";
+                                                                    backgroundColor = "bg-blueBluemine";
+                                                                }
+                                                                else
+                                                                {
+                                                                    temp = "";
+                                                                    profLevel = "Advanced+";
+                                                                    backgroundColor = "bg-blueBluemine";
+                                                                }
+                                                            }
+                                                            // if grade level is the last in the continuum
+                                                            else if (grade == 14)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    temp = "active";
+                                                                    profLevel = "Proficient";
+                                                                    backgroundColor = "bg-greenJewel";
+                                                                }
+                                                                else if (level == grade - 1)
+                                                                {
+                                                                    temp = "prevActive";
+                                                                    profLevel = "Basic";
+                                                                    backgroundColor = "bg-yellowFuel";
+                                                                }
+                                                                else if (level == grade - 2)
+                                                                {
+                                                                    temp = "prevPrevActive";
+                                                                    profLevel = "Below Basic";
+                                                                    backgroundColor = "bg-orangeRoughy";
+                                                                }
+                                                                else
+                                                                {
+                                                                    temp = "";
+                                                                    profLevel = "Below Basic";
+                                                                    backgroundColor = "bg-orangeRoughy";
+                                                                }
+                                                            }
+                                                            <td class=" @backgroundColor continuumContent text-center @temp">
+                                                                <p style="color:white">@profLevel</p>
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                </tbody>
+
+                                                <!-- Continuum Evaluation Table Pagination -->
+                                                <tfoot>
+                                                    <tr>
+                                                        @for (var level = 1; level < Model.Continuum[i].Count + 1; level++)
+                                                        {
+                                                            string temp = "";
+                                                            if (grade != 1)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    temp = "active";
+                                                                }
+                                                                else if (level == grade - 1)
+                                                                {
+                                                                    temp = "prevActive";
+                                                                }
+                                                                else if (level == grade + 1)
+                                                                {
+                                                                    temp = "postActive";
+                                                                }
+                                                                else
+                                                                {
+                                                                    temp = "";
+                                                                }
+                                                            }
+                                                            else if (grade == 1)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    temp = "active";
+                                                                }
+                                                                else if (level == grade + 1)
+                                                                {
+                                                                    temp = "postActive";
+                                                                }
+                                                                else if (level == grade + 2)
+                                                                {
+                                                                    temp = "postPostActive";
+                                                                }
+                                                                else
+                                                                {
+                                                                    temp = "";
+                                                                }
+                                                            }
+                                                            else if (grade == 14)
+                                                            {
+                                                                if (level == grade)
+                                                                {
+                                                                    temp = "active";
+                                                                }
+                                                                else if (level == grade - 1)
+                                                                {
+                                                                    temp = "prevActive";
+                                                                }
+                                                                else if (level == grade - 2)
+                                                                {
+                                                                    temp = "prevPrevActive";
+                                                                }
+                                                                else
+                                                                {
+                                                                    temp = "";
+                                                                }
+                                                            }
+
+                                                            <td class="continuumFooter @temp">
+                                                                @Html.Raw(Model.Continuum[i][level - 1].Guidelines)
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-9 mx-auto">
+                        <div class="">
+                            @Html.LabelFor(model => Model.Feedback)
+                            @Html.TextAreaFor(model => Model.Feedback, new { @class = "form-control" })
+                        </div>
+                        <div class="">
+                            @Html.LabelFor(model => Model.Comments)
+                            @Html.TextAreaFor(model => Model.Comments, new { @class = "form-control" })
+                        </div>
+                        <div class="">
+                            @Html.Label("Final Evaluation?")
+                            @Html.CheckBoxFor(model => Model.IsFinal)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel Footer -->
+                <div class="card-footer text-center">
+                    <button type="submit" onclick="updateScoreList(); " class="btn btn-primary">
+                        Submit
+                    </button>
+                    <i class="fa fa-info fa-rounded add-tooltip text-muted" data-toggle="tooltip" data-container="body" data-placement="bottom"
+                       data-original-title="Submit after you have evaluated all writing elements appropriate to this paper"></i>
+                </div>
+            </div>
+
+        }
+
+    </div>
+}
+
+@section Scripts {
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+
+    <!-- ------------------------ -->
+    <script>
+        //This whole shifting left and right is ineffiecent lots of reproduction of code. The table built for
+        //the continuum has three seperate for loops, one for the header, content, and footer. This forces changing a lot of classes in the css.
+        function shiftLeft() {
+            var table = $('.tab-pane.active').find("[id^='tableEvaluationType']:not([id$='foo-search'],[id$='filter-status'])");
+            var heading = table.find('thead tr th.active');
+            var content = table.find('tbody tr td.active');
+            var foot = table.find('tfoot tr td.active');
+            var col = heading.index();
+            $.fn.removeClassLeftCase = function () {
+                //Remove active classes
+                $(this).prev().removeClass("prevActive");
+                $(this).removeClass("active");
+                $(this).next().removeClass("postActive");
+                //Place active classes
+                $(this).prev().addClass("active");
+                $(this).addClass("postActive");
+                $(this).next().addClass("postPostActive");
+            }
+            $.fn.removeClassMiddleCase = function () {
+                //Remove active classes
+                $(this).prev().removeClass("prevActive");
+                $(this).removeClass("active");
+                $(this).next().removeClass("postActive");
+                //Place active classes
+                $(this).addClass("postActive");
+                $(this).prev().addClass("active");
+                $(this).prev().prev().addClass("prevActive");
+            }
+            $.fn.removeClassRightCase = function () {
+                //Remove active classes
+                $(this).prev().prev().removeClass("prevPrevActive");
+                $(this).prev().removeClass("prevActive");
+                $(this).removeClass("active");
+                //Place active classes
+                $(this).prev().prev().addClass("prevActive");
+                $(this).prev().addClass("active");
+                $(this).addClass("postActive");
+            }
+            //For edge case left
+            if (col == 1) {
+                heading.removeClassLeftCase();
+                content.removeClassLeftCase();
+                foot.removeClassLeftCase();
+            }
+            //For when the column is not at an edge case
+            else if (col > 1 && col < 13) {
+                heading.removeClassMiddleCase();
+                content.removeClassMiddleCase();
+                foot.removeClassMiddleCase();
+            }
+            //For when the column is end right
+            else if (col == 13) {
+                heading.removeClassRightCase();
+                content.removeClassRightCase();
+                foot.removeClassRightCase();
+            }
+        };
+        function shiftRight() {
+            var table = $('.tab-pane.active').find("[id^='tableEvaluationType']:not([id$='foo-search'],[id$='filter-status'])");
+            var heading = table.find('thead tr th.active');
+            var content = table.find('tbody tr td.active');
+            var foot = table.find('tfoot tr td.active');
+            var col = heading.index();
+            $.fn.removeClassLeftCase = function () {
+                //Remove active classes
+                $(this).removeClass("active");
+                $(this).next().removeClass("postActive");
+                $(this).next().next().removeClass("postPostActive");
+                //Place active classes
+                $(this).addClass("prevActive");
+                $(this).next().addClass("active");
+                $(this).next().next().addClass("postActive");
+            }
+            $.fn.removeClassMiddleCase = function () {
+                //Remove active classes
+                $(this).prev().removeClass("prevActive");
+                $(this).removeClass("active");
+                $(this).next().removeClass("postActive");
+                //Place active classes
+                $(this).addClass("prevActive");
+                $(this).next().addClass("active");
+                $(this).next().next().addClass("postActive");
+            }
+            $.fn.removeClassRightCase = function () {
+                //Remove active classes
+                $(this).prev().removeClass("prevActive");
+                $(this).removeClass("active");
+                $(this).next().removeClass("postActive");
+                //Place active classes
+                $(this).prev().addClass("prevPrevActive");
+                $(this).addClass("prevActive");
+                $(this).next().addClass("active");
+            }
+            //Edge case left
+            if (col == 0) {
+                heading.removeClassLeftCase();
+                content.removeClassLeftCase();
+                foot.removeClassLeftCase();
+            }
+            //Middle case
+            else if (col > 0 && col < 12) {
+                heading.removeClassMiddleCase();
+                content.removeClassMiddleCase();
+                foot.removeClassMiddleCase();
+            }
+            //Edge case right
+            else if (col == 12) {
+                heading.removeClassRightCase();
+                content.removeClassRightCase();
+                foot.removeClassRightCase();
+            }
+        }
+    </script>
+
+    @*Script for shifting the continuum left or right with chevron buttons*@
+    <script>
+        $(function () {
+            // Handles shifting to the left.
+            $('.btn-shift-left').on('click',
+                function () {
+                    shiftLeft();
+                });
+            // Handles shifting to the right.
+            $('.btn-shift-right').on('click',
+                function () {
+                    shiftRight();
+                });
+        });
+    </script>
+
+    @*Script for the previous and next buttons on top right.  Scrolls through Score type*@
+    <script>
+        $(function () {
+            $('#category-previous').on('click', function () {
+                $('.list-categories > .active').prev('li').find('a').trigger('click');
+            });
+            $('#category-next').on('click', function () {
+                $('.list-categories > .active').next('li').find('a').trigger('click');
+            });
+        });
+    </script>
+
+    @*Init list for IDs of length 11.  Teachers do not have to score at every type. This way it will be passed as a zero*@
+    <script>
+        var selectList = [];
+        for (i = 0; i <= 10; i++) {
+            selectList[i] = 0;
+        }
+    </script>
+
+    @* Spript for putting IDs of Radio Buttons in list*@
+    <script>
+        var selectStringList;
+        $('input:radio').click(function () {
+            var id = $(this).attr('id');
+            var name = $(this).attr('name');
+            var index = parseInt(name) - 1;
+            selectList[index] = id;
+            selectStringList = selectList.toString();
+            console.log(selectStringList);
+        });
+        function updateScoreList() {
+            $("#StringID").val(selectStringList);
+        }
+
+        $('.list-group-item').click(function () {
+            $('.list-group-item').each(function () {
+                $(this).removeClass('active')
+            })
+            $(this).addClass('active')
+        })
+
+        $('.conventions').click(function () {
+            if ($('.subtab').is(":visible")) {
+                $('.subtab').each(function () {
+                    $(this).slideUp();
+                })
+            }
+            else {
+                $('.subtab').each(function () {
+                    $(this).show('normal', function () {
+                        $(this).css('display', 'block')
+                    });
+                })
+            }
+        })
+    </script>
+}
+

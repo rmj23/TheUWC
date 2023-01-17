@@ -1,0 +1,45 @@
+﻿@model Source.Models.ProjectIdeasCulminatingActivitiesInsertViewModel
+
+<div class="card">
+    <div class="card-body">
+        <table class="table table-bordered table-hover toggle-circle" data-page-size="20" id="tableProjectIdeas">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Grade Levels</th>
+                    <th>Idea</th>
+                    <th>Keywords</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var idea in Model.Models)
+                {
+                    <tr>
+                        <td>@idea.Title</td>
+                        <td>@idea.GradeLevels</td>
+                        <td>@idea.Idea</td>
+                        <td>@idea.Keywords</td>
+                        <td>
+                            @Html.ActionLink("Edit", "ProjectIdeasCulminatingActivitiesEdit", new { ID = idea.ID }) | @Html.ActionLink("Delete", "ProjectIdeasCulminatingActivitiesDelete",
+                         new { ID = idea.ID})
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <div class="text-center">
+                            <ul class="pagination"></ul>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+
+

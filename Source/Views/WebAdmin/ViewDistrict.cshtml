@@ -1,0 +1,45 @@
+﻿@model Source.Models.DistrictModelViewModel
+@{
+    ViewBag.Title = "ViewDistrict";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+<style type="text/css">
+    </style>
+<div class="card">
+    <div class="card-header">
+        <h3 class="padding">View Districts</h3>
+    </div>
+<div class="card-body">
+    <table id="DistrictTable" class="table table-bordered table-hover toggle-circle" cellspacing="0" style="width:100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>District Code</th>
+                <th>District Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model.Districts)
+            {
+                <tr>
+                    <td>@Html.ActionLink("View", "ViewIndividualDistrict", new { DistrictID = @x.ID })</td>
+                    <td>@x.Code</td>
+                    <td>@x.DistrictName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+
+<script>
+    $(function () {
+        $("#DistrictTable").dataTable();
+    })
+</script>
+
+
+
+

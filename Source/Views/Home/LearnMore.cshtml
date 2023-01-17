@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "LearnMore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+       $("#knowmore").hide();
+    });
+    function toggleSection(knowmorebutton) {
+        $("#knowmore").toggle();
+    }
+</script>
+<!-- BREADCRUMBS -->
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title pull-left">LEARN MORE</h1>
+    </div>
+</div>
+<!-- END BREADCRUMBS -->
+<!--PAGE CONTENT-->
+<div class="page-content">
+    <div class="container">
+        <section>
+            <p>
+                <b>Writing, The Neglected “R.”</b> Over the past 20 years, writing instruction in the U.S. 
+                has become the most neglected area of our K-12 curriculum.  
+                We agree with the College Board that it is time for a writing revolution.  
+                If you agree, <a href="@Url.Action("Contact", "Home")">contact us</a> to see how we can help you start a writing movement in your schools.      
+            </p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/0XAvyW84z3M?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+        <section>
+            <p>
+                <b>Uni-SPIRE's MISSION:</b> Uni-Spire aims to impact PK-12 teachers’ understanding of effective instruction in English language arts, mathematics, science, history and the 
+                integration of these disciplines by producing quality research-based professional development, formative assessments, data analyses, and curricular
+                materials that lead to readiness for their K-12 education, college, careers and productive citizenship in a democratic society.  We aim to create
+                a collaborative educational environment where integration, innovation, creative and critical thinking, problem solving, perseverance, and passion blossom.
+            </p>
+        </section>
+        <section>
+            <p>
+                <b>Uni-SPIRE’s K-12 Solution:</b>  Uni-SPIRE’s Universal Writing Continuum (UWC) Version 2.0  is a comprehensive solution for empowering K-12 writers. 
+                Our online platform enables teachers in all content areas to evaluate written or multi-media communications and refocus instruction to maximize students’ growth. 
+                Students access written feedback from their teachers to encourage revision and improvement. The UWC is built on global standards, correlated to the CCSS, 
+                and based on criteria for 10 elements of writing.
+                The proficiency band at the beginning of each year shifts to gradually raise expectations within a grade level to encourage continuous progress.
+            </p>
+            <p>
+                We believe that students learn to write by frequently writing in many different contexts for many purposes. 
+                Our goals are to help make teachers more informed about writers’ needs, to make the assessment process easier and less time-consuming, 
+                and to give teachers useful suggestions of ways to engage their students in writing. We believe that students can benefit greatly from 
+                self-evaluation and monitoring their own growth as writers. Do you have the same goals and beliefs?
+                <a href="javascript:toggleSection('knowmore');">Want to know more?</a>
+            </p>
+            <div id="knowmore">
+                <p>
+                    <b>Informed Instruction. Writing across the Curriculum.</b>
+                    Writing on the job demands greater flexibility; therefore, the Universal Writing Continuum doesn’t limit students’ writing to a specified
+                    prompt or a few text types like most competitors. UWC promotes student choice, creativity, personalized learning and maximizes writing progress.
+                    Because writing is a means for assessing learning across the curriculum, the UWC can be informative to all teachers, not just the English teacher.
+                    Students need as many opportunities to write in a variety of contexts from pre-school through high school to truly prepare them for the demands of
+                    higher education and future careers.
+                </p>
+                <p>
+                    <b>Teachers as Decision Makers.</b>
+                    The UWC is NOT a computer-scored assessment. Teachers make all of the assessment and instructional decisions---the computer is a tool to make this
+                    process more reliable, efficient, and informative. Teachers can easily assess and monitor students' progress, set goals for individual students and
+                    their class, and plan instruction based on assessment results.
+                </p>
+                <p>
+                    <b>Meeting NCTE and IRA Standards.</b>
+                    The UWC has been evaluated as meeting the criteria established by the National Council of Teachers of English (NCTE) for formative assessment (2013)
+                    and by the standards for reading and writing assessment established by NCTE and International Literacy Association (2009).
+                </p>
+                <p>
+                    <b>A Comprehensive Approach.</b>
+                    The Universal Writing Continuum gives families a personalized portal to follow their students’ growth over their entire school career.
+                    Students have tools to support and empower them as writers.  Administrators receive benchmark reports to keep them informed on student
+                    progress. Teachers have engaging activities at their fingertips, support for lesson planning, and resources that make their teaching
+                    writing more effective.  We know teaching writing is difficult, so our goal has been to build a platform that can make teachers’ jobs
+                    effective and efficient.
+                </p>
+            </div>
+
+        </section>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿@model Source.Models.EditScoreViewModel
+@{
+    ViewBag.Title = "EditScore";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<h2>Edit Score</h2>
+@using(Html.BeginForm("EditScore", "Evaluation", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.PaperID)
+    @Html.HiddenFor(model => model.Score.ID)
+    @Html.HiddenFor(model => model.Score.EvaluationID);
+    @Html.HiddenFor(model => model.GradeID);
+    @Html.HiddenFor(model => model.Score.ScoreTypeID);
+<div class="panel">
+    <div class="panel-body">
+        <section class="form-horizontal">
+            <div class="col-md-12">
+                <h4>@Model.Score.ScoreType</h4>
+            </div>
+            <div class="col-md-12">
+                @Html.TextBoxFor(model => model.Score.ScoreData)
+            </div>
+            <div class="col-md-12">
+                @Html.Label("Final Score?")
+                @Html.CheckBoxFor(model => Model.Score.IsFinal)
+            </div>
+            <div class="col-md-12 center">
+                <button class="center">Submit</button>
+            </div>
+        </section>
+    </div>
+</div>
+}
+

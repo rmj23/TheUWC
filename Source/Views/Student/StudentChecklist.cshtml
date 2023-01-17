@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Student Self-Evaluation";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+@section Styles{
+
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        function show(value) {
+
+            if ($("#pdfviewer").hasClass("hidden")) {
+                $("#pdfviewer").removeClass("hidden");
+            }
+            $('#pdfviewer').prop('src', value);
+        }
+    </script>
+
+
+}
+
+<div id="page-content">
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <div class="panel-body">
+
+                    <!--Dropdown-->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="studentChecklistGradeLevel">Grade Level</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="studentChecklistGradelevel" onchange="show(studentChecklistGradelevel.options[studentChecklistGradelevel.selectedIndex].value)">
+                                <option>-- Select a Grade Level --</option>
+                                <option value="@Url.Content("~/Content/Teacher/Resources/StudentChecklists/1st - 2nd Gr. Student Revision Checklist.pdf")">Grades 1-2</option>
+                                <option value="@Url.Content("~/Content/Teacher/Resources/StudentChecklists/2nd-3rd Gr. Student Revision Checklist.pdf")">Grades 2-3</option>
+                                <option value="@Url.Content("~/Content/Teacher/Resources/StudentChecklists/3-5 Gr. Student Revision Checklist.pdf")">Grades 3-5</option>
+                                <option value="@Url.Content("~/Content/Teacher/Resources/StudentChecklists/6-8 Gr. Student Revision Checklist.pdf")">Grades 6-8</option>
+                                <option value="@Url.Content("~/Content/Teacher/Resources/StudentChecklists/9-12 Gr. Student Revision Checklist.pdf")">Grades 9-12</option>
+                            </select>
+                        </div>
+                    </div>
+                    <iframe src="" id="pdfviewer" class="hidden" style="width:100%; min-height:650px;" allowfullscreen webkitallowfullscreen></iframe>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+

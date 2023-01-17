@@ -1,0 +1,208 @@
+﻿@model Source.Models.ParentFeedbackViewModel
+@{
+    ViewBag.Title = "Teacher Feedback";
+    Layout = "~/Views/Shared/_ParentLayout.cshtml";
+
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#tableMyFeedback');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableMyFeedback-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableMyFeedback-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableMyFeedback-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<!-- Page Title -->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+@if (Model.AllStudentsModel.Count == 0)
+{
+    <div id="page-content">
+        <div class="container-fluid">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        My Students
+                    </h3>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <p>No students linked to your account.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    for (int i = 0; i < Model.AllStudentsModel.Count; i++)
+    {
+        string name;
+        if (Model.AllStudentsModel[i].LastName.Last() == 's')
+        {
+            name = Model.AllStudentsModel[i].FirstName + " " + Model.AllStudentsModel[i].LastName + "' Teacher Feedback";
+        }
+        else
+        {
+            name = Model.AllStudentsModel[i].FirstName + " " + Model.AllStudentsModel[i].LastName + "'s Teacher Feedback";
+        }
+        if (Model.StudentsFeedback[i].StudentFeedback.Count == 0)
+        {
+            <div id="page-content">
+
+                <div class="container-fluid">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                @name
+                            </h3>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-body">
+                                <p>There are no papers uploaded yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="page-content">
+                <div class="container-fluid">
+                    <!-- Student Goals Panel -->
+                    <div class="panel">
+                        <!-- Panel Heading -->
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                @name
+                            </h3>
+                        </div>
+                        <!-- Panel Body -->
+                        <div class="panel-body">
+                            <!-- Class Goals Table -->
+                            @if (Model.StudentsFeedback[i].StudentFeedback != null)
+                            {
+                                <table id="tableMyFeedback" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                                    <!-- Table Headings -->
+                                    <thead>
+                                    <tr>
+                                        <th class="col-sm-3">Paper Title</th>
+                                        <th>Student Feedback</th>
+                                    </tr>
+                                    </thead>
+
+                                    <!-- Table Controls -->
+                                    <div class="pad-btm form-inline">
+                                        <div class="row">
+
+                                            <!-- Table Control: Dropdown -->
+                                            <div class="col-sm-6 text-xs-center hidden">
+                                                <div class="form-group">
+                                                    <label class="control-label">Evaluation Status</label>
+                                                    <select id="tableMyFeedback-filter-status" class="form-control">
+                                                        <option value="">Show all</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Table Control: Search -->
+                                            <div class="col-sm-6 col-xs-push-6 text-xs-center text-right">
+                                                <div class="form-group">
+                                                    <input id="tableMyFeedback-foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Table Content -->
+                                    <tbody>
+                                    <tr>
+                                    @foreach (var x in Model.StudentsFeedback[i].StudentFeedback)
+                                    {
+                                        if (x.studentFeedback == "" || x.studentFeedback == null)
+                                        {
+                                            <tr>
+
+                                                <td>@x.PaperTitle</td>
+                                                <td>Feedback was not left on this paper.</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>@x.PaperTitle</td>
+                                                <td>@x.studentFeedback</td>
+                                            </tr>
+                                        }
+                                    }
+                                    </tbody>
+
+                                    <!-- Table Footer -->
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="text-center">
+                                                <ul class="pagination"></ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+
+                                </table>
+                            }
+                            else
+                            {
+                                <div>
+                                    <p>No goals have been assigned yet.</p>
+                                </div>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
+
+

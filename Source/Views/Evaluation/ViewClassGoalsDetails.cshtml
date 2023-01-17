@@ -1,0 +1,70 @@
+﻿@model Source.Models.ViewClassGoalsViewModel
+@{
+    ViewBag.Title = "View Class Goal Details";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Datatables -->
+    <link href="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/css/dataTables.bootstrap.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/css/dataTables.responsive.css")" rel="stylesheet">
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/jquery.dataTables.js")"></script>
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/dataTables.bootstrap.js")"></script>
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/dataTables.responsive.min.js")"></script>
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/tables-datatables.js")"></script>
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <!-- View Class Goal Detail Table -->
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-control">
+                    <a href="@Url.Action("InsertClassGoals", "Evaluation")" class="demo-panel-ref-btn btn btn-success">
+                        <i class="fa fa-plus"></i> Insert Class Goals
+                    </a>
+                </div>
+                <h3 class="panel-title">View Class Goal Details</h3>
+            </div>
+            <div class="panel-body">
+                <table id="viewGoalsTable" class="table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+                    <!-- View Class Goal Detail Table Headings -->
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Date Added</th>
+                            <th>Deadline Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var Goal in Model.Goals)
+                        {
+                            <tr>
+                                <td>@Goal.fullDescription</td>
+                                <td>@Goal.dateAdded</td>
+                                <td>@Goal.deadlineDate</td>
+                                <td>@Html.ActionLink("Delete", "DeleteClassGoal", new { id = Goal.ID })</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    <!--===================================================-->
+    <!-- End Striped Table -->
+
+</div>

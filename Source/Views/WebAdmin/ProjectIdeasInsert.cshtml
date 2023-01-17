@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Project Ideas Insert";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+
+@model Source.Models.ProjectIdeasCulminatingActivitiesInsertViewModel
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                @ViewBag.Title
+            </div>
+        </div>
+
+        <section class="form-horizontal">
+            <div class="card-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.PICAModel.Title, new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(model => Model.PICAModel.Title, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.PICAModel.GradeLevels, new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DropDownListFor(model => Model.PICAModel.GradeLevels, Model.GradeLevels, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.PICAModel.Idea, new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextAreaFor(model => Model.PICAModel.Idea, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.PICAModel.Keywords, new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(model => Model.PICAModel.Keywords, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group text-center">
+                    <button id="submitBtn" class="btn btn-success">Insert</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="resultsWrapper">
+        @Html.TextBoxFor(model => Model.PICAModel.Title, new { @class = "form-coontrol" })
+    </div>
+</div>
+
+
+<script>
+
+    $(function () {
+        $("#resultsWrapper").load('@(Url.Action("GetProjectIdeas"))');
+
+            // Filtering
+            var filtering = $('#tableProjectIdeas');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableProjectIdeas-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableProjectIdeas-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableProjectIdeas-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+    });
+
+    $(function () {
+        $("#submitBtn").click(function () {
+            var title = $('#PICAModel_Title').val();
+            var e = document.getElementById("PICAModel_GradeLevels");
+            var grade = e.options[e.selectedIndex].value;
+            var idea = $('#PICAModel_Idea').val();
+            var keywords = $('#PICAModel_Keywords').val();
+            var model = { Title: title, GradeLevelRangeID: grade, Idea: idea, Keywords: keywords };
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: '@Url.Action("ProjectIdeasInsert")',
+                data: model,
+                success: function () {
+                    $("#resultsWrapper").load('@(Url.Action("GetProjectIdeas"))');
+                }
+
+            })
+        })
+    });
+
+    //kick off partial load after page loads for the first time
+    $(function () {
+        $("#resultsWrapper").load('@(Url.Action("GetProjectIdeas"))');
+    });
+</script>
+

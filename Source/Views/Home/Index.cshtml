@@ -1,0 +1,436 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section Styles {
+    <!-- Animate CSS -->
+    <link href="@Url.Content("~/Bundles/AnimateCSS/css/animate.css")" rel="stylesheet" type="text/css" />
+    <!--Custom sytles for home page-->
+    <link href="~/Styles/Home/homeStyle.css" rel="stylesheet" type="text/css" />
+}
+<style>
+    @@media only screen and (min-width: 200px) and (max-width: 950px) {
+        .highlight-size {
+            max-width: 90%;
+        }
+
+        .hero-image {
+            height: 50em;
+            overflow: hidden;
+        }
+    }
+
+    @@media only screen and (min-width: 950px) {
+        .highlight-size {
+            max-width: 25%;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+        }
+    }
+</style>
+
+
+@section RenderBlockingScripts {
+
+    <script>
+        // Benefits Tab Selection
+        $(document).ready(function () {
+
+            $('#teachers-benefits-tab > a[href="#teachers"]').on('click', function () {
+                $('#teachers-benefits-tab').addClass('active');
+                $('#students-benefits-tab').removeClass('active');
+                $('#families-benefits-tab').removeClass('active');
+                $('#administrators-benefits-tab').removeClass('active');
+            });
+
+            $('#students-benefits-tab > a[href="#students"]').on('click', function () {
+                $('#teachers-benefits-tab').removeClass('active');
+                $('#students-benefits-tab').addClass('active');
+                $('#families-benefits-tab').removeClass('active');
+                $('#administrators-benefits-tab').removeClass('active');
+            });
+
+            $('#families-benefits-tab > a[href="#families"]').on('click', function () {
+                $('#teachers-benefits-tab').removeClass('active');
+                $('#students-benefits-tab').removeClass('active');
+                $('#families-benefits-tab').addClass('active');
+                $('#administrators-benefits-tab').removeClass('active');
+            });
+            $('#administrators-benefits-tab > a[href="#administrators"]').on('click', function () {
+                $('#teachers-benefits-tab').removeClass('active');
+                $('#students-benefits-tab').removeClass('active');
+                $('#families-benefits-tab').removeClass('active');
+                $('#administrators-benefits-tab').addClass('active');
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#readmoreteachers").hide();
+            $("#readmorestudents").hide();
+            $("#readmoreadministrators").hide();
+        });
+        function toggleSection(readmoreselection) {
+            switch (readmoreselection) {
+                case 'readmoreteachers':
+                    $("#readmoreteachers").toggle();
+                    break;
+                case 'readmorestudents':
+                    $("#readmorestudents").toggle();
+                    break;
+                case 'readmoreadministrators':
+                    $("#readmoreadministrators").toggle();
+            }
+        }
+    </script>
+}
+
+<!-- HERO UNIT -->
+<section class="hero-unit-slider slider-responsive">
+    <!--Can add more items for more backgrounds-->
+    <div class="item">
+        <img src="@Url.Content("~/Images/stock/LogoColors.png")" class="hero-image" alt="Slider Image">
+        <div class="caption-margin carousel-caption">
+            <h2 class="hero-heading">The Universal Writing Continuum</h2>
+            <p style="padding-bottom: 15%" class="lead">Inspiring K-12 Writers</p>
+            <p style="font-size: 125%">
+                Share experiences, teach students to think and reflect,
+                and writing will improve. <br />
+                Add a knowledgeable teacher who
+                provides demonstrations, gives meaningful feedback,
+                <br />
+                and encourages
+                risk taking, and writing will soar.
+            </p>
+            <a href="@Url.Action("LearnMore", "Home")" class="btn btn-lg hero-button">LEARN MORE</a>
+        </div>
+    </div>
+</section>
+<!-- END HERO UNIT -->
+<!-- BENEFITS FOR EDUCATORS -->
+<section class="benefits">
+
+    <div class="row">
+
+        <div>
+            <div class="container">
+
+                <!-- BENEFITS TAB ITEMS -->
+                <div class="row text-center nav nav-pills tabs-iconized">
+                    <div class="col-lg-3 col-xs-12 active" id="teachers-benefits-tab">
+                        <a href="#teachers" role="tab" data-toggle="tab">
+                            <h3> <strong>TEACHERS</strong></h3>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-xs-12" id="students-benefits-tab">
+                        <a href="#students" role="tab" data-toggle="tab">
+                            <h3><strong>STUDENTS</strong></h3>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-xs-12" id="families-benefits-tab">
+                        <a href="#families" role="tab" data-toggle="tab">
+                            <h3><strong>FAMILIES</strong></h3>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-xs-12" id="administrators-benefits-tab">
+                        <a href="#administrators" role="tab" data-toggle="tab">
+                            <h3><strong>ADMINISTRATORS</strong></h3>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- BENEFITS TAB CONTENT -->
+                <div class="tab-content">
+                    <!--TEACHERS-->
+                    <div class="tab-pane fade in active" id="teachers">
+                        <!-- SECTION CONTENT -->
+                        <div class="section-content">
+                            <!-- Benefits for Teachers-->
+                            <div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Save time evaluating writing with the Universal Writing Continuum!</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>
+                                            • Understand what’s important to teach in writing because we break standards
+                                            down in a “teachable” progression of skills consistent with most existing school curricula.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Evaluate students’ writing at their individual levels on up to 10 writing elements, assisting with differentiation.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>
+                                            • Document specific written and oral feedback to students, aiding students in taking the next steps for writing improvement.
+                                            <!--Add Link-->
+                                            <a href="javascript:toggleSection('readmoreteachers')">Read More</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="readmoreteachers">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Evaluate any type of writing from math notebooks to essays in all content areas to kindergarten narratives with just a few clicks.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Access individual and class data at a glance on easy to read charts.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Set instructional goals for individuals and classes.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>
+                                            • Search a bank of 1,000 instructional engagements to create their own lesson plans,
+                                            store these on their dashboard and search for them by date, standard or keyword.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Save personal lesson plans in an easy to use format for mini lessons or other assignments.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--STUDENTS-->
+                    <div class="tab-pane fade" id="students">
+                        <!-- SECTION CONTENT -->
+                        <div class="section-content">
+                            <!-- Benefits for Students -->
+                            <div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Are empowered to write to inform, argue, and entertain through print and multi-media.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Receive specific teacher feedback to learn their next steps for improving writing. </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>
+                                            • Monitor their own progress and can compare their own work to grade-level expectations.
+                                            <!--Add Link-->
+                                            <a href="javascript:toggleSection('readmorestudents')">Read More</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="readmorestudents">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Self-evaluate their own writing with checklists.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Maintain their K-12th grade electronic writing portfolio by selecting their best writing pieces to be submitted for benchmark papers. </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>
+                                            • Have available a glossary, graphic organizers, exemplar writing samples, inspirational quotes,
+                                            and other resources to enhance their writing experiences.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--FAMILIES-->
+                    <div class="tab-pane fade" id="families">
+                        <!-- SECTION CONTENT -->
+                        <div class="section-content">
+                            <!-- Benefits for Families -->
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• View teacher feedback in real time as teachers provide feedback to students.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>
+                                            • Watch their students’ grow monthly, annually and across their entire school career with access to students’
+                                            electronic writing portfolios.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--ADMINISTRATORS-->
+                    <div class="tab-pane fade" id="administrators">
+                        <!-- SECTION CONTENT -->
+                        <div class="section-content">
+                            <!-- Benefits for Administrators -->
+                            <div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>
+                                            • Access the benchmark reports for each registered teacher in the school.
+                                            Graphs indicate the class percentage of students that are within the below basic, basic, proficient, advanced and advanced plus ranges.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Access the individual student, class and grade level data, and an annual progress graph. </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>
+                                            • Receive reports on teachers' usage of the UWC for formative assessment.
+                                            <!--Add Link-->
+                                            <a href="javascript:toggleSection('readmoreadministrators')">Read More</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="readmoreadministrators">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• Can expect teachers to work together with the UWC to improve reliability of evaluation from grade to grade.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="boxed-content">
+                                        <p>• At a glance, see how students are progressing and areas that teachers may need additional professional development.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+<!-- END INTRO -->
+
+<div class="container">
+    <!-- SECTION CONTENT -->
+    <div class="section-content">
+
+        <!-- ICON Benefits-->
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="boxed-content">
+                    <i class="fa fa-pencil-square-o"></i>
+                    <h2 class="boxed-content-title">Assess...</h2>
+                    <p>
+                        Students’ writing and track their progress throughout their K-12 education.
+                        Encourage student to self-evaluate and self-monitor their growth as writers.
+                        Share benchmark data with administrators.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="boxed-content">
+                    <i class="fa fa-users"></i>
+                    <h2 class="boxed-content-title">Connect...</h2>
+                    <p>
+                        With students, providing timely written feedback.
+                        Connect with parents by sharing students’ writing portfolios.
+                        Connect with other teacher throughout the year with our online forum.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="boxed-content">
+                    <i class="fa fa-lightbulb-o"></i>
+                    <h2 class="boxed-content-title">Inspire...</h2>
+                    <p>
+                        Students with writing engagements created for grades K-1, 2-5 and 6-12.
+                        Challenge students to improve their writing proficiency across the content areas.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- MAIN FEATURES -->
+<div class="main-features">
+    <div class="container">
+        <div class="row">
+            <a href="@Url.Action("Assessment", "Home")">
+                <div class="col-md-3 col-xs-12 feature-item">
+                    <img class="img-responsive" src="~/Images/main_features/adw.jpg" alt="Assesment" />
+                    <h3 class="feature-heading">ASSESSMENT-INFORMED WRITING INSTRUCTION</h3>
+                </div>
+            </a>
+            <a href="@Url.Action("ProfessionalDevelopment", "Home")">
+                <div class="col-md-3 col-xs-12 feature-item">
+                    <img class="img-responsive" src="~/Images/main_features/pd.jpg" alt="Professional Development" />
+                    <h3 class="feature-heading">PROFESSIONAL DEVELOPMENT</h3>
+                </div>
+            </a>
+            <a href="@Url.Action("Reports", "Home")">
+                <div class="col-md-3 col-xs-12 feature-item">
+                    <img class="img-responsive" src="@Url.Content("~/Images/main_features/reports.jpg")" alt="Reports" />
+                    <h3 class="feature-heading">DATA AND REPORTS</h3>
+                </div>
+            </a>
+            <a href="@Url.Action("ElectronicPortfolio", "Home")">
+                <div class="col-md-3 col-xs-12 feature-item">
+                    <img class="img-responsive" src="@Url.Content("~/Images/main_features/ep.jpg")" alt="Electronic Portfolio" />
+                    <h3 class="feature-heading">STUDENTS AND PARENTS</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- END MAIN FEATURES -->
+<!--Highlight Area-->
+@*<div class="alert animated fadeInRight alert-bottom-right highlight-size">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h3 class="highlight-header">WRITING CONFERENCE FOR K-12 EDUCATORS, Jul 27-29, 2018</h3>
+        <p>
+            Uni-SPIRE and the University of North Carolina Wilmington invite you to attend our 4th Writing
+            Conference for K-12 educators at the beautiful Watson College of Education on the UNCW campus.
+            UNCW is located 10 minutes from Wrightsville Beach, so consider making this a family vacation.
+            We are currently accepting conference proposals, due April 17
+            (proposal link:
+            <a class="highlight-link" href="https://selectsurvey.uncw.edu/SelectSurveyNET/TakeSurvey.aspx?EID=981B48m00Bm30Bmo526B529B02K283BI55" target="_blank">UNCW Writing Conference for K-12 Educators</a>).
+            Watch this site for more information on keynote speakers and
+            registration details.
+            <br /><b>Contact Us</b> above for more information.
+        </p>
+    </div>*@
+
+@section Scripts {
+
+
+}

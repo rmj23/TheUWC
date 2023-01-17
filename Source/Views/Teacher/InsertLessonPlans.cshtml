@@ -1,0 +1,302 @@
+﻿@model Source.Models.LessonPlanModel
+@{
+    ViewBag.Title = "Insert Lesson Plans";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+    
+    <!-- Bootbox Modal Scripts -->
+    <script src="@Url.Content("~/Bundles/Nifty/v2.5/plugins/bootbox/js/bootbox.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#tableLessonPlanInsert');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableLessonPlanInsert-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableLessonPlanInsert-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableLessonPlanInsert-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+    
+    <script>
+
+        $(document).on("click", ".btn-displayLearningCycleInformation", function () {
+            bootbox.dialog({
+                title: "Examples of Learning Cycle Plans",
+                message:
+                        "<div class='tab-base'>" +
+                            "<!--Nav tabs-->" +
+                            "<ul class='nav nav-tabs'>" +
+                                "<li class='active'><a data-toggle='tab' href='#demo-ico-lft-tab-1' class='text-blueTradewind'>Engage</a></li>" +
+                                "<li><a data-toggle='tab' href='#demo-ico-lft-tab-2' class='text-blueTradewind'>Model</a></li>" +
+                                "<li><a data-toggle='tab' href='#demo-ico-lft-tab-3' class='text-blueTradewind'>Explore</a></li>" +
+                                "<li><a data-toggle='tab' href='#demo-ico-lft-tab-4' class='text-blueTradewind'>Explain</a></li>" +
+                                "<li><a data-toggle='tab' href='#demo-ico-lft-tab-5' class='text-blueTradewind'>Apply</a></li>" +
+                                "<li><a data-toggle='tab' href='#demo-ico-lft-tab-6' class='text-blueTradewind'>Share</a></li>" +
+                            "</ul>" +
+                            "<!-- Tabs Content -->" +
+                            "<div class='tab-content'>" +
+                                "<div id='demo-ico-lft-tab-1' class='tab-pane fade active in'>" +
+                                    "<h5>What you might say:</h3>" +
+                                    "<ul class='list-group'>" +
+                                        "<li class='list-group-item'>Last week when we read...</li>" +
+                                        "<li class='list-group-item'>How does this author...</li>" +
+                                        "<li class='list-group-item'>Some times when we are writing, we aren't sure about....</li>" +
+                                     "</ul>" +
+                                "</div>" +
+                                "<div id='demo-ico-lft-tab-2' class='tab-pane fade'>" +
+                                    "<h5>What you might say:</h3>" +
+                                    "<ul class='list-group'>" +
+                                        "<li class='list-group-item'>Let's examine how this author...</li>" +
+                                        "<li class='list-group-item'>Listen as I think aloud about this paragraph, reading like a writer would...</li>" +
+                                     "</ul>" +
+                                "</div>" +
+                                "<div id='demo-ico-lft-tab-3' class='tab-pane fade'>" +
+                                    "<h5>What you might say:</h3>" +
+                                    "<ul class='list-group'>" +
+                                        "<li class='list-group-item'>Now it's your turn to...</li>" +
+                                        "<li class='list-group-item'>Talk to your partner about what you think...</li>" +
+                                     "</ul>" +
+                                "</div>" +
+                                "<div id='demo-ico-lft-tab-4' class='tab-pane fade'>" +
+                                    "<h5>What you might say:</h3>" +
+                                    "<ul class='list-group'>" +
+                                        "<li class='list-group-item'>Let's review what we've learned about...</li>" +
+                                        "<li class='list-group-item'>Now tell me the steps for... so I can record them on our anchor chart.</li>" +
+                                     "</ul>" +
+                                "</div>" +
+                                "<div id='demo-ico-lft-tab-5' class='tab-pane fade'>" +
+                                    "<h5>What you might say:</h3>" +
+                                    "<ul class='list-group'>" +
+                                        "<li class='list-group-item'>When you go back to your seats, I want you to try...</li>" +
+                                     "</ul>" +
+                                "</div>" +
+                                "<div id='demo-ico-lft-tab-6' class='tab-pane fade'>" +
+                                    "<h5>What you might say:</h3>" +
+                                    "<ul class='list-group'>" +
+                                        "<li class='list-group-item'>Who would like to share an example of...</li>" +
+                                     "</ul>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>",
+                buttons: {
+                    success: {
+                        label: "Close",
+                        className: "btn-default",
+                        callback: function () {
+
+                        }
+                    }
+                }
+            });
+        });
+
+    </script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Insert Class Goals Form -->
+        <div class="card">
+            <div class="card-header">
+                
+                <div class="panel-control">
+                    <button type="button" class="btn btn-blueTradewind btn-displayLearningCycleInformation">
+                        Learning Cycle Plans
+                    </button>
+                </div>
+
+                <h3 class="card-title">@ViewBag.Title</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("InsertLessonPlans", "Teacher", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <div class="card-body">
+
+                    <!-- Title -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, new { @class = "col-sm-3 control-label" } )
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Title)
+                        </div>
+                    </div>
+
+                    <!-- Objective -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Objective, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => model.Objective, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Objective)
+                        </div>
+                    </div>
+
+                    <!-- Standard -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Standard, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => model.Standard, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Standard)
+                        </div>
+                    </div>
+                    
+                    <!-- Lesson Plan Insert Table -->
+                    <table id="tableLessonPlanInsert" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                        <!-- Table Headings -->
+                        <thead>
+                        <tr>
+                            <th style="width:20%;">Learning Cycle</th>
+                            <th data-sort-ignore="true">My Plan</th>
+                        </tr>
+                        </thead>
+
+                        <!-- Table Controls -->
+                        <div class="pad-btm form-inline">
+                            <div class="row">
+
+                                <!-- Table Control: Dropdown -->
+                                <div class="col-sm-6 text-xs-center hidden">
+                                    <div class="form-group">
+                                        <label class="control-label">Evaluation Status</label>
+                                        <select id="tableLessonPlanInsert-filter-status" class="form-control">
+                                            <option value="">Show all</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Table Control: Search -->
+                                <div class="col-sm-6 col-xs-push-6 text-xs-center text-right hidden">
+                                    <div class="form-group">
+                                        <input id="tableLessonPlanInsert-foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Table Content -->
+                        <tbody>
+                          
+                        <!-- Engage -->  
+                        <tr>
+                            <td>
+                                Engage
+                            </td>
+                            <td>
+                                @Html.TextAreaFor(model => model.EngageDesc, new { @class = "form-control" } )
+                            </td>
+                        </tr>
+                            
+                        <!-- Model -->
+                        <tr>
+                            <td>
+                                Model <br />
+                                (Use Mentor Text)
+                            </td>
+                            <td>
+                                @Html.TextAreaFor(model => model.ModelDesc, new { @class = "form-control" })
+                            </td>
+                        </tr>
+
+                            
+                        <!-- Explore -->
+                        <tr>
+                            <td>
+                                Explore <br />
+                                (Use Mentor Text)
+                            </td>
+                            <td>
+                                @Html.TextAreaFor(model => model.ExploreDesc, new { @class = "form-control" })
+                            </td>
+                        </tr>
+
+                            
+                        <!-- Explain -->
+                        <tr>
+                            <td>
+                                Explain <br />
+                                (Make Anchor Chart in Students' Words)
+                            </td>
+                            <td>
+                                @Html.TextAreaFor(model => model.ExplainDesc, new { @class = "form-control" })
+                            </td>
+                        </tr>
+
+                        <!-- Apply -->
+                        <tr>
+                            <td>
+                                Apply
+                            </td>
+                            <td>
+                                @Html.TextAreaFor(model => model.ApplyDesc, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                            
+                        <!-- Share -->
+                        <tr>
+                            <td>
+                                Share
+                            </td>
+                            <td>
+                                @Html.TextAreaFor(model => model.ShareDesc, new { @class = "form-control" })
+                            </td>
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="card-footer text-center">
+                    <button class="btn btn-success" type="submit">Add Lesson Plan</button>
+                </div>
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+    </div>
+</div>

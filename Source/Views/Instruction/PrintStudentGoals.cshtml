@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Source.Models.StudentGoalsModel>
+
+@{
+    Layout = null;
+
+    string studentFN = "";
+    string studentLN = "";
+    foreach (var x in Model)
+    {
+        studentFN = x.studentFN;
+        studentLN = x.studentLn;
+    }
+    string dateCompleted = "";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, inital-scale=1">
+    <link rel="stylesheet" href="~/Bundles/Bootstrap/css/bootstrap.min.css" />
+
+    <title>Print Student Goals</title>
+</head>
+<body>
+    <div class="container" style="margin-bottom: 1%;">
+        <h3>@studentFN @studentLN's Goals</h3>
+    </div>
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>Paper Title</th>
+                <th>Writing Element</th>
+                <th>Goal Description</th>
+                <th>Date Assigned</th>
+                <th>Deadline</th>
+                <th>Date Completed</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.goalPaperTitle</td>
+                    <td>@item.writingElement</td>
+                    <td>@item.Description</td>
+                    <td>@item.dateAdded.ToShortDateString()</td>
+                    <td>@item.deadlineDate.ToString().Substring(0, 10)</td>
+                    <td>@{
+                            if (!item.dateFinished.ToString().IsEmpty()) {
+                                dateCompleted = item.dateFinished.ToString();
+                            }
+                        }
+                        @dateCompleted</td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

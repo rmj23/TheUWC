@@ -1,0 +1,270 @@
+﻿@model Source.Models.StudentPortfolioViewModel
+
+
+@{
+    ViewBag.Title = "StudentPortfolio";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#tableStudentPortfolio');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableStudentPortfolio-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableStudentPortfolio-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableStudentPortfolio-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">Student Portfolio</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+
+<div id="page-content">
+    <div class="container-fluid">
+        <div class="panel">
+
+            <!-- Class Selections Form -->
+            <div class="panel-heading">
+                <h3 class="panel-title">Student Portfolio </h3>
+            </div>
+            <div class="panel-body">
+                <!-- Selections Form -->
+                <section class="form-horizontal">
+                    <div class="panel-body">
+
+                        @using (Html.BeginForm("StudentPortfolio", "Student", FormMethod.Post))
+                        {
+                            Html.RenderPartial("_YearCourseSelection", Model);
+
+                        }
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+
+        <!-- Panel Heading -->
+        <div class="panel-heading">
+            <h3 class="panel-title">
+
+                <!-- Selected Student -->
+                <span class="btn-group">
+                    <button class="btn btn-default">
+                        <i class="fa fa-user"></i>
+                    </button>
+                    <button class="btn btn-default">@Source.Models.SessionModel.GetUserName(HttpContext.Current.Request.RequestContext)</button>
+                </span>
+
+                <!-- Selected Class -->
+
+                <span class="btn-group">
+                    <button class="btn btn-default">
+                        <i class="fa fa-university"></i>
+                    </button>
+
+
+                    <button class="btn btn-default btn-academicYear">
+                        <script>
+                            $(function () {
+                                $(".btn-academicYear").html($("#YearID option:selected").text());
+                            });
+                        </script>
+                    </button>
+                </span>
+
+                <!-- Selected Academic Year-->
+                <span class="btn-group">
+                    <button class="btn btn-default">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                    <button class="btn btn-default btn-course">
+                        <script>
+                            $(function () {
+                                $(".btn-course").html($("#CourseID option:selected").text());
+                            });
+                        </script>
+                    </button>
+                </span>
+
+            </h3>
+        </div>
+
+
+
+        <!-- Panel Body -->
+        <div class="panel-body">
+
+            <!-- Student Portfolio Table -->
+            <table id="tableStudentPortfolio" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                <!-- Table Headings -->
+                <thead>
+                    <tr>
+                        <th>Paper Title, Type, Draft</th>
+                        <th>Evaluation Period</th>
+                        <th>Proficiency</th>
+                        <th>Score</th>
+                        <th>Download</th>
+                        <th>View Results</th>
+
+                    </tr>
+                </thead>
+
+                <!-- Table Controls -->
+                <div class="pad-btm form-inline">
+                    <div class="row">
+
+                        <!-- Table Control: Dropdown -->
+                        <div class="col-sm-6 text-xs-center">
+                            <div class="form-group">
+                                <label class="control-label">Evaluation Status</label>
+                                <select id="tableStudentPortfolio-filter-status" class="form-control">
+                                    <option value="">Show all</option>
+                                    <option value="incomplete">Incomplete</option>
+                                    <option value="scored">Scored</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Table Control: Search -->
+                        <div class="col-sm-6 text-xs-center text-right">
+                            <div class="form-group">
+                                <input id="tableStudentPortfolio-foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Table Content -->
+                <tbody>
+                    @if (Model.AllPapers != null)
+                    {
+
+                        foreach (var Paper in Model.AllPapers)
+                        {
+                            if (Paper.Paper == null)
+                            {
+                                if (Paper.evaluationDate != null)
+                                {
+                                    <tr>
+                                        <td>@Paper.PaperTitle - @Paper.paperTypeDescription - @Paper.Draft</td>
+                                        <td>@Paper.evaluationDate</td>
+                                        <td>@Paper.HolisticScoreLetter</td>
+                                        <td>Paper Not Uploaded</td>
+                                        <td>@Html.ActionLink("View Results", "ViewResults", new { PaperID = Paper.PaperID })</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    string title = Paper.PaperTitle.ToString() + Paper.paperTypeDescription.ToString() + Paper.Draft.ToString();
+
+                                    <tr>
+                                        <td>@Paper.evalDescription</td>
+
+                                        <td>@Paper.HolisticScoreLetter</td>
+                                        <td>Paper Not Uploaded</td>
+                                        <td>No Results</td>
+                                    </tr>
+                                }
+                            }
+                            else //finish this
+                            {
+                                if (Paper.evaluationDate != null)
+                                {
+                                    <tr>
+                                        <td>@Paper.PaperTitle - @Paper.paperTypeDescription - @Paper.Draft</td>
+                                        <td>@Paper.evalDescription</td>
+
+                                        <td>@Paper.HolisticScoreLetter</td>
+                                        <td>@Html.ActionLink("Download", "ViewIndividualPaper", new { id = Paper.PaperID })</td>
+                                        <td>@Html.ActionLink("View Results", "ViewResults", new { PaperID = Paper.PaperID })</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    string title = Paper.PaperTitle.ToString() + Paper.paperTypeDescription.ToString() + Paper.Draft.ToString();
+
+                                    <tr>
+                                        <td>@Paper.evalDescription</td>
+                                        <td>@Paper.uploadDate</td>
+                                        <td>@Paper.evaluationDate</td>
+                                        @*<td>@Paper.ScoreData</td>*@
+                                        <td>@Paper.HolisticScoreLetter</td>
+                                        <td>Paper Not Uploaded</td>
+                                        <td>No Results</td>
+                                    </tr>
+                                }
+                            }
+
+
+                        }
+                    }
+                </tbody>
+                <!-- Table Footer -->
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <div class="text-center">
+                                <ul class="pagination"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+    </div>
+
+
+
+
+
+
+

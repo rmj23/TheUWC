@@ -1,0 +1,23 @@
+﻿@model Source.Models.ASchoolEvalSelectionViewModel
+
+@Html.HiddenFor(model => model.State)
+
+<!-- Evaluation Period Selection Field -->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="evaluationPeriod">Evaluation Period: </label>
+    <div class="col-sm-6">
+
+        @Html.DropDownListFor(model => Model.EvalPeriodID, Model.EvaluationPeriodDropDown, new { @class = "form-control", onchange = "$('#State').val('EvalPeriodSelected');this.form.submit();" })
+
+    </div>
+</div>
+
+<!-- School Selection Field -->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="school">School: </label>
+    <div class="col-sm-6">
+
+        @Html.DropDownListFor(model => Model.SchoolID, Model.SchoolDropDown, new { @class = "form-control", onchange = "$('#State').val('SchoolSelected');this.form.submit();" })
+
+    </div>
+</div>

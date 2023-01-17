@@ -1,0 +1,186 @@
+﻿@model Source.Models.DistrictModelViewModel
+@{
+    ViewBag.Title = "ViewIndividualDistrict";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+<style type="text/css">
+    .panel {
+        width: inherit !important;
+    }
+
+    .panel-heading {
+        padding-bottom: 10px;
+    }
+
+    .padding {
+        padding-top: 10px;
+        padding-left: 5px;
+    }
+</style>
+
+@{
+    var district = Model.DistrictModel;
+}
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="padding">District Information</h3>
+    </div>
+    <div class="panel-body">
+        <table id="DistrictTable" class="table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>@district.DistrictName</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>District Code:</td>
+                    <td>@district.Code</td>
+                </tr>
+                <tr>
+                    <td>Country:</td>
+                    <td>@district.Country</td>
+                </tr>
+                <tr>
+                    <td>Street Address:</td>
+                    <td>@district.Street</td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td>@district.City</td>
+                </tr>
+                <tr>
+                    <td>State:</td>
+                    <td>@district.State</td>
+                </tr>
+                <tr>
+                    <td>Zip Code:</td>
+                    <td>@district.ZipCode</td>
+                </tr>
+                <tr>
+                    <td>Superintendent Info: </td>
+                    <td>@district.SuperintendentName - @district.SuperintendentEmail - @district.SuperintendentPhone</td>
+                </tr>
+                <tr>
+                    <td>Asst. Superintendent Info:</td>
+                    <td>@district.AstSuperintendentName - @district.AstSuperintendentEmail - @district.SuperintendentPhone</td>
+                </tr>
+                <tr>
+                    <td>Curriculum Coordinator Info:</td>
+                    <td>@district.CurriculumCoordinatorName - @district.CurriculumCooridnatorEmail - @district.CurriculumCoordinatorPhone</td>
+                </tr>
+                <tr>
+                    <td>Accounts Payable Info:</td>
+                    <td>@district.AccountsPayableName - @district.AccountsPayableEmail - @district.AccountsPayablePhone</td>
+                </tr>
+                <tr>
+                    <td># of Elementary Schools:</td>
+                    <td>@district.ElemSchoolNumber</td>
+                </tr>
+                <tr>
+                    <td># of Middle Schools:</td>
+                    <td>@district.MidSchoolNumber</td>
+                </tr>
+                <tr>
+                    <td># of High Schools:</td>
+                    <td>@district.HighSchoolNumber</td>
+                </tr>
+                <tr>
+                    <td>Website</td>
+                    <td>@district.Website</td>
+                </tr>
+                <tr>
+                    <td>Licenses Purchased</td>
+                    <td>@district.LicensesPurchased</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (Model.Schools.Count != 0)
+{
+    <div class="panel">
+        <div class="panel-body">
+            <div class="panel-heading">
+                <h3 class="padding">Schools</h3>
+            </div>
+            @foreach (var school in Model.Schools)
+            {
+                <table class="table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>School Code</td>
+                            <td>Period</td>
+                            <td>Grade Levels</td>
+                            <td>School Admin Ext</td>
+                            <td>Secretary Last Name</td>
+                            <td>Secretary First Name</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @school.schoolName
+                            </td>
+                            <td>
+                                @school.schoolCode
+                            </td>
+                            <td>
+                                @school.Period
+                            </td>
+                            <td>
+                                @school.gradeLevels
+                            </td>
+                            <td>
+                                @school.schoolAdminExt
+                            </td>
+                            <td>
+                                @school.secretaryLastName
+                            </td>
+                            <td>
+                                @school.secretaryFirstName
+                            </td>
+                        </tr>
+                    </tbody>
+
+
+                </table>
+                var admins = Model.SchoolAdmins;
+                @*if (admins.Count != 0)
+                {
+                    <div class="panel-body">
+                        <h3>Admin Info</h3>
+                        @foreach (var admin in admins)
+                        {
+                            <p>@admin.LastName, @admin.FirstName - @admin.Email - @admin.PhoneNumber</p>
+                        }
+                    </div>
+                }
+                else
+                {
+
+                }*@
+            }
+        </div>
+    </div>
+}
+else
+{
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="padding">Schools</h3>
+    </div>
+    <div class="panel-body">
+        <p style="color: red;">No schools added to this district yet.</p>
+    </div>
+</div>
+}
+<script>
+    $(function () {
+        $("#DistrictTable").dataTable();
+    })
+</script>
+

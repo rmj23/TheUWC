@@ -1,0 +1,75 @@
+﻿@model Source.Models.ContactModel
+@{
+    ViewBag.Title = "Insert Web Admin Comment";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+
+
+@using (Html.BeginForm("InsertContactRequestComment", "WebAdmin", FormMethod.Post))
+{
+
+@Html.HiddenFor(Model => Model.ID)
+<div id="page-content">
+    <div class="container-fluid">
+        <div class="panel" style="overflow-x:auto;">
+            <div class="panel-body">
+                <table id="tableContactRequests" class="table table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Request Type</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Message</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>ZipCode</th>
+                            <th>Street Number</th>
+                            <th>Street Name</th>
+                            <th>Country</th>
+                            <th>Date Received</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Reason</td>
+                            <td>@Model.FirstName</td>
+                            <td>@Model.LastName</td>
+                            <td>@Model.Email</td>
+                            <td>@Model.Phone</td>
+                            <td>@Model.Message</td>
+                            <td>@Model.City</td>
+                            <td>@Model.State</td>
+                            <td>@Model.ZipCode</td>
+                            <td>@Model.StreetNumber</td>
+                            <td>@Model.StreetName</td>
+                            <td>@Model.Country</td>
+                            <td>@Model.TimeStamp</td>
+                            <td>@Model.Result</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel" style="overflow-x:auto;">
+                <section class="form-horizontal">
+                    <div class="panel-body" style="width:100%">
+                        @Html.TextAreaFor(Model => Model.WebAdminComments, new { @class = "form-control" })
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-default">Insert</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+

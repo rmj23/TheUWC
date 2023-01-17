@@ -1,0 +1,125 @@
+﻿@model Source.Models.AddParentViewModel
+@{
+    ViewBag.Title = "Add a Parent";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+
+}
+
+@section Scripts {
+
+}
+
+@section RenderBlockingScripts {
+
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Controls -->
+        <div class="card">
+            <div class="panel-heading">
+                <h3 class="panel-title">@Model.StudentName's Parents</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("AddParent", "Teacher", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => Model.StudentID)
+                @Html.HiddenFor(model => Model.CourseID)
+                <section class="form-horizontal">
+                    <div class="card-body">
+                        
+                        <!-- Parent Prefix Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentPrefix">Prefix: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.ParentModel.Prefix, new List<SelectListItem>() {
+                                    new SelectListItem {Text = "N/A", Value = "N/A", Selected = true},
+                                    new SelectListItem {Text = "Mr.", Value = "Mr."},
+                                    new SelectListItem {Text = "Mrs.", Value = "Mrs."},
+                                    new SelectListItem {Text = "Ms.", Value = "Mrs."},
+                                    new SelectListItem {Text = "Dr.", Value = "Dr."}
+                                }, new {@class = "form-control"})
+                            </div>
+                        </div>
+
+                        <!-- Parent First Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentFirstName">First Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.ParentModel.FirstName, new {@class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.ParentModel.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        
+                        <!-- Parent Middle Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentMiddleName">Middle Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.ParentModel.MiddleName, new { @class = "form-control" })
+                               
+                            </div>
+                        </div>
+
+                        <!-- Parent Last Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentLastName">Last Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.ParentModel.LastName, new {@class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.ParentModel.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        
+                        <!-- Parent Suffix Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentSuffix">Suffix: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.ParentModel.Suffix, new List<SelectListItem>() {
+                                    new SelectListItem {Text = "N/A", Value = "N/A", Selected = true},
+                                    new SelectListItem {Text = "Jr.", Value = "Jr."},
+                                    new SelectListItem {Text = "Sr.", Value = "Sr."}
+                                }, new {@class = "form-control"})
+                            </div>
+                        </div>
+                        
+                        <!-- Parent Email Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentEmail">Email: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.ParentModel.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ParentModel.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-default">Add Parent</button>
+                        </div>
+                    </div>
+                </section>
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+    </div>
+</div>
+

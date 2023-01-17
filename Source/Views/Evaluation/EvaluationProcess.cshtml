@@ -1,0 +1,112 @@
+﻿@model Source.Models.UploadPaperViewModel
+@{
+    ViewBag.Title = "Upload Paper";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+@section Styles {
+
+    <link rel="stylesheet" type="text/css" href="http://www.themeon.net/nifty/v2.5/plugins/dropzone/dropzone.min.css" />
+}
+
+@section Scripts {
+
+    <script src="http://www.themeon.net/nifty/v2.5/plugins/dropzone/dropzone.min.js"></script>
+    <script src="http://www.themeon.net/nifty/v2.5/js/demo/form-file-upload.js"></script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">Upload Paper</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Upload a Paper</h3>
+            </div>
+
+            @using (Html.BeginForm("EvaluationProcess", "Evaluation", FormMethod.Get))
+            {
+                Html.RenderPartial("_StudentSelection", Model);
+            }
+
+            <!-- Upload Paper Form -->
+            @if (Model.StudentID != -1)
+            {
+                using (Html.BeginForm("EvaluationProcess", "Evaluation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <section class="form-horizontal">
+                        <div class="panel-body">
+
+                            <!-- Paper Type Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ddlpaperType">Paper Type: </label>
+                                <div class="col-sm-6">
+                                    @Html.DropDownListFor(model => Model.Paper.PaperTypeID, Model.PaperTypeDropdown, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <!-- Evaluation Period Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="ddlpaperType">Evaluation Period: </label>
+                                <div class="col-sm-6">
+                                    @Html.DropDownListFor(model => Model.Paper.EvaluationPeriodID, Model.EvaluationPeriodDropDown, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <!-- Paper Title Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="paperTitle">Paper Title: </label>
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.Paper.PaperTitle, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            
+                            <!-- Draft Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="Draft">Draft: </label>
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.Paper.Draft, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <!-- Continuing Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="Continuing">Notitle </label>
+                                <div class="col-sm-6">
+                                    @Html.DropDownListFor(model => model.Paper.Continuing, new SelectListItem[] { new SelectListItem { Text = "Continuing", Value = "0" }, new SelectListItem { Text = "Final", Value = "1" } }, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <!-- Upload Paper Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">File input</label>
+                                <div class="col-sm-6">
+                                    <span class="pull-left btn btn-primary btn-file">
+                                        Browse... <input type="file" name="file" accept="application/pdf">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <!-- Submit Button -->
+                            <div class="form-group text-center">
+                                <button type="submit" name="submit" class="btn btn-default">Upload Paper</button>
+                            </div>
+                        </div>
+                    </section>
+                }
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+    </div>
+
+</div>

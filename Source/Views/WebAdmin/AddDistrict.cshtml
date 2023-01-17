@@ -1,0 +1,211 @@
+﻿@model Source.Models.DistrictModel
+@{
+    ViewBag.Title = "AddDistrict";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+<style type="text/css">
+    .panel {
+        width: inherit !important;
+    }
+
+    .panel-heading {
+        padding-bottom: 10px;
+    }
+
+    .padding {
+        padding-top: 10px;
+        padding-left: 5px;
+    }
+
+    .form-control {
+        width: 80%;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+        .form-group.required .control-label:after {
+            content: "*";
+            color: red;
+        }
+</style>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Add District</h2>
+        </div>
+        <div class="card-body">
+            <form id="form" class="form-horizontal">
+                <div class="form-group required">
+                    @Html.LabelFor(model => Model.DistrictName, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.DistrictName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => Model.Country, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.Country, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => Model.State, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.State, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="form-group required required">
+                    @Html.LabelFor(model => Model.City, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.City, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => Model.Street, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.Street, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => Model.ZipCode, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.ZipCode, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => Model.Code, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.Code, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => Model.SuperintendentName, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.SuperintendentName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => Model.SuperintendentEmail, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.SuperintendentEmail, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => Model.SuperintendentPhone, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.SuperintendentPhone, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.AstSuperintendentName, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.AstSuperintendentName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.AstSuperintendentEmail, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.AstSuperintendentEmail, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.AstSuperintendentPhone, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.AstSuperintendentPhone, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.CurriculumCoordinatorName, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.CurriculumCoordinatorName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.CurriculumCooridnatorEmail, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.CurriculumCooridnatorEmail, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.CurriculumCoordinatorPhone, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.CurriculumCoordinatorPhone, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.AccountsPayableName, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.AccountsPayableName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.AccountsPayableEmail, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.AccountsPayableEmail, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.AccountsPayablePhone, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.AccountsPayablePhone, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.ElemSchoolNumber, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.ElemSchoolNumber, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.MidSchoolNumber, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.MidSchoolNumber, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.HighSchoolNumber, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.HighSchoolNumber, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => Model.LicensesPurchased, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.LicensesPurchased, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Website, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => Model.Website, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button id="submitbtn" type="button" class="btn btn-success">Add</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#submitbtn").click(function () {
+        var form = $("form");
+        form.validate();
+        if (form.valid()) {
+            var formData = $('#form').serialize();
+            console.log(formData);
+            $.ajax({
+                url: '@Url.Action("InsertDistrict")', //recommended
+                type: "POST",
+                data: formData,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8' // optional
+            });
+        }
+    });
+</script>
+

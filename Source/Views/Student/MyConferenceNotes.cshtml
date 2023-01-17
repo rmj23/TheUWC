@@ -1,0 +1,106 @@
+﻿@model Source.Models.MyConferenceNotesViewModel
+@{
+    ViewBag.Title = "My Conference Notes";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            $('#tableStudentGoals').DataTable({
+                responsive: true,
+                "paging": true
+            });
+        });
+    </script>
+}
+
+<!-- Page Title -->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+        <!-- Student Goals card -->
+        <div class="card">
+            <!-- card Heading -->
+            <div class="card-header">
+                <h3 class="card-title">
+                    All of @ViewBag.Title
+                </h3>
+            </div>
+            <!-- card Body -->
+            <div class="card-body">
+                <!-- Class Goals Table -->
+                @if (Model.StudentConferenceNotes.Count > 0)
+                {
+                    <table id="tableStudentGoals" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                        <!-- Table Headings -->
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Course</th>
+                                <th>Conference Type</th>
+                                <th>Stage/Draft</th>
+                                <th data-sort-ignore="true">Comments</th>
+                            </tr>
+                        </thead>                      
+
+                        <!-- Table Content -->
+                        <tbody>
+                            <tr>
+                                @foreach (var x in Model.StudentConferenceNotes)
+                                {
+                                    if (x.Date == null)
+                                    {
+                                        <tr>
+                                            <td>Not provided</td>
+                                            <td>@x.CourseTitle</td>
+                                            <td>@x.Description</td>
+                                            <td>@x.StageOrDraft</td>
+                                            <td>@x.Comments</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>@x.Date.Value.ToShortDateString()</td>
+                                            <td>@x.CourseTitle</td>
+                                            <td>@x.Description</td>
+                                            <td>@x.StageOrDraft</td>
+                                            <td>@x.Comments</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>                         
+
+                        </table>
+                }
+                else
+                {
+                    <div>
+                        <p>No conference notes have been uploaded yet.</p>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

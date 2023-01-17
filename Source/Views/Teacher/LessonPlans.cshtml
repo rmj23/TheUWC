@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Source.Models.LessonPlanModel>
+@{
+    ViewBag.Title = "Lesson Plans";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-success"></div>
+    <h1 class="ml-1 ml-md-3">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container">
+
+        <!-- Class Goals Panel -->
+        <div class="card">
+
+            <!-- Panel Heading -->
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="card-title float-left">@ViewBag.Title Records</h3>
+                    </div>
+                    <div class="col">
+                        <a href="@Url.Action("InsertLessonPlans", "Teacher")" role="button" class="btn btn-greenJewel float-right">Add Lesson Plan</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Body -->
+            <div class="card-body">
+
+                <!-- Class Goals Table -->
+                <table id="tableClassGoals" class="table table-bordered table-striped dt-responsive">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Title</th>
+                            <th>Objective</th>
+                            <th>Standard</th>
+                            <th>Tasks</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Content -->
+                    <tbody>
+
+                        @foreach (var lessonPlan in Model)
+                        {
+                            <tr>
+                                <td>@lessonPlan.UploadDate.ToShortDateString()</td>
+                                <td>@lessonPlan.Title</td>
+                                <td>@lessonPlan.Objective</td>
+                                <td>@lessonPlan.Standard</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="@Url.Action("LessonPlan", "Teacher", new { lessonPlanId = lessonPlan.ID })" class="btn btn-outline-primary" title="View lesson plan.">
+                                            <i class="fas fa-bullseye"></i>
+                                        </a>
+                                        <a href="@Url.Action("DeleteLessonPlan", "Teacher", new { lessonPlanId = lessonPlan.ID })" class="btn btn-outline-secondary" title="Delete lesson plan." onclick="return confirm('Are you sure that you would like to delete this lesson plan?')">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                        <a href="@Url.Action("LessonPlanPrint", new {lessonPlanID = lessonPlan.ID})" class="btn btn-outline-success" title="Printer Friendly Version" target="_blank">
+                                            <i class="fas  fa-print"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+    $(document).ready(function () {
+        $("#tableClassGoals").dataTable();
+    });
+    </script>
+}

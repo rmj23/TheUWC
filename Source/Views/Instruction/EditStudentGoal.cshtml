@@ -1,0 +1,142 @@
+﻿@model Source.Models.EditStudentGoalsViewModel
+@{
+    ViewBag.Title = "EditStudentGoals";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Datepicker CSS -->
+    <link href="@Url.Content("~/Bundles/Datepicker/css/bootstrap-datepicker.min.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Datepicker JS -->
+    <script src="@Url.Content("~/Bundles/Datepicker/js/bootstrap-datepicker.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $('#deadlineDateSelection').datepicker({
+            format: "mm/dd/yyyy",
+            assumeNearbyYear: true,
+            autoclose: true,
+            todayBtn: true
+        });
+    </script>
+}
+
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">Edit Student Goal</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+        <!--Paper Selection-->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Paper Selected</h3>
+            </div>
+            <div class="panel-body">
+
+            </div>
+        </div>
+
+        <!--Paper Results-->
+        @if (Model.PaperID != -1 && Model.Reports.Count != 0)
+        {
+            <div class="panel">
+                <div class="table-responsive">
+                    <table id="viewPaperResults" class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Score Type</th>
+                                <th>Score</th>
+                                <th>Proficiency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var x in Model.Reports)
+                            {
+                                <tr>
+
+                                    <td>@x.scoreType</td>
+                                    <td>@x.scoreData</td>
+                                    <td>@x.proficiency</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        @if (Model.PaperID != -1 && Model.Reports.Count != 0)
+        {
+            using (Html.BeginForm("InsertStudentGoals", "Instruction", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => Model.YearID)
+                @Html.HiddenFor(model => Model.Goal.dateAdded)
+                @Html.HiddenFor(model => Model.StudentID)
+                @Html.HiddenFor(model => Model.CourseID)
+                @Html.HiddenFor(model => Model.PaperID)
+            <!-- Conference Details -->
+                <div class="panel">
+                    <div class="panel-heading">
+                        <!--Display name-->
+                        <h3 class="panel-title">@Html.DisplayTextFor(model => model.StudentName) </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <!--Goal Type-->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="scoretype">Score Type: </label>
+                                <div class="col-sm-6">
+                                    @Html.DropDownListFor(model => Model.Goal.goalScoreTypeID, Model.ScoreTypes, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <!-- Goal Description -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="description">Goal: </label>
+                                <div class="col-sm-6">
+                                    @Html.TextAreaFor(model => Model.Goal.Description, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <!-- Date Assigned Field THink about changing this to date time now. And setting dateAdded in the controller-->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="date">Goal Assign Date: </label>
+                                <div class="col-sm-6">
+                                    @Html.DisplayTextFor(model => Model.Goal.dateAdded)
+                                </div>
+                            </div>
+                            <!-- Date Deadline Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="date">Goal Deadline Date: </label>
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.Goal.deadlineDate, "{0:d/MM/yyyy}", new { @id = "deadlineDateSelection", @class = "form-control", @Value = DateTime.Today.ToString("dd/MM/yyyy") })
+                                    @Html.ValidationMessageFor(model => model.Goal.deadlineDate)
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-default">Add Student Goal</button>
+                            </div>
+                        </div>
+                        <!--End Horizontal Form-->
+                    </div>
+                    <!--End Panel Body-->
+                </div>
+
+            <!--End Details-->
+            }
+        }
+    </div>
+    <!--End Container-->
+</div>

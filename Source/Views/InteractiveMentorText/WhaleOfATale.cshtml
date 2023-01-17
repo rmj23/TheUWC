@@ -1,0 +1,129 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>WhaleOfATale</title>
+</head>
+<body>
+    <div>
+        @Html.Partial("_InteractiveMentorTextBase")
+    </div>
+    <script>
+        var viewdata = {
+            Colors: [
+                "8adaaf",
+                "ff8585",
+                "facaa3",
+                "bfb1d0",
+                "80b8df",
+                "000000"
+            ],
+            NavPanes: [{
+                pane: "ImtPane0",
+                title: "",
+                ordered: false,
+                components: [{
+                    text: "Ideas/Content",
+                    textColor: 0,
+                    paneLink: "ImtPane1",
+                    highlightData: ""
+                }, {
+                    text: "Structure/Organization",
+                    textColor: 1,
+                    paneLink: "ImtPane2",
+                    highlightData: ""
+                }, {
+                    text: "Voice/Point of View",
+                    textColor: 2,
+                    paneLink: "ImtPane3",
+                    highlightData: ""
+                }, {
+                    text: "Word Choice/Description",
+                    textColor: 3,
+                    paneLink: "ImtPane4",
+                    highlightData: ""
+                }, {
+                    text: "Sentence Fluency/Structure",
+                    textColor: 4,
+                    paneLink: "ImtPane5",
+                    highlightData: ""
+                }]
+            }, {
+                pane: "ImtPane1",
+                title: "Ideas/Content",
+                ordered: true,
+                components: [{
+                    text: "Includes a well-developed series of events",
+                    textColor: 5,
+                    paneLink: "",
+                    highlightData: [{
+                        htype: "text",
+                        paragraphIndex: 2,
+                        startIndex: 0,
+                        length: -1
+                    }, {
+                        htype: "text",
+                        paragraphIndex: 3,
+                        startIndex: 0,
+                        length: -1
+                    }, {
+                        htype: "text",
+                        paragraphIndex: 4,
+                        startIndex: 0,
+                        length: -1
+                    }]
+                }, {
+                    text: "Introduces and develops a theme",
+                    textColor: 5,
+                    paneLink: "",
+                    highlightData: [{
+                        htype: "text",
+                        paragraphIndex: 1,
+                        startIndex: 49,
+                        length: -1
+                    }, {
+                        htype: "text",
+                        paragraphIndex: 2,
+                        startIndex: 0,
+                        length: 56
+                    }, {
+                        htype: "text",
+                        paragraphIndex: 2,
+                        startIndex: 78,
+                        length: -1
+                    }]
+                }, {
+                    text: "",
+                    textColor: 5,
+                    paneLink: "",
+                    highlightData: [{
+                        htype: "text",
+                        paragraphIndex: 2,
+                        startIndex: 0,
+                        length: -1
+                    }, {
+                        htype: "text",
+                        paragraphIndex: 3,
+                        startIndex: 0,
+                        length: -1
+                    }, {
+                        htype: "text",
+                        paragraphIndex: 4,
+                        startIndex: 0,
+                        length: -1
+                    }]
+                }
+
+                ]
+            }
+            ]
+        }
+    </script>
+</body>
+</html>

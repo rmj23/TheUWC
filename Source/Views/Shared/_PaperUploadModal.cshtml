@@ -1,0 +1,70 @@
+﻿@model Source.Models.UploadPaperDataOnlyViewModel
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button id="closebtn" type="button" class="close pull-left" data-dismiss="modal">&times;</button>*@
+
+                <h3 class="col-12 modal-title text-center">Upload Paper</h3>
+                <button id="closebtn" type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+
+
+            </div>
+            @using (Html.BeginForm("ModalUploadPaperDataOnly", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(model => model.Paper.PaperID)
+                @Html.HiddenFor(model => model.PreviousUrl)
+                <!-- Select The Paper -->
+                <div class="modal-body">
+                    <p class="text-main text-bold mar-no">Please select the file that you would like to upload.</p>
+                    <p>We currently accept <strong>.PDF, .DOC, .DOCX, .JPEG, .JPG, and .PNG</strong> file types for papers. The maximum size for papers is 5MB.</p>
+                    <p>We also accept <strong>.MP4, .MPEG, and .MOV</strong> file types for video assignments. The maximum size for videos is 500MB.</p>
+                    <input id="fileInput" style="display: inline" name="file" type="file" accept="application/pdf, .doc, .docx, .jpg, .png, .mp4, .mpeg, .mov">
+                </div>
+                <div class="modal-footer">
+                    <!-- Submit Button -->
+                    <div class="form-group text-center">
+                        <button type="submit" id="uploadBtn" class="btn btn-success">Upload Paper </button>
+                    </div>
+
+                </div>
+            }
+        </div>        
+    </div>
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $("#uploadBtn").click(function () {
+            console.log("click");
+            var frmData = new FormData();
+            var filebase = $("#fileInput").get(0);
+            var files = filebase.files;
+            frmData.append(files[0].name, files[0]);
+            $.ajax({
+                url: '/Student/UploadPaperDataOnly',
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: frmData,
+                success: function (data) {
+                    $('#myModal').modal('show');
+                    //$('#txtMessage').html(data.message);
+                    if (data.success) {
+                        $('.modal-header').addClass('alert alert-success');
+                    } else {
+                        $('.modal-header').addClass('alert alert-info');
+                    }
+                },
+                error: function (err) {
+                    $('#myModal').modal('show');
+                    $('.modal-header').addClass('alert alert-danger');
+                    $('#txtMessage').html(err.statusText);
+                }
+            });
+            $("#closebtn").click(function () {
+                console.log("click");
+                $('#myModal').modal('hide');
+            });
+        });
+    })
+</script>*@

@@ -1,0 +1,13 @@
+﻿@model Source.Models.AGlobalRoleAssignmentSelection
+
+@Html.HiddenFor(model => model.State)
+
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="globalRole">Role: </label>
+    <div class="col-sm-6">
+        @Html.DropDownListFor(model => Model.roleId, Model.rolesDropDown, new { @class = "form-control", onchange = "$('#State').val('RoleSelected');this.form.submit();"})
+    </div>
+</div>
+
+
+

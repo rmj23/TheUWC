@@ -1,0 +1,65 @@
+﻿@model Source.Models.EvaluationReviewViewModel
+@{
+    ViewBag.Title = "EvaluationReview";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<h2>EvaluationReview</h2>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        <div>
+            Paper Details
+            @Html.DisplayFor(model => model.student.FirstName, Model.student.FirstName)<br />
+            @Html.DisplayFor(model => model.student.LastName, Model.student.LastName)<br />
+            @Html.DisplayFor(model => model.paper.PaperTitle, Model.paper.PaperTitle)<br />
+            @Html.EditorFor(model => model.submission.Comments, Model.submission.Comments)<br />
+            @Html.EditorFor(model => model.submission.StudentFeedback, Model.submission.StudentFeedback)<br />
+            @Html.DisplayFor(model => model.paper.EvaluationPeriodID, Model.paper.EvaluationPeriodID)<br />
+            @Html.DisplayFor(model => model.paper.PaperTypeID, Model.paper.PaperTypeID)<br />
+            @Html.DisplayFor(model => model.paper.Draft, Model.paper.Draft)<br />
+            @Html.DisplayFor(model => model.paper.Continuing, Model.paper.Continuing)<br />
+            @Html.EditorFor(model => model.paper.HolisticScoreLetter, Model.paper.HolisticScoreLetter)
+            Upload Paper: <button>ChooseFile</button> No file chosen
+        </div>
+    }
+</div>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+
+                </th>
+                <th>Below Basic</th>
+                <th>Basic</th>
+                <th>Proficient</th>
+                <th>Advanced</th>
+                <th>Advanced Plus</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.TableValues.GetLength(0); i++)
+            {
+                <tr>
+                    <td>
+                        @Model.scoreTypes[i].EvaluationType;
+                    </td>
+                    @for (int j = 0; j < Model.TableValues.GetLength(1); j++)
+                {
+                        <td>
+                            @if (!String.IsNullOrEmpty(Model.TableValues[i, j]))
+                            {
+                                @Model.TableValues[i, j]
+                            }
+                            </td>
+                    }
+                        </tr>
+            }
+                </tbody>
+            </table>
+        </div>
+        <div>
+            Final Stuff
+        </div>

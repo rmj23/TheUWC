@@ -1,0 +1,73 @@
+﻿@model Source.Models.TeacherUsageReportViewModel
+@{
+    ViewBag.Title = "UsageReports";
+    Layout = "~/Views/Shared/_SchoolAdminLayout.cshtml";
+}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-heading">
+                <h2>Usage Reports</h2>
+            </div>
+            <section class="form-horizontal">
+                <div class="card-body">
+                    @using (Html.BeginForm("UsageReports", "SchoolAdmin", FormMethod.Get))
+                    {
+                        Html.RenderPartial("_EvalSelectionViewModel", Model);
+                    }
+                </div>
+            </section>
+        </div>
+
+
+        @if (Model.State != Source.Models.ASchoolEvalSelectionViewModel.SchoolEvalSelectionState.Invalid)
+        {
+
+            if (Model.TeacherUsageReports.Count > 0)
+            {
+                <!-- Basic Data Tables -->
+                <!--===================================================-->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Reports</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="viewPapersTable" class="table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+                            <!-- View Papers Table Headings -->
+                            <thead>
+                                <tr>
+                                    <th>Teacher Last Name</th>
+                                    <th>Teacher First Name</th>
+                                    <th>Papers Scored</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach (var report in Model.TeacherUsageReports)
+                                {
+                                    <tr>
+                                        <td>@report.teacherLN</td>
+                                        <td>@report.teacherFN</td>
+                                        <td>@report.papersScored</td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <a class="list-group-item" style="color:red">No Reports Found.</a>
+                    </div>
+                </div>
+            }
+
+        }
+    </div>
+

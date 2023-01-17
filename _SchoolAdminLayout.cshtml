@@ -1,0 +1,377 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>The Universal Writing Continuum - @ViewBag.Title</title>
+
+    <!-- Regular Meta Info - used by search engines and browsers -->
+    <meta name="description" content="{{description}}">
+    <meta name="keywords" content="{{keywords}}">
+    <link rel="author" href="https://plus.google.com/{{googlePlusId}}" />
+    <link rel="canonical" href="{{pageUrl}}" />
+
+    <!-- Facebook Meta Info - used by Facebook when someone shares your url -->
+    <meta property="og:url" content="{{pageUrl}}">
+    <meta property="og:image" content="{{imageUrl}}">
+    <meta property="og:description" content="{{description}}">
+    <meta property="og:title" content="{{pageTitle}}">
+    <meta property="og:site_name" content="{{siteTitle}}">
+    <meta property="og:see_also" content="{{homepageUrl}}">
+
+    <!-- Google+ Meta Info - used by Google+ when someone shares your url -->
+    <meta itemprop="name" content="{{pageTitle}}">
+    <meta itemprop="description" content="{{description}}">
+    <meta itemprop="image" content="{{imageUrl}}">
+
+    <!-- Twitter Meta Info - used by Twitter when someone shares your url -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="{{pageUrl}}">
+    <meta name="twitter:title" content="{{pageTitle}}">
+    <meta name="twitter:description" content="{{description}}">
+    <meta name="twitter:image" content="{{imageUrl}}">
+
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Bundles/jQuery/js/jquery-2.2.4.min.js")"></script>
+
+    <!-- Boostrap CSS -->
+    <link href="@Url.Content("~/Bundles/Bootstrap/css/bootstrap.min.css")" rel="stylesheet">
+
+    <!-- Nifty CSS -->
+    <link href="@Url.Content("~/Bundles/Nifty/v2.5/css/nifty.min.css")" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="@Url.Content("~/Styles/Teacher/main.min.css")" rel="stylesheet">
+
+    @RenderSection("Styles", false)
+    @RenderSection("Scripts", false)
+
+</head>
+<body>
+
+    <div id="container" class="effect aside-float aside-bright mainnav-lg">
+
+        <!--NAVBAR-->
+        <!--===================================================-->
+        <header id="navbar">
+            <div id="navbar-container" class="boxed">
+
+                <!--Brand logo & name-->
+                <!--================================-->
+                <div class="navbar-header">
+                    <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                        <img src="@Url.Content("~/Images/logo.png")" alt="UWC Logo" class="img-responsive center-block" style="height: 100%;">
+                    </a>
+                </div>
+                <!--================================-->
+                <!--End brand logo & name-->
+                <!--Navbar Dropdown-->
+                <!--================================-->
+                <div class="navbar-content clearfix">
+                    @*<ul class="nav navbar-top-links pull-left">
+
+                        <!--Navigation toogle button-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <li class="tgl-menu-btn">
+                            <a class="mainnav-toggle" href="#">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </li>
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <!--End Navigation toogle button-->
+
+                    </ul>*@
+
+                    <ul class="nav navbar-top-links pull-left">
+
+                        <!-- Mobile Navigation Toggle Button -->
+                        <li class="tgl-menu-btn">
+                            <a class="mainnav-toggle" href="#">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </li>
+                        <!-- ./Mobile Navigation Toggle Button -->
+
+                        <li>
+                            <a href="@Url.Action("Index", "Home")" target="_blank">
+                                <img src="@Url.Content("~/Images/logo.png")" alt="" class="navbar-logo" />
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-top-links pull-right">
+
+                        <!--User dropdown-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <li id="dropdown-user" class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                                <span class="pull-right">
+                                    <!--<img class="img-circle img-user media-object" src="img/profile-photos/1.png" alt="Profile Picture">-->
+                                    <i class="demo-pli-male ic-user"></i>
+                                </span>
+                                <div class="username hidden-xs">@Source.Models.SessionModel.GetUserName(HttpContext.Current.Request.RequestContext)</div>
+                            </a>
+
+
+                            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
+
+                                <!-- User dropdown menu -->
+                                <ul class="head-list">
+                                    <li>
+                                        <a href="@Url.Action("Profile", "SchoolAdmin")">
+                                            <i class="fa fa-user icon-lg icon-fw"></i> Your Profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Inbox", "SchoolAdmin")">
+                                            <span class="badge badge-danger pull-right">9</span>
+                                            <i class="fa fa-envelope icon-lg icon-fw"></i> Your Messages
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+
+                                            <i class="fa fa-usd icon-lg icon-fw"></i>My Points
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <!-- Dropdown footer -->
+                                <div class="pad-all">
+                                    <div class="text-left pull-left">
+                                        <a href="@Url.Action("Settings", "SchoolAdmin")" class="btn btn-default">
+                                            <i class="fa fa-gear"></i> Settings
+                                        </a>
+                                    </div>
+                                    <div class="text-right">
+                                        <a href="@Url.Action("Logout", "Authentication")" class="btn btn-primary">
+                                            <i class="fa fa-sign-out"></i> Logout
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <!--End user dropdown-->
+
+                    </ul>
+                </div>
+                <!--================================-->
+                <!--End Navbar Dropdown-->
+
+            </div>
+        </header>
+        <!--===================================================-->
+        <!--END NAVBAR-->
+
+        <div class="boxed">
+
+            <!--CONTENT CONTAINER-->
+            <!--===================================================-->
+            <div id="content-container">
+
+                @RenderBody()
+
+            </div>
+            <!--===================================================-->
+            <!--END CONTENT CONTAINER-->
+            <!--MAIN NAVIGATION-->
+            <!--===================================================-->
+            <nav id="mainnav-container">
+                <div id="mainnav">
+
+                    <!--Menu-->
+                    <!--================================-->
+                    <div id="mainnav-menu-wrap">
+                        <div class="nano has-scrollbar">
+                            <div class="nano-content" tabindex="0" style="right: -17px;">
+
+
+                                <!--Shortcut buttons-->
+                                <!--================================-->
+                                <div id="mainnav-shortcut">
+                                    <ul class="list-unstyled">
+                                        <li class="col-xs-3" data-content="My Profile" data-original-title="" title="">
+                                            <a class="shortcut-grid" href="@Url.Action("Profile", "SchoolAdmin")">
+                                                <i class="fa fa-user"></i>
+                                            </a>
+                                        </li>
+                                        <li class="col-xs-3" data-content="Messages" data-original-title="" title="">
+                                            <a class="shortcut-grid" href="@Url.Action("Inbox", "SchoolAdmin")">
+                                                <i class="fa fa-envelope"></i>
+                                            </a>
+                                        </li>
+                                        <li class="col-xs-3" data-content="Activity" data-original-title="" title="">
+                                            <a class="shortcut-grid" href="#">
+                                                <i class="fa fa-exclamation-circle"></i>
+                                            </a>
+                                        </li>
+                                        <li class="col-xs-3" data-content="Lock Screen" data-original-title="" title="">
+                                            <a class="shortcut-grid" href="@Url.Action("Settings", "SchoolAdmin")">
+                                                <i class="fa fa-gear"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--================================-->
+                                <!--End shortcut buttons-->
+
+
+                                <ul id="mainnav-menu" class="list-group">
+
+                                    <!--Category name-->
+                                    <li class="list-header">Navigation</li>
+
+                                    <!--Menu list item-->
+                                    <li class="active-link">
+                                        <a href="@Url.Action("Dashboard", "SchoolAdmin")">
+                                            <i class="fa fa-home"></i>
+                                            <span class="menu-title">
+                                                <strong>School Admin</strong>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="list-divider hidden"></li>
+
+                                    <!--Category name-->
+                                    <li class="list-header">Management</li>
+
+                                    <!--Menu list item-->
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-graduation-cap"></i>
+                                            <span class="menu-title">Manage</span>
+                                            <i class="arrow"></i>
+                                        </a>
+
+                                        <!--Submenu-->
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li><a href="@Url.Action("UpdateRoster","SchoolAdmin")">School Roster</a></li>
+
+                                        </ul>
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li><a href="@Url.Action("CourseSemester", "SchoolAdmin")">Midterm Dates</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!--Menu list item-->
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-pie-chart"></i>
+                                            <span class="menu-title">Reporting</span>
+                                            <i class="arrow"></i>
+                                        </a>
+
+                                        <!--Submenu-->
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li><a href="@Url.Action("BenchmarkReports","SchoolAdmin")">Benchmark</a></li>
+                                            <li><a href="@Url.Action("UsageReports","SchoolAdmin")">Teacher Usage</a></li>
+
+                                        </ul>
+                                    </li>
+
+                                    <!--Menu list item-->
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-book"></i>
+                                            <span class="menu-title">Resources</span>
+                                            <i class="arrow"></i>
+                                        </a>
+
+                                        <!--Submenu-->
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li><a href="@Url.Action("Leveling Chart.Month by Month Expectation of Proficiency for Each Grade Level.pdf","Content/SchoolAdmin")" target="_blank">Levels Explained</a></li>
+                                            <li><a href="@Url.Action("Alignment OF THE UNIVERSAL WRITING CONTINUUM AND THE COMMON CORE STATE STANDARDS copy.pdf","Content/SchoolAdmin")" target="_blank">Universal Writing Continuum Alignment to the CCSS</a></li>
+                                            <li><a href="@Url.Action("Frequently Asked Questions 2.pdf","Content/SchoolAdmin")" target="_blank">Frequently Asked Questions</a></li>
+                                            <li><a href="@Url.Action("Best Practices.pdf","Content/SchoolAdmin")" target="_blank">Best Practices</a></li>
+                                            <li><a href="@Url.Action("Creating Great Writers.pdf","Content/SchoolAdmin")" target="_blank">Creating Great Writers</a></li>
+                                            <li><a href="@Url.Action("Research Reviewed for UWC.pdf","Content/SchoolAdmin")" target="_blank">Research Basis for UWC</a></li>
+
+                                        </ul>
+                                    </li>
+
+                                    <!--Menu list item - Hidden for future use -->
+                                    <li class="hidden">
+                                        <a href="#">
+                                            <i class="demo-psi-tactic"></i>
+                                            <span class="menu-title">Menu Level</span>
+                                            <i class="arrow"></i>
+                                        </a>
+
+                                        <!--Submenu-->
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li><a href="#">Second Level Item</a></li>
+                                            <li><a href="#">Second Level Item</a></li>
+                                            <li><a href="#">Second Level Item</a></li>
+                                            <li class="list-divider"></li>
+                                            <li>
+                                                <a href="#">Third Level<i class="arrow"></i></a>
+
+                                                <!--Submenu-->
+                                                <ul class="collapse" aria-expanded="false">
+                                                    <li><a href="#">Third Level Item</a></li>
+                                                    <li><a href="#">Third Level Item</a></li>
+                                                    <li><a href="#">Third Level Item</a></li>
+                                                    <li><a href="#">Third Level Item</a></li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third Level<i class="arrow"></i></a>
+
+                                                <!--Submenu-->
+                                                <ul class="collapse" aria-expanded="false">
+                                                    <li><a href="#">Third Level Item</a></li>
+                                                    <li><a href="#">Third Level Item</a></li>
+                                                    <li><a href="#">Third Level Item</a></li>
+                                                    <li class="list-divider"></li>
+                                                    <li><a href="#">Third Level Item</a></li>
+                                                    <li><a href="#">Third Level Item</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="list-divider hidden"></li>
+
+                                </ul>
+
+                            </div>
+                            <div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 1476px; transform: translate(0px, 0px);"></div></div>
+                        </div>
+                    </div>
+                    <!--================================-->
+                    <!--End menu-->
+
+                </div>
+            </nav>
+            <!--===================================================-->
+            <!--END MAIN NAVIGATION-->
+
+        </div>
+
+
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="pad-lft">© 2016 Uni-Spire</p>
+        </footer>
+        <!-- ./Footer -->
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="@Url.Content("~/Bundles/Bootstrap/js/bootstrap.min.js")"></script>
+
+    <!-- Nifty JS -->
+    <script src="@Url.Content("~/Bundles/Nifty/v2.5/js/nifty.min.js")"></script>
+    @RenderSection("RenderBlockingScripts", false)
+</body>
+</html>
+    </div>
+
+</body>
+</html>

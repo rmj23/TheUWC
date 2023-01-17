@@ -1,0 +1,742 @@
+﻿/* == COLOR VARIABLES == */
+
+$orangeRoughy: #BE4916; /* (Below Basic) */
+$yellowFuel: #EBAE26; /* (Basic) */
+$greenJewel: #12723A; /* (Proficient) */
+$blueTradewind: #6CA9B0; /* (Advanced) */
+$blueBluemine: #1E5F8B; /* (Advanced Plus) */
+
+$silver: #CDCDCD;
+$silverMercury: #E7E7E7;
+
+$greenAquaDeep: #014B43;
+
+$blueOuterSpace: #263238;
+
+$white: #FFFFFF;
+$whiteAquaHaze: #F6F8FA;
+
+$black: #000000;
+$blackMineShaft: #2D2C2C;
+
+/* == BACKGROUND HELPER CLASSES == */
+
+.bg-orangeRoughy {
+    background-color: $orangeRoughy !important;
+}
+
+.bg-yellowFuel {
+    background-color: $yellowFuel !important;
+}
+
+.bg-greenJewel {
+    background-color: $greenJewel !important;
+}
+
+.bg-blueTradewind {
+    background-color: $blueTradewind !important;
+}
+
+.bg-blueBluemine {
+    background-color: $blueBluemine !important;
+}
+
+.bg-silver {
+    background-color: $silver !important;
+}
+
+.bg-silverMercury {
+    background-color: $silverMercury !important;
+}
+
+.bg-greenAquaDeep {
+    background-color: $greenAquaDeep !important;
+}
+
+.bg-white {
+    background-color: $white !important;
+}
+
+.bg-whiteAquaHaze {
+    background-color: $whiteAquaHaze !important;
+}
+
+.bg-blueOuterSpace {
+    background-color: $blueOuterSpace !important;
+}
+
+/* == TEXT COLOR HELPER CLASSES == */
+
+.text-orangeRoughy {
+    color: $orangeRoughy !important;
+}
+
+.text-yellowFuel {
+    color: $yellowFuel !important;
+}
+
+.text-greenJewel {
+    color: $greenJewel !important;
+}
+
+.text-blueTradewind {
+    color: $blueTradewind !important;
+}
+
+.text-blueBluemine {
+    color: $blueBluemine !important;
+}
+
+.text-silver {
+    color: $silver !important;
+}
+
+.text-silverMercury {
+    color: $silverMercury !important;
+}
+
+.text-greenAquaDeep {
+    color: $greenAquaDeep !important;
+}
+
+.text-white {
+    color: $white !important;
+}
+
+.text-whiteAquaHaze {
+    color: $whiteAquaHaze !important;
+}
+
+.text-blueOuterSpace {
+    color: $blueOuterSpace !important;
+}
+
+/* == BUTTONS == */
+
+.btn-orangeRoughy {
+    background-color: $orangeRoughy;
+    border-color: $orangeRoughy;
+    color: #fff;
+}
+
+.btn-yellowFuel {
+    background-color: $yellowFuel;
+    border-color: $yellowFuel;
+    color: #fff;
+}
+
+.btn-greenJewel {
+    background-color: $greenJewel;
+    border-color: $greenJewel;
+    color: #fff;
+}
+
+.btn-blueTradewind {
+    background-color: $blueTradewind;
+    border-color: $blueTradewind;
+    color: #fff;
+}
+
+.btn-blueBluemine {
+    background-color: $blueBluemine;
+    border-color: $blueBluemine;
+    color: #fff;
+}
+
+.btn-silver {
+    background-color: $silver;
+    border-color: $silver;
+    color: #fff;
+}
+
+.btn-silverMercury {
+    background-color: $silverMercury;
+    border-color: $silverMercury;
+    color: #fff;
+}
+
+.btn-greenAquaDeep {
+    background-color: $greenAquaDeep;
+    border-color: $greenAquaDeep;
+    color: #fff;
+}
+
+.btn-white {
+    background-color: $white;
+    border-color: $white;
+    color: #000;
+}
+
+.btn-whiteAquaHaze {
+    background-color: $whiteAquaHaze;
+    border-color: $whiteAquaHaze;
+    color: #fff;
+}
+
+.btn-blueOuterSpace {
+    background-color: $blueOuterSpace;
+    border-color: $blueOuterSpace;
+    color: #fff;
+}
+
+.btn-evalforgoals {
+    outline: 0;
+    margin: 0 4px 0 0;
+    padding: 0.3em 1em;
+    height: 2.2em;
+    text-decoration: none !important;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    background-color: #fafafa;
+    border: 1px solid #d1d9de;
+    color: #758697;
+}
+
+.btn-evalforgoals:hover {
+    outline: 0;
+    margin: 0 4px 0 0;
+    padding: 0.3em 1em;
+    height: 2.2em;
+    text-decoration: none !important;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    background-color: #e6e6e6;
+    border: 1px solid #d1d9de;
+    color: #758697;
+}
+
+/* == ALERTS == */
+
+.alert-greenJewel {
+    background-color: $greenJewel;
+    border-color: transparent;
+    border-left: 6px solid $greenAquaDeep;
+    color: #fff;
+}
+
+/* == PANELS == */
+
+// ********** new panels **********/////
+.panel {
+    height: 100%;
+    width: 200px;
+}
+
+// ***************************************
+
+.panel-orangeRoughy {
+    color: $orangeRoughy;
+    border-bottom: 1px solid $orangeRoughy;
+}
+
+.panel-yellowFuel {
+    color: $yellowFuel !important;
+    border-bottom: 1px solid $yellowFuel !important;
+}
+
+.panel-greenJewel {
+    color: $greenJewel !important;
+    border-bottom: 1px solid $greenJewel !important;
+}
+
+.panel-blueTradewind {
+    color: $blueTradewind !important;
+    border-bottom: 1px solid $blueTradewind !important;
+}
+
+.panel-blueBluemine {
+    color: $blueBluemine !important;
+    border-bottom: 1px solid $blueBluemine !important;
+}
+
+.panel-silver {
+    color: $silver !important;
+    border-bottom: 1px solid $silver !important;
+}
+
+.panel-silverMercury {
+    color: $silverMercury !important;
+    border-bottom: 1px solid $silverMercury !important;
+}
+
+.panel-greenAquaDeep {
+    color: $greenAquaDeep !important;
+    border-bottom: 1px solid $greenAquaDeep !important;
+}
+
+.panel-white {
+    color: $white !important;
+    border-bottom: 1px solid $white !important;
+}
+
+.panel-whiteAquaHaze {
+    color: $whiteAquaHaze !important;
+    border-bottom: 1px solid $whiteAquaHaze !important;
+}
+
+.panel-blueOuterSpace {
+    color: $blueOuterSpace !important;
+    border-bottom: 1px solid $blueOuterSpace !important;
+}
+
+.panel {
+    border: 0;
+}
+
+.panel {
+
+    &.panel-default {
+        .panel-heading {
+            background-color: $whiteAquaHaze;
+            border-color: $whiteAquaHaze;
+
+            .panel-control {
+                .bootstrap-select {
+                    .btn-default {
+                        border: 1px solid $blueOuterSpace;
+                    }
+                }
+            }
+        }
+    }
+
+    .panel-heading {
+        .panel-control {
+            .btn-default {
+                background-color: $white;
+                border-color: #d1d9de;
+                color: #758697;
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .panel-body {
+        > ul {
+            list-style-type: none;
+        }
+    }
+
+    .panel-footer.panel-footer-default {
+        background-color: #f6f8fa;
+        color: #758697;
+        border-color: rgba(0,0,0,0.07);
+        position: relative;
+    }
+}
+
+/* == "The Bar" == */
+
+.bar {
+    width: 100%;
+    height: 20px;
+    // Dashboard
+    &.bar-teacherDashboard,
+    .bar.bar-studentDashboard {
+        display: none;
+    }
+    // Manage Class
+    &.bar-teacherAddClass,
+    &.bar-teacherUpdateRoster,
+    &.bar-teacherEnrollStudent,
+    &.bar-teacherParentStudentAccounts,
+    &.bar-teacherAddStudent {
+        background-color: #6CA9B0;
+    }
+    // Evaluation
+    &.bar-evaluationUploadPaper,
+    &.bar-evaluationViewPortfolio,
+    &.bar-evaluationMyClasses,
+    &.bar-evaluationStudentPortfolio,
+    &.bar-evaluationViewResults,
+    &.bar-evaluationViewPapers,
+    &.bar-evaluationEvaluatePaper {
+        background-color: #BE4916;
+    }
+    // Reports
+    &.bar-teacherClassData,
+    &.bar-teacherStudentProgress,
+    &.bar-teacherBenchmarkReports,
+    &.bar-evaluationClassData {
+        background-color: #EBAE26;
+    }
+    // Instruction
+    &.bar-instructionInsertClassGoals,
+    &.bar-instructionViewClassGoals,
+    &.bar-instructionViewStudentGoals,
+    &.bar-instructionInsertStudentGoals,
+    &.bar-teacherLessonPlans,
+    &.bar-teacherInsertLessonPlans,
+    &.bar-instructionInteractiveMentorTexts,
+    &.bar-instructionViewEngagement,
+    &.bar-instructionConferenceNotes,
+    &.bar-instructionInsertConferenceNotes {
+        background-color: #12723A;
+    }
+    // Resources
+    &.bar-teacherAnchorPapers,
+    &.bar-teacherGlossary,
+    &.bar-teacherGraphicOrganizers,
+    &.bar-teacherInteractiveMentorTexts,
+    &.bar-teacherWritingStandards {
+        background-color: #1E5F8B;
+    }
+    //Student Green
+    &.bar.bar-studentGlossary,
+    &.bar.bar-studentGraphicOrganizers,
+    &.bar.bar-StudentChecklist {
+        background-color: #12723a;
+    }
+}
+
+/* == CORE CUSTOM CSS == */
+
+body {
+    background-color: $silver;
+}
+
+#content-container {
+    background-color: $silver;
+}
+
+@media (min-width: 768px) {
+    .navbar-text {
+        display: none;
+    }
+
+}
+
+.navbar-logo {
+    height: 30px;
+}
+//
+
+
+.ml-auto .dropdown-menu {
+    left: auto !important;
+    right: 0px;
+}
+
+.navbar {
+    background: $silverMercury;
+    height: 50px;
+}
+
+
+/* NEW NAV *****************************************/
+
+/* MOBILE */
+@media (max-width: 480px) {
+    #sidebar {
+        min-width: 125px !important;
+        max-width: 125px !important;
+        top: 40px !important;
+    }
+
+    #sidebar.active {
+        margin-left: -125px;
+    }
+
+    .mainContent {
+        margin-left: 125px !important;
+        margin-right: 0px;
+        margin-top: 40px !important;
+    }
+
+    .mainContent.active{
+        margin-left: 0px !important;
+    }
+
+    .welcomeUserHeader{
+        padding: 5px !important;
+    }
+
+    .welcomeUserHeader h5{
+        font-size: 14px !important;
+    }
+
+    #sidebar ul li span{
+        font-size: 12px !important;
+    }
+
+    .navbar-logo{
+        height: 20px !important;
+    }
+
+    .navbar{
+        height: 40px !important;
+    }
+
+    #navbarDropdown{
+        font-size: 12px !important;
+    }
+
+    .footer {
+        font-size: 8px !important;
+    }
+
+    
+}
+/**********/
+
+#sidebar {
+    top: 50px;
+    left: 0px;
+    position: fixed;
+    min-width: 200px;
+    max-width: 200px;
+    height: 100vh;
+    background: $blackMineShaft;
+    color: white;
+    transition: all 0.3s;
+    z-index: 2;
+}
+
+#sidebar.active {
+    margin-left: -200px;
+}
+
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.mainContent {
+    transition: all 0.3s;
+    margin-left: 200px;
+    margin-right: 0px;
+    margin-top: 50px;
+    margin-bottom: 0px;
+}
+
+.mainContent.active {
+    margin-left: 0px;
+    transition: all 0.3s;
+    margin-bottom: 0px;
+}
+
+
+// side nav styles ********************************
+
+// WELCOME USER HEADER //
+.welcomeUserHeader {
+    border-bottom: thin solid $silver;
+    padding: 15px;
+    color: white;
+    text-align: center;
+}
+
+.welcomeUserHeader h5 {
+}
+
+// SIDE NAV HEADERS //
+.sideNavHeaders {
+    margin: 10px 0px 10px 5px;
+    color: #747e88;
+    font-size: 16px;
+}
+
+// SIDE NAV LINKS //
+.sideNavLinks {
+    font-size: 13px;
+    line-height: 25px;
+    margin: 0px 0px 5px 10px;
+    display: block;
+}
+
+.customArrow {
+    line-height: 25px;
+    float: right;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+// DROP DOWN LINKS //
+.dropDownLinks {
+    font-size: 12px;
+    display: block;
+    margin: 0px 0px 10px 25px;
+}
+
+.anchorPaperLinks {
+    font-size: 12px;
+    display: block;
+    margin: 0px 0px 10px 30px;
+}
+
+//*** when a drop down link is click ****///
+
+#ManageClassMenu.active, #EvalMenu.active, #ReportsMenu.active,
+#InstructionMenu.active, #BookshelfMenu.active, #ResourcesMenu.active,
+#HelpMenu.active {
+    background-color: #263339;
+    border: thin solid transparent;
+}
+
+#AnchorPapers.active {
+    background-color: #222c31;
+    border: thin solid transparent;
+}
+
+#APapers.active, #BPapers.active, #CPapers.active, #DPapers.active,
+#EPapers.active, #FPapers.active, #GPapers.active, #HPapers.active,
+#IPapers.active, #JPapers.active, #KPapers.active {
+    background-color: #1b2327;
+    border: thin solid transparent;
+}
+
+//#APapers.active, #
+/******************************************/
+#container:not(.mainnav-sm) #mainnav-menu-wrap > .nano > .nano-content {
+    padding-top: 0;
+}
+
+.points {
+    float: right;
+    white-space: nowrap;
+    line-height: 40px;
+    margin: 0 10px;
+}
+
+.alert-bottom-right {
+    position: fixed;
+    bottom: 30px;
+    right: 15px;
+    width: calc(50% - 220px);
+    z-index: 9999;
+}
+
+@media (max-width: 768px) {
+    .alert-bottom-right {
+        display: none;
+    }
+}
+
+
+@media (min-width: 768px) {
+    #navbar-container {
+        background-color: $silverMercury;
+    }
+}
+
+#mainnav {
+    background-color: $blackMineShaft;
+}
+
+#mainnav-menu > .active {
+}
+
+#mainnav-menu a {
+    color: $silverMercury;
+}
+
+
+
+//Continuum Three Columns
+//Evaluate Paper
+.continuumContentHeader,
+.continuumContent,
+.continuumFooter {
+    display: none;
+
+    &.active,
+    &.active + &,
+    &.prevActive,
+    &.prevPrevActive,
+    &.postActive,
+    &.postPostActive {
+        display: table-cell;
+        width: 33%;
+    }
+}
+//Hides Guideline Rows for Set student Goal
+.rowHidden {
+    display: none;
+}
+
+.rowSeen {
+    display: table-cell;
+}
+//Color For Evaluate Paper Bar
+.EvaluatePaperProficiencyBar {
+    &.BelowBasic {
+    }
+
+    &.Basic {
+    }
+
+    &.Proficient {
+    }
+
+    &.Advanced {
+    }
+
+    &AdvancedPlus {
+    }
+}
+
+.fa {
+    &.add-tooltip {
+        padding: 5px 8px;
+        display: inline-block;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        -moz-box-shadow: 0px 0px 2px #888;
+        -webkit-box-shadow: 0px 0px 2px #888;
+        box-shadow: 0px 0px 2px #888;
+    }
+}
+
+//For colors on graph that require stroke
+
+/* (Advanced Plus) */
+.strokeAdvPlus {
+    stroke: #1E5F8B;
+}
+
+/* (Advanced) */
+.strokeAdv {
+    stroke: #6CA9B0;
+}
+
+/* (Proficient) */
+.strokeProf {
+    stroke: #12723A;
+}
+
+/* (Basic) */
+.strokeBasic {
+    stroke: #EBAE26;
+}
+
+/* (Below Basic) */
+.strokeBelowBasic {
+    stroke: #BE4916;
+}
+
+/* loader*/
+#Customloader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s liner infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

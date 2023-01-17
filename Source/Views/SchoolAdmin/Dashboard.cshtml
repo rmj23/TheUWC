@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SchoolAdminLayout.cshtml";
+}
+
+
+@section Styles {
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+
+    <!-- Animate CSS -->
+    <link href="@Url.Content("~/Bundles/AnimateCSS/css/animate.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+    
+    <!-- Dashboard Header Height Adjustment-->
+    @*<script src="@Url.Content("~/Scripts/Shared/DashboardHeight.js")" type="text/javascript"></script>*@
+}
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title" class="hidden">
+    <h1 class="page-header text-overflow">Dashboard</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+        <!-- Shortcut Items -->
+        <div class="row">
+
+            <!-- Item: Evaluate Writing -->
+            <div class="col-md-3 mb-2 mb-md-0">
+
+                <!--Tile-->
+                <!--===================================================-->
+                <a href="@Url.Action("DistrictRoster","SchoolAdmin")">
+                    <div class="card h-100">
+                        <div class="card-header bg-blueBluemine"></div>
+                        <div class="card-body"><h4 class="card-title text-center">District Roster</h4></div>                            
+                    </div>
+                    <!--===================================================-->
+                </a>
+            </div>
+
+            <!-- Item: Student Data -->
+            <div class="col-md-3 mb-2 mb-md-0">
+
+                <!--Tile-->
+                <!--===================================================-->
+                <a href="@Url.Action("BenchmarkReports","SchoolAdmin")">
+                    <div class="card h-100">
+                        <div class="card-header bg-yellowFuel"></div>
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Reports</h4>
+                        </div>
+                    </div>
+                    <!--===================================================-->
+                </a>
+
+            </div>
+
+            <!-- Item: Engagements -->
+            <div class="col-md-3 mb-2 mb-md-0">
+
+                <!--Tile-->
+                <!--===================================================-->
+                <a href="@Url.Action("Frequently Asked Questions.pdf","Content/Teacher/Resources")" target="_blank">
+                    <div class="card">
+                        <div class="card-header bg-blueBluemine"></div>
+                        <div class="card-body">
+                            <h4 class="card-title text-center">FAQ</h4>
+                        </div>
+                    </div>
+                    <!--===================================================-->
+                </a>
+            </div>           
+        </div>
+        <!--Horizontal Form-->
+        <!--===================================================-->
+        <!--Admin Sliders-->
+        <!--Take the day of the month and mod it by four.  Switch the slider based on that.-->
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-12">
+                <div class="card card-default">
+                    <div class="card-body">
+                        @{int dayInt = DateTime.Now.Day % 4;
+                            switch (dayInt)
+                            {
+                                case 0:
+                                    <img src="~/Images/Admin_Sliders/Slider_1.jpg"
+                                         style="max-height: 100%; max-width: 100%" />
+                                    break;
+                                case 1:
+                                    <img src="~/Images/Admin_Sliders/Slider_2.jpg"
+                                         style="max-height: 100%; max-width: 100%" />
+                                    break;
+                                case 2:
+                                    <img src="~/Images/Admin_Sliders/Slider_4.jpg"
+                                         style="max-height: 100%; max-width: 100%" />
+                                    break;
+                                case 3:
+                                    <img src="~/Images/Admin_Sliders/Slider_8.jpg"
+                                         style="max-height: 100%; max-width: 100%" />
+                                    break;
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--=============================================-->
+    </div>   
+</div>
+<!--Quote of the day-->
+<div class="alert alert-greenJewel alert-bottom-right animated fadeInRight">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <p>
+        <i class="fa fa-quote-left"></i> <strong>Quote of the Day </strong>
+    </p>
+    <p style="padding: 0 15px;">@ViewBag.Quote</p>
+    <p class="text-right">
+        - <strong>@ViewBag.Author</strong>
+    </p>
+</div>

@@ -1,0 +1,26 @@
+﻿/*Highlight banner on homepage styling*/
+.alert-bottom-right {
+    position: fixed;
+    bottom: 30px;
+    right: 15px;
+    background: #12723A;
+    z-index: 9999;
+    color: white;
+    border: solid 1px black;
+}
+.highlight-link {
+    text-decoration: none;
+    color: #EBAE26;
+}
+
+.highlight-header {
+    color: white;
+}
+
+.caption-margin {
+    margin-top: 8em;
+}
+
+.hero-image {
+    max-width: 100%;
+}

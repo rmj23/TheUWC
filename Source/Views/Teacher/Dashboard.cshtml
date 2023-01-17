@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+    <!-- Chartist Styles -->
+    @*<link href="@Url.Content("~/Bundles/ChartistJS/dist/scss/chartist.min.css")" rel="stylesheet" type="text/css" />*@
+    @*<style>
+        .ct-series-f .ct-bar, .ct-series-f .ct-line, .ct-series-f .ct-point, .ct-series-f .ct-slice-donut {
+            stroke: #b1b1b1;
+        }
+    </style>*@
+    <!-- Page Styles -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" rel="stylesheet" type="text/css" />
+
+}
+@Html.Hidden("CurrentYear", (int)ViewBag.CurrentYear)
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="" class="">
+    <h1 class="ml-md-3 ml-1">Dashboard</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="pageContent">
+
+    <!-- Shortcut Items -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Item: Select Default Class, Move this to settings -->
+            @*<div class="col-md-3 mb-2 mb-md-0">
+                <div class="card h-100">
+                    <div class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <label class="row" for="class">Default Class: </label>
+                        <div class="row">
+                            <select class="form-control" id="classDropdown">
+                                <option value="-1">---</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+            <!-- Item: Evaluate Writing -->
+            <div class="col-md-3 mb-2 mb-md-0">
+
+                <!--Tile-->
+                <!--===================================================-->
+                <a href="@Url.Action("ViewPortfolio","Evaluation")">
+                    <div class="card h-100">
+                        <div class="card-header bg-orangeRoughy"></div>
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Evaluate Writing</h4>
+                        </div>
+                    </div>
+                    <!--===================================================-->
+                </a>
+            </div>
+
+            <!-- Item: Student Data -->
+            <div class="col-md-3 mb-2 mb-md-0">
+
+                <!--Tile-->
+                <!--===================================================-->
+                <a href="@Url.Action("StudentProgress","Teacher")">
+                    <div class="card h-100">
+                        <div class="card-header bg-yellowFuel"></div>
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Student Data</h4>
+                        </div>
+                    </div>
+                    <!--===================================================-->
+                </a>
+
+            </div>
+
+            <!-- Item: Engagements -->
+            <div class="col-md-3 mb-2 mb-md-0">
+
+                <!--Tile-->
+                <!--===================================================-->
+                <a href="@Url.Action("ViewEngagement", "Instruction")">
+                    <div class="card h-100">
+                        <div class="card-header bg-greenJewel"></div>
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Engagements</h4>
+                        </div>
+                    </div>
+                    <!--===================================================-->
+                </a>
+            </div>
+
+            <!-- Item: Resources -->
+            <div class="col-md-3 mb-2 mb-md-0">
+                <a onclick="alert('Feature coming soon!');">
+                    <div class="card h-100">
+                        <div class="card-header bg-blueBluemine"></div>
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Resources</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <h1 class="ml-0 mt-md-2">Class Holistic Data</h1>
+        <div class="row mb-2">
+
+            @*@{ Html.RenderAction("Chart", "Teacher");}*@
+
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-4 my-auto">Class:</label>
+                                <select id="chartClass" class="form-control col">
+                                    <option value="-1">---</option>
+                                </select>
+                            </div>
+                            <div class="row mt-1">
+                                <label class="col-4 my-auto">Evaluation Period:</label>
+                                <select id="chartEval" class="form-control col">
+                                    <option value="-1">---</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="classDataChart" class="h-100"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder for Teacher Forum -->
+            <div class="mt-2 mt-md-0 col-md-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="~/Images/Teacher and boy.jpg" style="max-height: 100%; max-width: 100%" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!--Horizontal Form-->
+    <!--End Horizontal Form-->
+
+</div>
+
+<div class="alert alert-greenJewel alert-bottom-right animated fadeInRight">
+
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <p>
+        <i class="fa fa-quote-left"></i> <strong>Quote of the Day </strong>
+    </p>
+    <p style="padding: 0 15px;">@ViewBag.Quote.Description.ToString()</p>
+    <p class="text-right">
+        - <strong>@ViewBag.Quote.Author.ToString()</strong>
+    </p>
+
+</div>
+
+@section Scripts {
+    <!-- Page Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="~/Scripts/Teacher/Dashboard.js"></script>
+}

@@ -1,0 +1,205 @@
+﻿@model Source.Models.MyClassesViewModel
+@{
+    ViewBag.Title = "My Classes";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+    
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#tableClassRoster');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableClassRoster-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableClassRoster-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableClassRoster-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Selections -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewBag.Title</h3>
+            </div>
+
+            @using (Html.BeginForm("MyClasses", "Evaluation", FormMethod.Get))
+            {
+
+                <!--Horizontal Form-->
+                <!--===================================================-->
+                <section class="form-horizontal">
+                    <div class="panel-body">
+                    
+                        @{ Html.RenderPartial("_YearCourseSelection", Model); }
+
+                    </div>
+                </section>
+            }
+        
+        </div>
+        
+        @if (Model.Students != null)
+        {
+            <!-- Student Portfolio Records -->
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+
+                        <!-- Selected Academic Year-->
+                        <span class="btn-group">
+                            <button class="btn btn-default">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                            <button class="btn btn-default btn-academicYear">
+                                <script>
+                                    $(function() {
+                                        $(".btn-academicYear").html($("#YearID option:selected").text());
+                                    });
+                                </script>
+                            </button>
+                        </span>
+
+                        <!-- Selected Class -->
+                        <span class="btn-group">
+                            <button class="btn btn-default">
+                                <i class="fa fa-university"></i>
+                            </button>
+                            <button class="btn btn-default btn-course">
+                                <script>
+                                    $(function() {
+                                        $(".btn-course").html($("#CourseID option:selected").text());
+                                    });
+                                </script>
+                            </button>
+                        </span>
+
+                    </h3>
+                </div>
+
+                <!-- Panel Body -->
+                <div class="panel-body">
+                    <!-- Student Portfolio Table -->
+                    <table id="tableClassRoster" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                        <!-- Table Headings -->
+                        <thead>
+                        <tr>
+                            <th data-sort-initial="true">Last Name</th>
+                            <th>First Name</th>
+                            <th data-sort-ignore="true">Middle Name</th>
+                            <th>Student ID</th>
+                            <th>Papers</th>
+                            <th data-sort-ignore="true">Tasks</th>
+                        </tr>
+                        </thead>
+
+                        <!-- Table Controls -->
+                        <div class="pad-btm form-inline">
+                            <div class="row">
+
+                                <!-- Table Control: Dropdown -->
+                                <div class="col-sm-6 text-xs-center hidden">
+                                    <div class="form-group">
+                                        <label class="control-label">Evaluation Status</label>
+                                        <select id="tableClassRoster-filter-status" class="form-control">
+                                            <option value="">Show all</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Table Control: Search -->
+                                <div class="col-sm-6 col-xs-push-6 text-xs-center text-right">
+                                    <div class="form-group">
+                                        <input id="tableClassRoster-foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Table Content -->
+                        <tbody>
+                        @foreach (var student in Model.Students)
+                        {
+                            <tr>
+                                <td>@student.LastName</td>
+                                <td>@student.FirstName</td>
+                                <td>@student.MiddleName</td>
+                                <td>@student.StudentNumber</td>
+                                <td>@Source.Models.PaperModelDb.SelectAllByStudent(student.StudentID).Count.ToString()</td>
+                                <td>
+                                    <a href="@Url.Action("StudentPortfolio", "Evaluation")" class="btn btn-sm btn-default" title="Evaluate unscored papers.">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </a>
+                                    <a href="@Url.Action("StudentPortfolio", "Evaluation")" class="btn btn-sm btn-default" title="View scored papers.">
+                                        <i class="fa fa-file-text-o"></i>
+                                    </a>
+                                    <a href="@Url.Action("ViewStudentGoals", "Evaluation")" class="btn btn-sm btn-default" title="View student goals.">
+                                        <i class="fa fa-bullseye"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default" title="View student conference notes.">
+                                        <i class="fa fa-comments-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+
+                        <!-- Table Footer -->
+                        <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <div class="text-center">
+                                    <ul class="pagination"></ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

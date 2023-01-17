@@ -1,0 +1,73 @@
+﻿@model Source.Models.InsertGlossaryTermViewModel
+@{
+    ViewBag.Title = "InsertGlossaryTerm";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+<h2>Add Glossary Term</h2>
+
+
+@using (Html.BeginForm("InsertGlossaryTerm", "WebAdmin", FormMethod.Post))
+{
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div id="page-content">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Glossary.Term, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Glossary.Term, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Glossary.Definition, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Glossary.Definition, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div> <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Glossary</h3>
+            </div>
+            <div class="card-body">
+                <table id="glossaryTable" class="table table-bordered table-hover toggle-circle">
+
+                    <!-- Glossary Table Headings -->
+                    <thead>
+                        <tr>
+                            <th>@(Html.DisplayNameFor(model => model.Glossary.Term))</th>
+                            <th>@(Html.DisplayNameFor(model => model.Glossary.Definition))</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Glossary Table Content -->
+                    <tbody>
+                        @foreach (var item in Model.GlossaryItems)
+                        {
+                            <tr>
+                                <td>@item.Term</td>
+                                <td>@Html.Raw(item.Definition)</td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <!--===================================================-->
+        <!-- End Striped Table -->
+
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+            $('#glossaryTable').DataTable({
+                responsive: true
+            });
+
+        });
+</script>
+
+

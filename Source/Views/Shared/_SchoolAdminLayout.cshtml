@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>The Universal Writing Continuum - @ViewBag.Title</title>
+    <!--Favicon-->
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+
+    <!-- Boostrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link href="~/Styles/Teacher/main.min.css" rel="stylesheet" />
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- data tables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-print-1.5.6/r-2.2.2/datatables.min.css" />
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+    @RenderSection("Styles", false)
+    @RenderSection("Scripts", false)
+
+    <style type="text/css">
+        .extra-pad {
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-print-1.5.6/r-2.2.2/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Scripts/Shared/sideBarNav.js"></script>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="welcomeUserHeader">
+                <h5 class="my-auto">Hello @Convert.ToString(Session["UserFirstName"] + " " + Session["UserLastName"])!</h5>
+            </div>
+            <ul class="list-unstyled components">
+                <!--Menu list item-->
+                <li class="active-link">
+                    <a href="@Url.Action("Dashboard", "SchoolAdmin")">
+                        <i class="fa fa-home"></i>
+                        <span class="menu-title">
+                            <strong>Dashboard</strong>
+                        </span>
+                    </a>
+                </li>
+                <!--Category name-->
+                <li class="list-header extra-pad">Management</li>
+                <!--Menu list item Manage-->
+                <li class="extra-pad">
+                    <a href="#ManageMenu" onclick="$('#ManageMenu').toggleClass('collapse')" data-togle="collapse" aria-expanded="false" class="sideNavLinks" id="manageMenu">
+                        <i class="fa fa-circle" style="color:#6ca9b0"></i>
+                        <span class="menu-title">School Management</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="ManageMenu">
+                        <li class="dropDownLinks">
+                            <a href="@Url.Action("DistrictRoster","SchoolAdmin")">District Roster</a>
+                        </li>
+                        <li class="dropDownLinks">
+                            <a href="@Url.Action("CourseSemester", "SchoolAdmin")">Midterm Dates</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--Menu list item Reporting-->
+                <li class="extra-pad">
+                    <a href="#ReportingMenu" onclick="$('#ReportingMenu').toggleClass('collapse')" data-togle="collapse" aria-expanded="false" class="sideNavLinks" id="reportingMenu">
+                        <i class="fa fa-circle" style="color:#ebae26"></i>
+                        <span class="menu-title">Reporting</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+
+                    <!--Submenu-->
+                    <ul class="collapse list-unstyled" id="ReportingMenu" aria-expanded="false">
+                        <li class="dropDownLinks">
+                            <a href="@Url.Action("BenchmarkReports","SchoolAdmin")">Monthly Benchmarks</a>
+                        </li>
+                        <li class="dropDownLinks"><a href="@Url.Action("YearlyBenchmarkReports","SchoolAdmin")">Yearly Benchmarks</a></li>
+                        <li class="dropDownLinks"><a href="@Url.Action("UsageReports","SchoolAdmin")">Teacher Usage</a></li>
+
+                    </ul>
+                </li>
+
+                <!--Menu list item Resources-->
+                <li class="extra-pad">
+                    <a href="#ResourcesMenu" onclick="$('#ResourcesMenu').toggleClass('collapse')" data-togle="collapse" aria-expanded="false" class="sideNavLinks" id="resourcesMenu">
+                        <i class="fa fa-circle" style="color:#1d5f8b "></i>
+                        <span class="menu-title">Resources</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+
+                    <!--Submenu-->
+                    <ul class="collapse list-unstyled" aria-expanded="false" id="ResourcesMenu">
+                        <li class="dropDownLinks"><a href="@Url.Action("Leveling Chart.Month by Month Expectation of Proficiency for Each Grade Level.pdf","Content/SchoolAdmin")" target="_blank">Levels Explained</a></li>
+                        <li class="dropDownLinks"><a href="@Url.Action("Alignment OF THE UNIVERSAL WRITING CONTINUUM AND THE COMMON CORE STATE STANDARDS copy.pdf","Content/SchoolAdmin")" target="_blank">Universal Writing Continuum Alignment to the CCSS</a></li>
+                        <li class="dropDownLinks"><a href="@Url.Action("Frequently Asked Questions 2.pdf","Content/SchoolAdmin")" target="_blank">Frequently Asked Questions</a></li>
+                        <li class="dropDownLinks"><a href="@Url.Action("Best Practices.pdf","Content/SchoolAdmin")" target="_blank">Best Practices</a></li>
+                        <li class="dropDownLinks"><a href="@Url.Action("Creating Great Writers.pdf","Content/SchoolAdmin")" target="_blank">Creating Great Writers</a></li>
+                        <li class="dropDownLinks"><a href="@Url.Action("Research Reviewed for UWC.pdf","Content/SchoolAdmin")" target="_blank">Research Basis for UWC</a></li>
+
+                    </ul>
+                </li>
+
+                @*<!--Menu list item - Hidden for future use -->
+                    <li class="hidden">
+                        <a href="#">
+                            <i class="demo-psi-tactic"></i>
+                            <span class="menu-title">Menu Level</span>
+                            <i class="arrow"></i>
+                        </a>
+
+                        <!--Submenu-->
+                        <ul class="collapse" aria-expanded="false">
+                            <li><a href="#">Second Level Item</a></li>
+                            <li><a href="#">Second Level Item</a></li>
+                            <li><a href="#">Second Level Item</a></li>
+                            <li class="list-divider"></li>
+                            <li>
+                                <a href="#">Third Level<i class="arrow"></i></a>
+
+                                <!--Submenu-->
+                                <ul class="collapse" aria-expanded="false">
+                                    <li><a href="#">Third Level Item</a></li>
+                                    <li><a href="#">Third Level Item</a></li>
+                                    <li><a href="#">Third Level Item</a></li>
+                                    <li><a href="#">Third Level Item</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Third Level<i class="arrow"></i></a>
+
+                                <!--Submenu-->
+                                <ul class="collapse" aria-expanded="false">
+                                    <li><a href="#">Third Level Item</a></li>
+                                    <li><a href="#">Third Level Item</a></li>
+                                    <li><a href="#">Third Level Item</a></li>
+                                    <li class="list-divider"></li>
+                                    <li><a href="#">Third Level Item</a></li>
+                                    <li><a href="#">Third Level Item</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>*@
+
+                <li class="list-divider hidden"></li>
+            </ul>
+        </nav>
+        <!-- top navigation-->
+        <div class="content">
+            <nav class="navbar navbar-expand fixed-top">
+                <div class="form-inline">
+                    <button class="btn btn-sm btn-outline-secondary mr-1" type="button" id="sidebarCollapse">
+                        <i class="fas fa-align-justify fa-lg"></i>
+                    </button>
+                    <span style="color: grey;" class="my-auto mr-1">
+                        <i class="fas fa-ellipsis-v fa-sm"></i>
+                    </span>
+                    <a class="navbar-brand mb-1" href="@Url.Action("Index", "Home")" target="_blank">
+                        <img src="~/Images/logo.png" alt="Uni-Spire Logo" class="navbar-logo" />
+                    </a>
+                </div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user fa-lg"></i>  @Convert.ToString(Session["UserFirstName"] + " " + Session["UserLastName"])
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-id-badge fa-sm col-xs"></i>
+                                <span class="col-sm-1">Profile</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-envelope fa-sm col-xs"></i>
+                                <span class="col-sm-1">Messages</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-exclamation fa-sm col-xs"></i>
+                                <span class="col-sm-1">Notifications</span>
+                            </a>
+                            <div class="dropdown-item">
+                                <div class="btn-group-justified">
+                                    <button class="btn btn-primary" onclick="window.location.href = '@Url.Action("Settings", "SchoolAdmin")';">
+                                        <i class="fas fa-cog"></i> Settings
+                                    </button>
+                                    <button class="btn btn-danger" onclick="window.location.href = '@Url.Action("Logout", "Authentication")'">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div id="" class="mainContent">
+            <div>
+                @RenderBody()
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Blocking Scripts-->
+    @RenderSection("RenderBlockingScripts", false)
+
+    <!-- Jquery-->
+
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <!-- Page Scripts -->
+
+
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+﻿@model Source.Models.RegisterUserViewModel
+
+@{
+    ViewBag.Title = "Register";
+    if (ViewBag.Error == null)
+    { ViewBag.Error = false; }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Scripts {
+    
+    
+}
+
+@section Styles {
+    
+    
+}
+
+@section RenderBlockingScripts {
+
+}
+
+<!-- LOGIN HEADER -->
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title pull-left">REGISTER</h1>
+        <h1 class="page-title" , align="center">The Universal Writing Continuum</h1>
+    </div>
+</div>
+<!-- END LOGIN HEADER -->
+
+<!-- PAGE CONTENT -->
+<div class="page-content">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                
+                @if (ViewBag.Error)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <strong>Oh snap!</strong> An error occurred while processing your request.
+                    </div>
+                }
+
+                @using (Html.BeginForm("Register", "Authentication", FormMethod.Post))
+                {
+                    <!--Horizontal Form-->
+                    <!--===================================================-->
+                    <section class="form-horizontal">
+                        <section class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Registration Form</h3>
+                            </div><div class="panel-body">
+
+                                <!-- First Name Field -->
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="fname">First Name: </label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.user.FirstName, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(model => model.user.FirstName, null, new {@class = "text-danger", id = "fname"})
+                                    </div>
+                                </div>
+
+                                <!-- Last Name Field -->
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="lname">Last Name: </label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.user.LastName, new {@class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.user.LastName, null, new {@class = "text-danger", id = "lname"})
+                                    </div>
+                                </div>
+
+                                <!-- Email Address Field -->
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="email">Email Address: </label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.login.UserName, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(model => model.login.UserName, null, new {@class = "text-danger", id = "email"})
+                                    </div>
+                                </div>
+
+                                <!-- Password Field-->
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="password">Password: </label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.login.Password, new {@class = "form-control", placeholder="Password", @type = "password" })
+                                        @Html.ValidationMessageFor(model => model.login.Password, null, new {@class = "text-danger", id = "password"})
+                                    </div>
+                                </div>
+
+                                <!-- School Code Field -->
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="schoolCode">School Code: </label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.login.schoolCode, new {@class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.login.schoolCode, null, new {@class = "text-danger", id = "schoolCode"})
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="panel-footer">
+                                <!-- Submit Button -->
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-default">Create Account</button>
+                                </div>
+                                <div class="form-group text-center">
+                                    <a href="@Url.Action("ForgotPassword", "Account")" target="_blank">I've forgotten my password</a>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                    <!--===================================================-->
+                    <!--End Horizontal Form-->
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

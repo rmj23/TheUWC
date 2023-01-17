@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Source.Models.EngagementModel>
+@{
+    ViewBag.Title = "ViewEngagement";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles {
+
+}
+<div class="p-3 mb-2 bg-success"></div>
+<h1 class="ml-1 ml-md-3">Engagements</h1>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h4>Search Instructional Engagements by Keyword or Standard</h4>
+        </div>
+
+        <div class="card-body">
+            @*<div class="col-md-6">
+            <label>Select Grade Level:</label>
+            <select id="gradeLevelRange" ></select>
+            @Html.DropDownListFor(model => Model.GradeLevelRangeID, Model.GradeLevelRange)
+        </div>*@
+            <div class="form-group row ml-1">
+                <label class="label pr-1 ">Show</label>
+                <select id="mySelect" class="form-control col-1">
+                    <option value="">All</option>
+                    <option value="K-1">K-1</option>
+                    <option value="2-5">2-5</option>
+                    <option value="6-12">6-12</option>
+                </select>
+                <label class="label pl-1">Grades</label>
+            </div>
+            
+            <table class="table table-bordered table-striped dt-responsive" id="tableEngagements">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Grade Levels</th>
+                        <th>Keywords</th>
+                        <th>Tasks</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var eng in Model)
+                    {
+                        <tr>
+                            <td>@eng.Title</td>
+                            <td>@eng.GradeLevel</td>
+                            <td>@eng.Keywords</td>
+                            <td>
+                                <a href="@Url.Action("ViewIndividualEngagement", "Instruction", new { ID = eng.ID })" class="btn btn-outline-primary" title="View More">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/Scripts/Teacher/ViewEngagement.js"></script>
+}

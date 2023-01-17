@@ -1,0 +1,75 @@
+﻿@model Source.Models.ViewGroupMediaViewModel
+@{
+    ViewBag.Title = "View Group Media";
+    Layout = ViewBag.Layout;
+}
+
+<h2 style="padding: 3px 20px">@ViewBag.Title</h2>
+<div id="page-content">
+    <div class="panel">
+        <section class="form-horizontal">
+            <div class="panel-heading">
+                <div class="panel-control">
+                    <a href="@Url.Action("ViewGroups", "Teacher", new{ projectId = Model.projectId})" class="btn btn-blueTradewind">
+                        <i class="fa fa-arrow-left"></i> My Groups
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                @if (Model.groupMediaList.Count != 0)
+                {
+                    <p>@Model.group.groupName</p>
+                    <table class="table table-bordered table-hover toggle-circle" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th data-sort-initial="true">Last Name</th>
+                                <th>First Name</th>
+                                <th data-sort-ignore="true">Middle Name</th>
+                                <th>Media Type</th>
+                                <th>Media</th>
+                                <th>
+                                    <a href="@Url.Action("DeleteGroupMedia", "Teacher", new { groupId = Model.groupId, projectId = Model.projectId})" class="btn btn-sm btn-default" title="Are you sure you would like to delete this groups media?">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        @for (int i = 0; i < Model.groupMediaList.Count; i++)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Model.students[i].LastName
+                                    </td>
+                                    <td>
+                                        @Model.students[i].FirstName
+                                    </td>
+                                    <td>
+                                        @Model.students[i].MiddleName
+                                    </td>
+                                    <td>
+                                        @Model.groupMediaList[i].mediaType
+                                    </td>
+                                    <td>
+                                        <span class="bg-greenJewel" style="color:white; padding:3px; text-align:center">
+                                            <a style="color: white" href="#" onclick="window.open('@Url.Action("ViewIndividualGroupMedia", new {mediaId = Model.groupMediaList[i].Id})'
+                                            ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">Download</a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                }
+                else
+                {
+                    <p>No Media Uploaded. If you'd like to upload media for this group, please click <b>@Html.ActionLink("here", "UploadGroupMedia", new { groupId = Model.groupId, projectId = Model.projectId })</b></p>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+

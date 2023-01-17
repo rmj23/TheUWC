@@ -1,0 +1,124 @@
+﻿@model Source.Models.ViewBookshelfViewModel
+@{
+    ViewBag.Title = "My Bookshelf";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+<style type="text/css">
+    .book {
+        padding: 170px 10px 25px 70px;
+
+    }
+
+    .shelf {
+        border-bottom: 30px solid #A1A194;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        top: -15px;
+        z-index: -1;
+        background-image: url('/Content/Images/Bookshelf_shelf.png');
+    }
+
+    .bookshelf {
+        /*background-image: url('/Content/Images/Bookshelf_shelf.png');*/
+        background-size: auto;
+    }
+
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        text-align: center;
+    }
+
+    .top {
+        position: absolute;
+        top: 8px;
+        left: 50%;
+    }
+
+    .row {
+        background-image: url('/Content/Images/Bookshelf_noshelves.png');
+        background-repeat: repeat !important;
+        background-size: cover !important;
+        background-position: center;
+    }
+</style>
+<div id="page-title">
+    <h1 style="padding: 3px 20px"class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+
+<div id="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("ViewBookshelf", "Student", FormMethod.Post))
+        {
+            <div class="panel">
+                <div class="panel-body">
+                    <label class="col-sm-3 control-label">Show:</label>
+                    <div class="col-sm-6">
+                        @Html.DropDownListFor(model => model.PaperFilterID, Model.BookshelfFilter, new { @class = "form-control", onchange = "this.form.submit();" })
+                    </div>
+                </div>
+            </div>
+
+            if (ViewBag.ClassSelected == true)
+            {
+                <div class="panel">
+                    <div class="panel-body">
+                        <label class="col-sm-3 control-label">Select Class:</label>
+                        <div class="col-sm-6">
+                            @Html.DropDownListFor(model => Model.CourseID, Model.Classes, new { @class = "form-control", onchange = "this.form.submit();" })
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+            if (Model.Papers.Count != 0)
+            {
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Bookshelf
+                            <div class="col-xs-2 pull-right" style="padding-top:10px;">
+                                @Html.DropDownListFor(model => model.BookshelfContentId, Model.BookshelfContentLkp, new { @class = "form-control", onchange = "this.form.submit();" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div class="col-xs-12">
+                            </div>
+                            <div class="row">
+                                @for (int i = 1; i < Model.Papers.Count + 1; i++)
+                                {
+                                    <div class="col-xs-4 col-md-2 col-lg-4">
+                                        <div class="centered">@Model.Papers[i - 1].PaperTitle - @Model.Papers[i - 1].lastName, @Model.Papers[i - 1].firstName</div><img src="~/Content/Images/notebook_thumbnail.png" class="img-responsive book" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            for (int i = 0; i < Model.BookshelfContentLkp.Count; i++)
+            {
+                @Html.HiddenFor(m => Model.BookshelfContentLkp[i].Value)
+                @Html.HiddenFor(m => Model.BookshelfContentLkp[i].Text)
+            }
+            @Html.HiddenFor(model => model.BookshelfContentId)
+            for (int i = 0; i < Model.BookshelfFilter.Count; i++)
+            {
+                @Html.HiddenFor(m => Model.BookshelfFilter[i].Value)
+                @Html.HiddenFor(m => Model.BookshelfFilter[i].Text)
+            }
+        }
+
+
+
+
+    </div>
+</div>
+

@@ -1,0 +1,416 @@
+﻿
+@{
+    ViewBag.Title = "Testimonials";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+
+
+}
+
+@section Styles {
+
+
+}
+
+@section RenderBlockingScripts {
+
+<script>
+
+    $(function () {
+
+        var toggleTestimonialContentOne = $("#toggleTestimonialContentOne");
+        var toggleTestimonialContentTwo = $("#toggleTestimonialContentTwo");
+
+        var testimonialContentOne = $("#testimonialContentOne");
+        var testimonialContentTwo = $("#testimonialContentTwo");
+
+        $(toggleTestimonialContentOne).on("click", function () {
+            if (toggleTestimonialContentOne.hasClass("expanded")) {
+                toggleTestimonialContentOne.text("Read More");
+                toggleTestimonialContentOne.removeClass("expanded");
+                testimonialContentOne.addClass("hidden");
+            } else {
+                toggleTestimonialContentOne.text("Read Less");
+                toggleTestimonialContentOne.addClass("expanded");
+                testimonialContentOne.removeClass("hidden");
+            }
+        });
+
+        toggleTestimonialContentTwo.on("click", function () {
+            if (toggleTestimonialContentTwo.hasClass("expanded")) {
+                toggleTestimonialContentTwo.text("Read More");
+                toggleTestimonialContentTwo.removeClass("expanded");
+                testimonialContentTwo.addClass("hidden");
+            } else {
+                toggleTestimonialContentTwo.text("Read Less");
+                toggleTestimonialContentTwo.addClass("expanded");
+                testimonialContentTwo.removeClass("hidden");
+            }
+        });
+
+    });
+
+</script>
+}
+
+<!-- BREADCRUMBS -->
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title pull-left">TESTIMONIALS</h1>
+    </div>
+</div>
+<!-- END BREADCRUMBS -->
+
+<!-- PAGE CONTENT -->
+<div class="page-content">
+    <div class="container">
+        <h2 class="section-heading">THE UNIVERSAL WRITING CONTINUUM IS TEACHER-TESTED!</h2>
+        <div class="panel-group" id="accordion">
+
+            <!-- TESTIMONIAL #1 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="">
+                            Dr. Maggie
+                            Chase, Former President of NCTE <i class="fa fa-angle-down pull-right icon-collapsed"></i><i class="fa fa-angle-up pull-right icon-expanded"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <p>
+                            "The Universal Writing Continuum (UWC) provides a comprehensive writing instruction tool
+                            and record-keeping system for teachers to manage the numerous, complex, and
+                            multi-faceted aspects associated with a process-approach to writing. There is a
+                            multitude of resources related to the teaching of writing, such as sample letters to
+                            parents, video clips of instructional practices, UWC position papers on best practices,
+                            and grade-appropriate rubrics. The beauty of the system is its ability to assist a
+                            teacher with the daily task of keeping on top of students’ progress, giving individual
+                            student feedback on their writing assignments in a timely manner, and maintaining
+                            specific and accurate records on each student. When both the teacher and the students
+                            have access to the digital tools needed for using this program, such as classroom
+                            computers or tablets, and the brief training needed to effectively use the tools
+                            provided by the program, the benefits it provides for productive writing workshop time
+                            is enhanced."
+                        </p>
+                        <section class="hidden" id="testimonialContentOne">
+                            <p>
+                                "One of the more helpful aspects of the UWC is the way in which it helps the teacher
+                                assess student writing. Through a merging of the 6 Traits, along with the three
+                                types of writing advanced by the Common Core Standards, the UWC identifies writing
+                                qualities that would enable a teacher to assess a writing sample at the Below Basic,
+                                Basic, Proficient, Advanced, or Advanced + levels within each of the three types of
+                                writing from Pre-K to 12th grade and it includes a continuum from first to second
+                                semester to account for – and indicate an expectation for – growth in writing over
+                                the course of a school year. Sample anchor papers are provided for each type of
+                                writing at each level of proficiency."
+                            </p>
+                            <p>
+                                "In NCTE’s 2013 position statement on the importance of formative assessment, ten
+                                statements are listed that describe what its benefits are to the learner, each of
+                                which is addressed in one way or another in the UWC. Below I list each item on the
+                                list and how UWC provides for that."
+                            </p>
+                            <ol class="list-padding">
+                                <li>
+                                    Requires students to take responsibility for their own learning. UWC: Students
+                                    can log into their account to look at the comments a teacher has made in
+                                    response to a paper that has been submitted; students upload their papers into
+                                    their account.
+                                </li>
+                                <li>
+                                    Communicates clear, specific learning goals. UWC: Teachers can access a large
+                                    bank of comments &amp; feedback to use, as well as add their own favorite or
+                                    much-used comments to the bank.
+                                </li>
+                                <li>
+                                    Focuses on goals that represent valuable educational outcomes with applicability
+                                    beyond the learning context. UWC: Because the CCSS are integrated into the
+                                    scoring rubrics, the greater purposes for developing strong writers are inherent
+                                    to this program.
+                                </li>
+                                <li>
+                                    Identifies the student’s current knowledge/skills and the necessary steps for
+                                    reaching the desired goals. The UWC is set up so that students can receive
+                                    feedback that helps them improve their written submissions. The rubrics are
+                                    visible, easy for teachers to employ and for students to read. The Universal
+                                    Writing Continuum provides an in-depth progression of skills from Pre-K to 12th
+                                    grade across the Traits and processes involved with writing development.
+                                </li>
+                                <li>
+                                    Requires development of plans for attaining the desired goals. UWC: Teachers can
+                                    list specific goals for students in each student’s file and can keep notes on
+                                    each child pertaining to conferences, skills to address, next-steps in writing
+                                    progression from draft to final copy.
+                                </li>
+                                <li>
+                                    Encourages students to self-monitor progress toward the learning goals. UWC: See
+                                    #1.
+                                </li>
+                                <li>
+                                    Provides examples of learning goals including, when relevant, the specific
+                                    grading criteria or rubrics that will be used to evaluate the student’s work.
+                                    UWC: See #4
+                                </li>
+                                <li>
+                                    Provides frequent assessment, including peer and student self-assessment and
+                                    assessment embedded within learning activities. UWC:All the tools needed for
+                                    assessing student work are provided; the frequency is dependent on how often the
+                                    teacher uses the tools.
+                                </li>
+                                <li>
+                                    Includes feedback that is non-evaluative, specific, timely, and related to the
+                                    learning goals, and that provides opportunities for the student to revise and
+                                    improve work products and deepen understandings. UWC: See # 2
+                                </li>
+                                <li>
+                                    Promotes metacognition and reflection by students on their work. UWC: Not sure
+                                    about this. Is there a way for students to upload personal comments and
+                                    reflections on their work and progress?
+                                </li>
+                            </ol>
+                            <p>
+                                "When all the components of the program are completed, this will be unmatched by
+                                anything else that’s currently available."
+                            </p>
+                        </section>
+                        <p class="text-right">
+                            <a class="btn btn-default" id="toggleTestimonialContentOne">Read More</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIAL #2 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="">
+                            Mr. Blair,
+                            New Hampshire <i class="fa fa-angle-down pull-right icon-collapsed"></i><i class="fa fa-angle-up pull-right icon-expanded"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <p>
+                            “Rarely do I write to other administrators and try to endorse one system or another. But
+                            here's what we're up to:"
+                        </p>
+                        <p>
+                            “The Universal Writing Continuum is a new program—actually in its beta testing phase—that
+                            allows teachers to track from year to hear how students are doing on their writing. It's
+                            part database, part scoring system, part tracker. Not only does it record regular
+                            writing assignments, it keeps track of benchmark papers, so that you can assess how your
+                            building is doing in writing. We've been working with its creator, Dr. Debbie Powell,
+                            from the University of North Carolina-Wilmington."
+                        </p>
+                        <section class="hidden" id="testimonialContentTwo">
+                            <p>
+                                “If your building is like mine, you might have noticed that kids struggle with
+                                writing. That is true even if your reading program is strong. Writing takes time to
+                                do well....The Continuum doesn't make it any easier, but it does help give your
+                                writing program a bit more of a cohesive purpose. It also gives teachers a system
+                                for tracking progress. It's better than a rubric, because it gives a much more
+                                detailed snapshot of how a kid is doing. In addition, the kids who might never ever
+                                get out of the 1 or 2 box on a rubric (and we know who they are) still can show real
+                                growth because of how the Continuum is put together."
+                            </p>
+                            <p>
+                                “There are other things about this system that I really, really like, especially as
+                                an administrator. Knowing as I do that writing is one of the first things to fall by
+                                the wayside, it allows me to track not only improvement from year to year, but also
+                                whether teachers are teaching writing at all. I can mandate three benchmark papers a
+                                year and know that they're coming in and being scored properly. The system
+                                encourages this sort of participation. It also encourages teachers to actually talk
+                                about writing and whether an individual paper meets the different standards."
+                            </p>
+                            <p>
+                                “Also exciting is a feature that allows you to scan in kid papers and keep them on
+                                file digitally, and to allow parents to have access to this work remotely. It's one
+                                thing to say that a kid is exceeding grade level in conventions, but it's another to
+                                allow parents to see what "exceeding grade level' really means and also see their
+                                child's improvement from year to year, right on their screen.”
+                            </p>
+                        </section>
+                        <p class="text-right">
+                            <a class="btn btn-default" id="toggleTestimonialContentTwo">Read More</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIAL #3 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="">
+                            Colorado
+                            elementary teacher <i class="fa fa-angle-down pull-right icon-collapsed"></i><i class="fa fa-angle-up pull-right icon-expanded"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>
+                            "The UWC is aligned with the Common Core; many of the elements of writing can be found in
+                            the Common Core. The UWC goes beyond the Common Core by including writing elements and
+                            language not addressed in the standards. The UWC simultaneously organizes the Common
+                            Core by the writing elements and by grade level. It advances the expectations mid-year,
+                            thereby helping teachers determine if the work is of grade-level (or not)
+                            performance."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIAL #4 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="">
+                            Colorado
+                            elementary teacher <i class="fa fa-angle-down pull-right icon-collapsed"></i><i class="fa fa-angle-up pull-right icon-expanded"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>
+                            "I think a continuum is helpful to teachers needing guidance on pinpointing areas of
+                            strength and weaknesses with individual students. Once I learned how to navigate through
+                            the system, the Continuum was easy to use."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIAL #5 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" class="">
+                            Missouri
+                            elementary teacher <i class="fa fa-angle-down pull-right icon-collapsed"></i><i class="fa fa-angle-up pull-right icon-expanded"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>"Great tool that provides informative information."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIAL #6 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" class="">
+                            Nevada
+                            middle school teacher <i class="fa fa-angle-down pull-right icon-collapsed"></i><i class="fa fa-angle-up pull-right icon-expanded"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseSix" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>
+                            “The writing continuum is a solid tracking device for students’ growth in writing. It is
+                            easy to use and provides another data point to view growth.”
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIAL #7 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" class="">
+                            North
+                            Carolina elementary teacher <i class="fa fa-angle-down pull-right icon-collapsed"></i><i class="fa fa-angle-up pull-right icon-expanded"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseSeven" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>
+                            “I would say that it is very comprehensive and better than anything that we currently
+                            have for scoring a student’s writing. It is very explicit and it is easy to see the
+                            progression from one proficiency band to the next. It also ensures that teachers know
+                            the Common Core Standards not only for their grade level but as a continuum.”
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIAL #8 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight" class="">
+                            North
+                            Carolina middle school teacher <i class="fa fa-angle-down pull-right icon-collapsed"></i><i class="fa fa-angle-up pull-right icon-expanded"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseEight" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>
+                            “If used throughout the school year consistently, students and teachers will have great
+                            data to discuss in terms of progress or lack of in specific areas of writing. If
+                            assessed regularly, students should be able to target areas of weakness as a writer and
+                            improve those areas contributing to the whole.”
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIAL #9 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseNine" class="">
+                            North
+                            Carolina elementary teacher <i class="fa fa-angle-down pull-right icon-collapsed"></i><i class="fa fa-angle-up pull-right icon-expanded"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseNine" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>
+                            “The Universal Writing Continuum was very beneficial to my Common Core writing
+                            instruction. I was also able to address students’ strengths and weaknesses. Using the
+                            writing continuum I was also able to strengthen my knowledge of writing standards for
+                            other grade levels.”
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIAL #10 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTen" class="">
+                            Colorado
+                            high school English teacher <i class="fa fa-angle-down pull-right icon-collapsed"></i><i class="fa fa-angle-up pull-right icon-expanded"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTen" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>
+                            “I just have to say that I love it; I love that it’s so broken down and so precise... It’s
+                            just not something broad to look at; you can literally go back and look at the
+                            (student’s) story and check to see did he do that? I was really taken with this.”
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

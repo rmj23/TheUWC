@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Data and Reports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Scripts {
+
+
+}
+
+@section Styles {
+
+
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+
+    $(function () {
+        var toggleSchoolAdminPortalImage = $("#toggleSchoolAdminPortalImage");
+        var schoolAdminPortalImage = $("#schoolAdminPortalImage");
+
+        toggleSchoolAdminPortalImage.on("click", function () {
+            if (schoolAdminPortalImage.hasClass("hidden")) {
+                schoolAdminPortalImage.removeClass("hidden");
+                toggleSchoolAdminPortalImage.text("See Less");
+            } else {
+                schoolAdminPortalImage.addClass("hidden");
+                toggleSchoolAdminPortalImage.text("See More");
+            }
+        });
+
+    });
+
+</script>
+
+}
+
+<!-- BREADCRUMBS -->
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title pull-left">DATA AND REPORTS</h1>
+    </div>
+</div>
+<!-- END BREADCRUMBS -->
+<!-- PAGE CONTENT -->
+<div class="page-content">
+    <div class="container">
+        <section>
+            <h2 class="section-heading">TEACHERS</h2>
+            <p class="lead">
+                Teachers have access to a wealth of data about their individual students and their classes to inform
+                instruction. As teachers evaluate students’ writing at any stage of the writing process, the
+                computer compiles the data to create class and individual student reports. Teachers can access class
+                data by specific elements of writing to help them determine what skills the majority of the class or
+                small groups need. Teachers can view their individual students’ progress in a chronological table
+                that displays details of their writing habits and specific needs. They can monitor the students’
+                growth on a graph indicating actual progress as measured against the expected progress. They can
+                check the students’ electronic portfolio for any previously evaluated piece of writing from PK-12.
+                Teachers can examine feedback given to students, conference notes for individuals, students’ work in
+                previous years or in other classes in the current year. They can access benchmark reports for their
+                classes. What teachers don’t want to save time on giving feedback to students, have class data
+                complied for them and have all of the tools needed right at their fingertips to be effective writing
+                teachers?
+            </p>
+
+            <h2 class="section-heading">SCHOOL ADMINISTRATORS AND COACHES</h2>
+            <p class="lead">
+                Schools or districts establish the dates and expectations for each benchmark assessment. School
+                administrators and coaches can access the benchmark reports for each registered teacher in the
+                school. The graphs indicate the class percentage of students that are within the below basic, basic,
+                proficient, advanced and advanced plus ranges for each month of the year. Administrators can also
+                access the individual student, class/grade level data, and an annual progress graph.
+                Administrators receive reports on teachers' usage of the UWC. The more that teachers are using the
+                UWC, the more knowledge they have to improve instruction. It’s easy to see if teachers are getting
+                the most out of the UWC! <a href="javascript:void(0);" id="toggleSchoolAdminPortalImage">
+                    See
+                    More
+                </a>
+            </p>
+            <img src="@Url.Content("~/Images/GraphUni.png")" class="img-responsive center-block hidden" id="schoolAdminPortalImage" />
+
+            <h2 class="section-heading">DISTRICT ADMINISTRATORS</h2>
+            <p class="lead">
+                District Administrators receive benchmark reports for each grade level, either district-wide or by
+                schools. They can also access class benchmark data by teacher within a school. District
+                Administrators and Curriculum Coordinators can see at a glance how students are progressing and
+                areas that teachers may need additional professional development.
+            </p>
+
+        </section>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+﻿@model Source.Models.StudentModel
+@{
+    ViewBag.Title = "AddStudent";
+    Layout = "~/Views/Shared/_SchoolAdminLayout.cshtml";
+}
+
+@section Styles {
+
+}
+
+@section Scripts {
+
+}
+
+@section RenderBlockingScripts {
+
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">District Roster</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Controls -->
+        <div class="card">
+            <div class="card-header">                
+                <h3 class="panel-title">@ViewBag.Title</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("AddStudent", "SchoolAdmin", FormMethod.Post))
+            {
+                <section class="form-horizontal">
+                    <div class="card-body">
+
+                        <!-- Student First Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentFirstName">First Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Student Middle Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentMiddleName">Middle Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Student Last Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentLastName">Last Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Student Suffix Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentSuffix">Suffix: </label>
+                            <div class="col-sm-6">
+                                @*<input class="form-control" type="text" id="studentSuffix" />*@
+                                @Html.TextBoxFor(model => model.Suffix, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <!-- Student Number Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentNumber">Student Number: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.StudentNumber, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.StudentNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Student Email Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentEmail">Email: </label>
+                            <div class="col-sm-6">
+                                @*<input class="form-control" type="text" id="studentEmail" />*@
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        @Html.HiddenFor(model => model.SchoolID)
+                        @Html.HiddenFor(model => model.DistrictID)
+
+                    </div>
+                    <div class="card-footer">
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success">Add Student</button>
+                        </div>
+                    </div>
+                </section>
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,189 @@
+﻿@model Source.Models.ViewDistrictBenchmarkReportsViewModel
+@{
+    ViewBag.Title = "BenchmarkReports";
+    Layout = "~/Views/Shared/_DistrictAdminLayout.cshtml";
+}
+<style>
+    .google_chart_responsive {
+        width: 100%;
+        min-height: 400px;
+    }
+</style>
+
+@{
+    string[] Evaluations = new string[5]
+    {
+"Below Basic",
+"Basic",
+"Proficient",
+"Advanced",
+"Advanced+"
+    };
+    int[] GraphData = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphData2 = new int[5] { 0, 0, 0, 0, 0 };
+}
+
+<div id="page-content">
+    <!--Panel for Selection-->
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Benchmark Reports</h3>
+            </div>
+            <section class="form-horizontal">
+                <div class="panel-body">
+                    @using (Html.BeginForm("BenchmarkReports", "DistrictAdmin", FormMethod.Get))
+                    {
+                        Html.RenderPartial("_DistrictSchoolGradeEvalPeriodSelection", Model);
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+    @if (Model.State != Source.Models.ASchoolGradeEvaluationPeriod.UseForDistrictAdminBenchmark.Invalid & Model.BenchmarkReports != null)
+    {
+        var count = 0;
+        foreach (var a in Model.BenchmarkReports.components)
+        {
+            count += a.Students.Count;
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            foreach (var student in Model.BenchmarkReports.components)
+            {
+                if (student.ProfLevel.ID == i + 1)
+                {
+                    {
+                        GraphData2[i] = (int)(((student.Students.Count * 1.0) / (count * 1.0)) * 100);
+                        foreach (var x in student.Students)
+                        {
+                            GraphData[i] += 1;
+                        }
+
+                    }
+                }
+            }
+        }
+        <div class="col-lg-6">
+            <div class="container-fluid">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Benchmark Reports(%)</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div id="chart_div2" class="google_chart_responsive"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="container-fluid">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Benchmark Reports(# of Students)</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div id="chart_div" class="google_chart_responsive"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (Model.State != Source.Models.ASchoolGradeEvaluationPeriod.UseForDistrictAdminBenchmark.Invalid & Model.BenchmarkReports == null)
+    {
+        <div class="panel">
+            <div class="panel-body">
+                <h5 style="color: red">No reports available.</h5>
+            </div>
+        </div>
+    }
+</div>
+
+@if (Model.State != Source.Models.ASchoolGradeEvaluationPeriod.UseForDistrictAdminBenchmark.Invalid & Model.BenchmarkReports != null)
+{
+    <!--Column chart-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChart2);
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+
+            // Create the data table.
+            var bb = @GraphData[0];
+            var b = @GraphData[1];
+            var p = @GraphData[2];
+            var a = @GraphData[3];
+            var ap = @GraphData[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'], // RGB value
+                ['Basic', b, '#ebae26'], // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced', a, '#6ca9b0'],
+                ['Advanced Plus', ap, '#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart2() {
+
+            // Create the data table.
+            var bb = @GraphData2[0];
+            var b = @GraphData2[1];
+            var p = @GraphData2[2];
+            var a = @GraphData2[3];
+            var ap = @GraphData2[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'], // RGB value
+                ['Basic', b, '#ebae26'], // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced', a, '#6ca9b0'],
+                ['Advanced Plus', ap, '#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div2'));
+            chart.draw(data, options);
+        }
+
+        $(window).resize(function() {
+            drawChart();
+            drawChart2();
+        });
+    </script>
+
+}
+
+

@@ -1,0 +1,11 @@
+﻿@model Source.Models.APaperResultsSelection
+
+@Html.HiddenFor(model => model.State)
+
+<!-- Paper Title Selection -->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="goaltitle">Paper: </label>
+    <div class="col-sm-6">
+        @Html.DropDownListFor(model => Model.PaperID, Model.PaperDropDown, new { @class = "form-control", onchange = "$('#State').val('PaperSelected');this.form.submit();" })
+    </div>
+</div>

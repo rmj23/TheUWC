@@ -1,0 +1,264 @@
+﻿@{
+    ViewBag.Title = "Graphic Organizers";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-info"></div>
+    <h1 class="ml-1 ml-md-3">Resources</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container">
+
+        <!-- Selections Panel -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    @ViewBag.Title
+                    <i class="fas fa-info fa-sm" data-toggle="tooltip" data-container="body" data-placement="right" data-original-title="Make sure your pop-up blocker is turned off."></i>
+                </h3>
+            </div>
+
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <div class="card-body">
+
+                    <!-- Graphic Organizer Type Field -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label" for="graphicOrganizerType">Graphic Organizer Type: </label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="graphicOrganizerType" onchange="change(graphicOrganizerType.options[graphicOrganizerType.selectedIndex].value)">
+                                <option>-- Select an Option --</option>
+                                <option value="a">Argumentative</option>
+                                <option value="i">Informational</option>
+                                <option value="n">Narrative</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Graphic Organizer Class Field -->
+                    <div class="form-group row" id="graphicOrganizerClassContainer">
+                        <label class="col-sm-3 control-label" for="graphicOrganizerClass">Graphic Organizer Genre: </label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="graphicOrganizerClass" onchange="change2(graphicOrganizerClass.options[graphicOrganizerClass.selectedIndex].value)">
+                                <option>-- Select an Option --</option>
+                                <option value="d">Description</option>
+                                <option value="e">Explanation</option>
+                                <option value="p">Procedure</option>
+                                <option value="rec">Recount</option>
+                                <option value="rep">Report</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Graphic Organizer Level Field -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label" for="graphicOrganizerClass">Graphic Organizer Level: </label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="graphicOrganizerLevel" onchange="show(graphicOrganizerLevel.options[graphicOrganizerLevel.selectedIndex].value)">
+                                <option>-- Select an Option --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+        <!-- Class Records Panel -->
+        <div class="card" style="margin-top: 20px;">
+
+            <!-- Panel Heading -->
+            <div class="card-header">
+                <div class="">
+
+                    @*<a href="javascript:void(0);" onclick="alert('Feature coming soon!');" class="btn btn-blueTradewind">
+                            <i class="fa fa-envelope-o"></i>
+                        </a>*@
+
+                </div>
+                <h3 class="card-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+
+            <!-- Panel Body -->
+            <div class="card-body">
+
+                <iframe src="" id="pdfviewer" class="hidden" style="width:100%; min-height:650px;" allowfullscreen webkitallowfullscreen></iframe>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+
+    <script type="text/javascript">
+        var data = [{
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Argumentative/Argument 6-12 Organizer.pdf")',
+            text: "Grades 6-12",
+            set: "a"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Argumentative/Opinion 2-5 Organizer-2.pdf")',
+            text: "Grades 2-5",
+            set: "a"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Argumentative/Opinion K-1 Organizer-1.pdf")',
+            text: "Grades K-1",
+            set: "a"
+        },
+
+
+        {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Narrative/2-5 Narrative Organizer-2 Write in boxes NEW.pdf")',
+            text: "Grades 2-5",
+            set: "n"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Narrative/Narrative 6-12 Organizer.pdf")',
+            text: "Grades 6-12",
+            set: "n"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Narrative/Narrative K-1 Organizer-4.pdf")',
+            text: "Grades K-1",
+            set: "n"
+        },
+
+
+        {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Description/Informational Description 2-5.pdf")',
+            text: "Grades 2-5",
+            textclass: "Description",
+            set: "d"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Description/Informational Description 6-12.pdf")',
+            text: "Grades 6-12",
+            textclass: "Description",
+            set: "d"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Description/Informational Description K-1.pdf")',
+            text: "Grades K-1",
+            textclass: "Description",
+            set: "d"
+        },
+
+
+        {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Explanation/Informational Explanation 2-5.pdf")',
+            text: "Grades 2-5",
+            textclass: "Explanation",
+            set: "e"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Explanation/Informational Explanation 6-12.pdf")',
+            text: "Grades 6-12",
+            textclass: "Explanation",
+            set: "e"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Explanation/Explanation is not available for K-1.pdf")',
+            text: "Grades K-1",
+            textclass: "Explanation",
+            set: "e"
+        },
+
+
+        {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Procedure/Informational Procedure 2-5(1).pdf")',
+            text: "Grades 2-5",
+            textclass: "Procedure",
+            set: "p"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Procedure/Informational Procedure 6-12.pdf")',
+            text: "Grades 6-12",
+            textclass: "Procedure",
+            set: "p"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Procedure/Informational Procedure K-1.pdf")',
+            text: "Grades K-1",
+            textclass: "Procedure",
+            set: "p"
+        },
+
+
+        {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Recount/Informational Recount 2-5.pdf")',
+            text: "Grades 2-5",
+            textclass: "Recount",
+            set: "rec"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Recount/Informational Recount 6-12.pdf")',
+            text: "Grades 6-12",
+            textclass: "Recount",
+            set: "rec"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Recount/Informational Recount K-1.pdf")',
+            text: "Grades K-1",
+            textclass: "Recount",
+            set: "rec"
+        },
+
+
+        {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Report/Informational Report 2-5.pdf")',
+            text: "Grades 2-5",
+            textclass: "Report",
+            set: "rep"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Report/Informational Report 6-12.pdf")',
+            text: "Grades 6-12",
+            textclass: "Report",
+            set: "rep"
+        }, {
+            value: '@Url.Content("~/Content/Teacher/Resources/GraphicOrganizers/Informational/Report/Informational Report K-1.pdf")',
+            text: "Grades K-1",
+            textclass: "Report",
+            set: "rep"
+        }];
+
+
+
+
+        function change(value) {
+            $('#graphicOrganizerLevel').find('option').remove();
+            $('#graphicOrganizerLevel').append('<option>-- Select an Option --</option>');
+            if (value == "i") {
+                $('#graphicOrganizerClassContainer').removeClass('hidden');
+            }
+            else {
+                $('#graphicOrganizerClassContainer').addClass('hidden');
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].set == value) {
+                        $('#graphicOrganizerLevel').append('<option value="' + data[i].value + '">' + data[i].text + '</option>');
+                    }
+                }
+            }
+        }
+        function show(value) {
+
+            if ($("#pdfviewer").hasClass("hidden")) {
+                $("#pdfviewer").removeClass("hidden");
+            }
+            $('#pdfviewer').prop('src', value);
+        }
+        function change2(value) {
+            $('#graphicOrganizerLevel').find('option').remove();
+            $('#graphicOrganizerLevel').append('<option>-- Select an Option --</option>');
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].set == value) {
+                    $('#graphicOrganizerLevel').append('<option value="' + data[i].value + '">' + data[i].text + '</option>');
+                }
+
+            }
+        }
+
+    </script>
+}

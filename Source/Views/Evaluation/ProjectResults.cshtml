@@ -1,0 +1,95 @@
+﻿@model Source.Models.ProjectResultsGroupModel
+@{
+    ViewBag.Title = "Project Results";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+@section RenderBlockingScripts
+{
+    <script>
+        $('.buttonClicker').click(function () {
+            var value = jQuery.trim($(this).attr('id'));
+            $('.hidden' + value).toggleClass('rowHidden rowSeenRow');
+        });
+    </script>
+}
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">
+        @*<a class="link-header"
+            href="@Url.Action("ParentPortfolio",
+                  new{Model.Paper.StudentID})">@ViewBag.Title</a>*@
+        @ViewBag.Title
+    </h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+        <!--Panel Head-->
+        @for(var i = 0; i < Model.StudentResults.Count; i++)
+        {
+            //TODO:This is hidding the rest of the students.
+            <div class="panel" style="display: @((i != 0) ? "none" : "block")">
+                <div class="panel-heading">
+                    <div class="panel-control">
+                        <ul class="pager pager-rounded">
+                            <li><a href="#" id="category-previous">Previous</a></li>
+                            <li><a href="#" id="category-next">Next</a></li>
+                        </ul>
+                    </div>
+                    <h3 class="panel-title">@Model.StudentResults[i].LastName, @Model.StudentResults[i].FirstName</h3>
+
+                </div>
+                <!--Paper Details-->
+                <div style="padding-top: 2em; padding-left: 2em; padding-right: 2em">
+                    <p style="color: black"><strong>Project:</strong> @Model.Group.projectTitle</p>
+                    <p style="color: black"><strong>Group Name:</strong> @Model.Group.groupName</p>
+                    <p style="color: black"><strong>Group Number:</strong> @Model.Group.groupNumber</p>
+                    <p style="color: black"><strong>Holistic Band:</strong> @Model.StudentResults[i].HolisticScore</p>
+                    <p style="color: black"><strong>Teacher Comments:</strong> @Model.StudentResults[i].Comments</p>
+                    <p style="color: black"><strong>Student Feedback:</strong> @Model.StudentResults[i].StudentFeedback</p>
+                </div>
+                <div>
+                    <!--Panel Body-->
+                    <div class="panel-body">
+                        <table id="viewPaperResults" class="table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Writing Element</th>
+                                    <th>Holistic Band</th>
+                                    <th>Proficiency</th>
+                                    <th>Tasks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var element in Model.StudentResults[i].ScoredElements)
+                                {
+                                    <tr class="buttonClicker" id="row_@element.ElementId">
+                                        <td>@element.ElementName</td>
+                                        <td>@element.ElementHolisticScore</td>
+                                        <td>Not Computed</td>
+                                        <td></td>
+                                    </tr>
+                                    foreach (var characteristic in element.CharacteristicResultsList)
+                                    {
+                                        <tr class="rowHidden hiddenrow_@element.ElementId">
+                                            <td>@characteristic.CharacteristicName</td>
+                                            <td>@characteristic.CharacteristicHolisticScore</td>
+                                            <td>@characteristic.Proficiency</td>
+                                            <td>Edit</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+

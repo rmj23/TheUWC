@@ -1,0 +1,517 @@
+﻿@model Source.Models.EvaluateProjectViewModel
+@{
+    ViewBag.Title = "Evaluate Project";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+    ViewBag.temp = "";
+    ViewBag.ContinuumBaseLevel = 5;
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+
+    <style>
+        .fa-times {
+            color: red;
+            font-weight: bold;
+        }
+
+        .list-group-item.active {
+            border: 1px solid #e9e9e9;
+            border-left: 4px solid #12723a;
+            background-color: white;
+            color: #758697;
+            margin-left: -4px;
+        }
+
+        .btn.active {
+            background-color: #12723a;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .fa-check {
+            color: #12723a;
+            font-weight: bold;
+        }
+
+        .tab-base .tab-content {
+            box-shadow: none;
+            padding-top: 0;
+        }
+
+        .list-group-item.active:hover, .list-group-item.active:focus {
+            background-color: transparent;
+            border-color: #12723a;
+            color: inherit;
+        }
+
+        .clickBlock {
+            display: block;
+        }
+
+        .buttonElement {
+        }
+    </style>
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Teacher/ProjectEvaluation.js")"></script>
+}
+
+@section RenderBlockingScripts {
+    <script>
+        var scoreListString = @Html.Raw(Model.ScoreStringList);
+        $('input:radio').click(function () {
+            var score = $(this).attr('id');
+            var characteristicID = $(this).attr('name');
+            for (var i = 0; i < scoreListString.length; i++) {
+                if (scoreListString[i].CharacteristicID == Number(characteristicID)) {
+                    scoreListString[i].Score = score;
+                }
+            }
+        });
+        function updateScoreList() {
+            $("#ScoreStringListID").val(JSON.stringify(scoreListString));
+        }
+    </script>
+}
+
+@using (Html.BeginForm("EvaluateProject", "Evaluation", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.Project.projectId)
+    @Html.HiddenFor(model => model.Project.courseId)
+    @Html.HiddenFor(model => model.Group.groupId)
+    @Html.HiddenFor(model => model.ScoreStringList, new { id = "ScoreStringListID" });
+    <div id="page-title">
+        <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+    </div>
+
+    <!--Content-->
+    <div id="page-content">
+        <div class="panel">
+            <!-- Panel heading -->
+            <div class="panel-heading">
+                <div class="panel-control">
+                    <ul class="pager pager-rounded">
+                        @* TODO: Prev and Next are buggy becasue of bootstrap and custom script interference  *@
+                        @*<li><a href="#" id="category-previous">Previous</a></li>
+                            <li><a href="#" id="category-next">Next</a></li>*@
+                    </ul>
+                </div>
+                <h3 class="panel-title">
+                    Evaluate Project: @Model.Project.projectName - Group:
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="tab-base">
+                    <!-- Navigation Tabs for Element Types (Left Hand Side)-->
+                    <div class="col-md-3 col-xs-2">
+                        <ul class="list-group">
+                            @foreach (var element in Model.Elements)
+                            {
+                                <li class="buttonElement list-group-item" id="row_@element.ID">@element.Element</li>
+                                <li class="list-group-item list-categories rowHidden hiddenrow_@element.ID">
+                                    <ul class="list-group">
+                                        @foreach (var characteristic in Model.Characteristics)
+                                        {
+                                            if (characteristic.ElementID == element.ID)
+                                            {
+                                                <li class="list-group-item" id="char_@characteristic.ID">
+                                                    <a data-toggle="tab" href="#tab-@characteristic.ID" class="clickBlock">
+                                                        <small>@characteristic.Characteristic</small>
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            }
+
+                            @*@for (var i = 0; i < Model.Characteristics.Count; i++)
+                                {
+                                    <li class="list-group-item @((Model.Characteristics[i].Element == "Knowledge Seeker") ? "list-group-item-danger" : "") @((Model.Characteristics[i].Element == "Responsible Information Users") ? "list-group-item-warning" : "") @((Model.Characteristics[i].Element == "Critical Inquirers & Problem Solvers") ? "list-group-item-success" : "") @((Model.Characteristics[i].Element == "Communicators & Producers") ? "list-group-item-primary" : "") @((Model.Characteristics[i].Element == "Self-Directed Learners") ? "list-group-item-dark" : "") @((Model.Characteristics[i].Element == "Group Contributors") ? "list-group-item-info" : "") @((i == 0) ? "active" : "")">
+                                        <a data-toggle="tab" href="#tab-@Model.Characteristics[i].ID">
+                                            @Model.Characteristics[i].Characteristic
+                                            <small>(@Model.Characteristics[i].Element)</small>
+                                        </a>
+                                    </li>
+                                }*@
+                        </ul>
+                    </div>
+
+                    <!-- Tab Content-->
+                    <div class="col-md-9 col-xs-10">
+                        <div class="tab-content">
+                            @for (var i = 0; i < Model.Characteristics.Count; i++)
+                            {
+                                var currentCharacteristic = Model.Characteristics[i].ID;
+                                <div id="tab-@currentCharacteristic" class="tab-pane fade in">
+                                    <!-- Continuum Shift Controls -->
+                                    <div class="row">
+                                        <div class="col-xs-3 text-left">
+                                            <button type="button" class="btn btn-default btn-shift-left" onclick="javascript: void (0);"><i class="fa fa-chevron-left" style="color:#BE4916"></i></button>
+                                        </div>
+                                        <div class="col-xs-6 text-center">
+                                            <h3 class="text-main text-semibold">
+                                                @Model.Characteristics[i].Characteristic
+                                            </h3>
+                                        </div>
+                                        <div class="col-xs-3 text-right">
+                                            <button type="button" class="btn btn-default text-right btn-shift-right" onclick="javascript: void (0);"><i class="fa fa-chevron-right" style="color:#1E5F8B"></i></button>
+                                        </div>
+
+                                        <!-- Continuum Evaluation Table-->
+                                        <table id="tableCharacteristicType-@currentCharacteristic" class="table table-bordered table-hover table-responsive toggle-circle" data-page-size="7">
+                                            <!-- Table Headers-->
+                                            <thead>
+                                                <tr>
+                                                    @for (var level = 1; level < Model.Continuum[i].Count; level++)
+                                                    {
+                                                        if (ViewBag.ContinuumBaseLevel != 1)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                ViewBag.temp = "active";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 1)
+                                                            {
+                                                                ViewBag.temp = "prevActive";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 1)
+                                                            {
+                                                                ViewBag.temp = "postActive";
+                                                            }
+                                                            else
+                                                            {
+                                                                ViewBag.temp = "";
+                                                            }
+                                                        }
+                                                        else if (ViewBag.ContinuumBaseLevel == 1)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                ViewBag.temp = "active";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 1)
+                                                            {
+                                                                ViewBag.temp = "postActive";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 2)
+                                                            {
+                                                                ViewBag.temp = "postPostActive";
+                                                            }
+                                                            else
+                                                            {
+                                                                ViewBag.temp = "";
+                                                            }
+                                                        }
+                                                        else if (ViewBag.ContinuumBaseLevel == 14)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                ViewBag.temp = "active";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 1)
+                                                            {
+                                                                ViewBag.temp = "prevActive";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 2)
+                                                            {
+                                                                ViewBag.temp = "prevPrevActive";
+                                                            }
+                                                            else
+                                                            {
+                                                                ViewBag.temp = "";
+                                                            }
+                                                        }
+                                                        <th data-sort-ignore="true" class="continuumContentHeader text-center @ViewBag.temp">
+                                                            @Model.Levels[level - 1].Letter<br />
+                                                            @Model.Levels[level - 1].TimeFrame
+                                                        </th>
+                                                    }
+                                                </tr>
+                                            </thead>
+                                            <!-- Radio Buttons-->
+                                            <tbody>
+                                                <tr>
+                                                    @for (var level = 1; level < Model.Continuum[i].Count; level++)
+                                                    {
+                                                        string temp = "";
+                                                        if (ViewBag.ContinuumBaseLevel != 1)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                temp = "active";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 1)
+                                                            {
+                                                                temp = "prevActive";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 1)
+                                                            {
+                                                                temp = "postActive";
+                                                            }
+                                                            else
+                                                            {
+                                                                temp = "";
+                                                            }
+                                                        }
+                                                        else if (ViewBag.ContinuumBaseLevel == 1)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                temp = "active";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 1)
+                                                            {
+                                                                temp = "postActive";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 2)
+                                                            {
+                                                                temp = "postPostActive";
+                                                            }
+                                                            else
+                                                            {
+                                                                temp = "";
+                                                            }
+                                                        }
+                                                        else if (ViewBag.ContinuumBaseLevel == 14)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                temp = "active";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 1)
+                                                            {
+                                                                temp = "prevActive";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 2)
+                                                            {
+                                                                temp = "prevPrevActive";
+                                                            }
+                                                            else
+                                                            {
+                                                                temp = "";
+                                                            }
+                                                        }
+                                                        <td class="continuumContent text-center @temp">
+                                                            <input type="radio" name="@Model.Characteristics[i].ID" id="@(Model.Levels[level - 1].Letter)1" />
+                                                            @Html.Label(Model.Levels[level - 1].Letter.ToString() + 1)
+                                                            <input type="radio" name="@Model.Characteristics[i].ID" id="@(Model.Levels[level - 1].Letter)2" />
+                                                            @Html.Label(Model.Levels[level - 1].Letter.ToString() + 2)
+                                                            <input type="radio" name="@Model.Characteristics[i].ID" id="@(Model.Levels[level - 1].Letter)3" />
+                                                            @Html.Label(Model.Levels[level - 1].Letter.ToString() + 3)
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            </tbody>
+                                            <!-- Continuum Evaluation Table Basic IDs -->
+                                            <tbody>
+                                                <tr>
+                                                    @for (var level = 1; level < Model.Continuum[i].Count; level++)
+                                                    {
+                                                        string temp = "";
+                                                        string profLevel = "";
+                                                        string backgroundColor = "";
+                                                        if (ViewBag.ContinuumBaseLevel != 1)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                temp = "active";
+                                                                profLevel = "Proficient";
+                                                                backgroundColor = "bg-greenJewel";
+
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 1)
+                                                            {
+                                                                temp = "prevActive";
+                                                                profLevel = "Basic";
+                                                                backgroundColor = "bg-yellowFuel";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 1)
+                                                            {
+                                                                temp = "postActive";
+                                                                profLevel = "Advanced";
+                                                                backgroundColor = "bg-blueTradewind";
+                                                            }
+                                                            else if (level < ViewBag.ContinuumBaseLevel - 1)
+                                                            {
+                                                                temp = "";
+                                                                profLevel = "Below Basic";
+                                                                backgroundColor = "bg-orangeRoughy";
+                                                            }
+
+                                                            else if (level > ViewBag.ContinuumBaseLevel + 1)
+                                                            {
+                                                                temp = "";
+                                                                profLevel = "Advanced+";
+                                                                backgroundColor = "bg-blueBluemine";
+                                                            }
+                                                        }
+                                                        else if (ViewBag.ContinuumBaseLevel == 1)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                temp = "active";
+                                                                profLevel = "Proficient";
+                                                                backgroundColor = "bg-greenJewel";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 1)
+                                                            {
+                                                                temp = "postActive";
+                                                                profLevel = "Advanced";
+                                                                backgroundColor = "bg-blueTradewind";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 2)
+                                                            {
+                                                                temp = "postPostActive";
+                                                                profLevel = "Advanced+";
+                                                                backgroundColor = "bg-blueBluemine";
+                                                            }
+                                                            else
+                                                            {
+                                                                temp = "";
+                                                                profLevel = "Advanced+";
+                                                                backgroundColor = "bg-blueBluemine";
+                                                            }
+                                                        }
+                                                        else if (ViewBag.ContinuumBaseLevel == 14)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                temp = "active";
+                                                                profLevel = "Proficient";
+                                                                backgroundColor = "bg-greenJewel";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 1)
+                                                            {
+                                                                temp = "prevActive";
+                                                                profLevel = "Basic";
+                                                                backgroundColor = "bg-yellowFuel";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 2)
+                                                            {
+                                                                temp = "prevPrevActive";
+                                                                profLevel = "Below Basic";
+                                                                backgroundColor = "bg-orangeRoughy";
+                                                            }
+                                                            else
+                                                            {
+                                                                temp = "";
+                                                                profLevel = "Below Basic";
+                                                                backgroundColor = "bg-orangeRoughy";
+                                                            }
+                                                        }
+                                                        <td class=" @backgroundColor continuumContent text-center @temp">
+                                                            <p style="color:white">@profLevel</p>
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    @for (var level = 1; level < Model.Continuum[i].Count; level++)
+                                                    {
+                                                        string temp = "";
+                                                        if (ViewBag.ContinuumBaseLevel != 1)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                temp = "active";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 1)
+                                                            {
+                                                                temp = "prevActive";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 1)
+                                                            {
+                                                                temp = "postActive";
+                                                            }
+                                                            else
+                                                            {
+                                                                temp = "";
+                                                            }
+                                                        }
+                                                        else if (ViewBag.ContinuumBaseLevel == 1)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                temp = "active";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 1)
+                                                            {
+                                                                temp = "postActive";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel + 2)
+                                                            {
+                                                                temp = "postPostActive";
+                                                            }
+                                                            else
+                                                            {
+                                                                temp = "";
+                                                            }
+                                                        }
+                                                        else if (ViewBag.ContinuumBaseLevel == 14)
+                                                        {
+                                                            if (level == ViewBag.ContinuumBaseLevel)
+                                                            {
+                                                                temp = "active";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 1)
+                                                            {
+                                                                temp = "prevActive";
+                                                            }
+                                                            else if (level == ViewBag.ContinuumBaseLevel - 2)
+                                                            {
+                                                                temp = "prevPrevActive";
+                                                            }
+                                                            else
+                                                            {
+                                                                temp = "";
+                                                            }
+                                                        }
+
+                                                        <td class="continuumFooter @temp">
+                                                            @Html.Raw(Model.Continuum[i][level - 1].Guideline)
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    @Html.LabelFor(model => Model.ProjectEvaluation.feedback)
+                    @Html.TextAreaFor(model => Model.ProjectEvaluation.feedback, new { @class = "form-control" })
+                </div>
+                <div class="form-horizontal">
+                    @Html.LabelFor(model => Model.ProjectEvaluation.comments)
+                    @Html.TextAreaFor(model => Model.ProjectEvaluation.comments, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Footer -->
+        <div class="panel-footer text-center">
+            <button type="submit" onclick="updateScoreList(); " class="btn btn-primary">
+                Submit
+            </button>
+            <i class="fa fa-info fa-rounded add-tooltip text-muted" data-toggle="tooltip" data-container="body" data-placement="bottom"
+               data-original-title="Submit after you have evaluated all writing elements appropriate to this paper"></i>
+        </div>
+    </div>
+}
+

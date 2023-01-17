@@ -1,0 +1,59 @@
+﻿@model Source.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<section id="container-main" class="container">
+
+    <!-- Page Content Heading -->
+
+    <div class="row">
+        <div class="col-lg-12 text-center page-header">
+            <h2 class="section-heading">Account Registration</h2>
+            <hr class="section-divider">
+        </div>
+    </div>
+
+
+    <!-- Page Content Container -->
+
+    <div class="row">
+
+        <!-- Account Creation Form -->
+
+        <!--- col-sm-9 col-md-6 col-md-offset-3 panel -->
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger col-md-offset-2" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-6" >
+                    <input type="submit" class="btn btn-default" value="Register" />
+                </div>
+                <div class="col-md-4 text-right">
+                    @Html.ActionLink("Already have an account?", "Login")
+                </div>
+            </div>
+        }
+
+    </div>
+
+</section>

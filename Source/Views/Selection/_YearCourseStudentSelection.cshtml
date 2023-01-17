@@ -1,0 +1,19 @@
+﻿@model Source.Models.ACourseStudentYearSelectionViewModel
+
+@Html.HiddenFor(model => model.State)
+
+<!-- Academic Year Selection Field -->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="academicYear">Academic Year: </label>
+    <div class="col-sm-6"> 
+        @Html.DropDownListFor(model => model.YearID, Model.YearDropDown, new {@class = "form-control", onchange = "$('#State').val('YearSelected');this.form.submit();"})
+     </div>
+</div>
+
+<!-- Class Selection Field -->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="class">Class: </label>
+    <div class="col-sm-6">
+        @Html.DropDownListFor(model => model.CourseID, Model.CourseDropDown, new {@class = "form-control", onchange = "$('#State').val('CourseSelected');this.form.submit();"})  
+    </div>
+</div>

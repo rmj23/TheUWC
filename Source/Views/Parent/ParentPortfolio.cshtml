@@ -1,0 +1,201 @@
+﻿@model Source.Models.ParentPortfolioViewModel
+
+@{
+    ViewBag.Title = "Parent Portfolio";
+    Layout = "~/Views/Shared/_ParentLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Datatables Styles -->
+    <link href="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/css/dataTables.bootstrap.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/css/dataTables.responsive.css")" rel="stylesheet">
+}
+
+@section Scripts {
+
+    <!-- Datatables Scripts -->
+    <script src="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/js/jquery.dataTables.js")"></script>
+    <script src="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/js/dataTables.bootstrap.js")"></script>
+    <script src="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/js/dataTables.responsive.min.js")"></script>
+    <script src="@Url.Content("~/Bundles/nifty/v2.5/plugins/datatables/js/tables-datatables.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+@if (Model.AllStudentsModel == null || Model.AllStudentsModel.Count == 0)
+{
+    <div id="page-content">
+        <div class="container-fluid">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        My Students
+                    </h3>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <p>No students linked to your account.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    for(int i=0; i<Model.AllStudentsModel.Count; i++ )
+    {
+        string name;
+        if (Model.AllStudentsModel[i].LastName.Last() == 's')
+        {
+            name = Model.AllStudentsModel[i].FirstName + " " + Model.AllStudentsModel[i].LastName + "' Papers and Projects";
+        }
+        else
+        {
+            name = Model.AllStudentsModel[i].FirstName + " " + Model.AllStudentsModel[i].LastName + "'s Papers and Projects";
+        }
+        if (Model.AllStudents[i].AllPapers.Count == 0)
+        {
+            <div id="page-content">
+
+                <div class="container-fluid">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                @name
+                            </h3>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-body">
+                                <p>There are no papers uploaded yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="page-content">
+
+                <div class="container-fluid">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                @name
+                            </h3>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-body">
+                                <table id="demo-dt-basic" class="table table-striped table-bordered " style="table-layout: fixed; width: 100%" cellspacing="0">
+                                    <!-- Roster Table Headings -->
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: left">Paper Title</th>
+                                            <th style="text-align: left">Evaluation Period</th>
+                                            <th style="text-align: left">Evaluation Date</th>
+                                            <th style="text-align: left">Proficiency Band</th>
+                                            <th style="text-align: left">Holistic Band</th>
+                                            <th style="text-align: left">View Paper</th>
+                                            <th style="text-align: left">View Results</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var Paper in Model.AllStudents[i].AllPapers)
+                                        {
+                                            if (Paper.Paper == null)
+                                            {
+                                                //Not Uploaded and IS Evaluated
+                                                if (Paper.evaluationDate != null)
+                                                {
+                                                    <tr>
+                                                        <td style="word-wrap: break-word">@Paper.PaperTitle - @Paper.paperTypeDescription - @Paper.Draft</td>
+                                                        <td>@Paper.evalDescription</td>
+                                                        <td>@Paper.evaluationDate.Value.ToShortDateString()</td>
+                                                        <td>@Paper.ProficiencyLevel</td>
+                                                        <td>@Paper.HolisticScoreLetter</td>
+                                                        <td><span class="bg-orangeRoughy" style="color: white; padding: 3px; text-align: center">Not Uploaded</span></td>
+                                                        <td><span class="bg-greenJewel" style="color: white; padding: 3px; text-align: center">@Html.ActionLink("View Results", "PaperResults", new { PaperID = Paper.PaperID }, new { @style = "color:white" })</span></td>
+                                                    </tr>
+                                                }
+                                                //Not uploaded and Not Evaluated
+                                                else
+                                                {
+                                                    string title = Paper.PaperTitle.ToString() + " - " + Paper.paperTypeDescription.ToString() + " - " + Paper.Draft.ToString();
+
+                                                    <tr>
+                                                        <td style="word-wrap: break-word">@Paper.PaperTitle - @Paper.paperTypeDescription - @Paper.Draft</td>
+                                                        <td>@Paper.evalDescription</td>
+                                                        <td>@Paper.evaluationDate</td>
+                                                        <td>@Paper.ProficiencyLevel</td>
+                                                        <td>@Paper.HolisticScoreLetter</td>
+                                                        <td><span class="bg-orangeRoughy" style="color: white; padding: 3px; text-align: center">Not Uploaded</span></td>
+                                                        <td><span class="bg-orangeRoughy" style="color: white; padding: 3px; text-align: center">No Results</span></td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                //IS Uploaded and IS Evaluated
+                                                if (Paper.evaluationDate != null)
+                                                {
+                                                    <tr>
+                                                        <td style="word-wrap: break-word">@Paper.PaperTitle - @Paper.paperTypeDescription - @Paper.Draft</td>
+                                                        <td>@Paper.evalDescription</td>
+                                                        <td>@Paper.evaluationDate.Value.ToShortDateString()</td>
+                                                        <td>@Paper.ProficiencyLevel</td>
+                                                        <td>@Paper.HolisticScoreLetter</td>
+                                                        <td><span class="bg-greenJewel" style="color: white; padding: 3px; text-align: center">@Html.ActionLink("Download", "ViewIndividualPaper", new { id = Paper.PaperID }, new { @style = "color:white" })</span></td>
+                                                        <td><span class="bg-greenJewel" style="color: white; padding: 3px; text-align: center">@Html.ActionLink("View Results", "PaperResults", new { PaperID = Paper.PaperID }, new { @style = "color:white" })</span></td>
+                                                    </tr>
+                                                }
+                                                //Is Uploaded and Not Evaluated
+                                                else
+                                                {
+                                                    string title = Paper.PaperTitle.ToString() + " - " + Paper.paperTypeDescription.ToString() + " - " + Paper.Draft.ToString();
+
+                                                    <tr>
+                                                        <td style="word-wrap: break-word">@Paper.PaperTitle - @Paper.paperTypeDescription - @Paper.Draft</td>
+                                                        <td>@Paper.evalDescription</td>
+                                                        <td>@Paper.evaluationDate</td>
+                                                        <td>@Paper.ProficiencyLevel</td>
+                                                        <td>@Paper.HolisticScoreLetter</td>
+                                                        <!--Cannot get the font to change to white-->
+                                                        <td><span class="bg-greenJewel" style="color: white; padding: 3px; text-align: center">@Html.ActionLink("Download", "ViewIndividualPaper", new { id = Paper.PaperID }, new { @style = "color:white" })</span></td>
+                                                        <td><span class="bg-orangeRoughy" style="color: white; padding: 3px; text-align: center">No Results</span></td>
+                                                    </tr>
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            @*else
+                                {
+                                    <div class="panel-body">
+                                        You have not uploaded any papers or projects yet! Click the green Upload Paper link to upload a paper.
+                                    </div>
+                                }*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+
+}
+
+

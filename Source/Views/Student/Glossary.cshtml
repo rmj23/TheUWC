@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Source.Models.GlossaryModel>
+
+@{
+    ViewBag.Title = "Glossary";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+
+    string[] alphabet = new string[]
+    {
+        "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"
+    };
+    ViewBag.alphabet = alphabet;
+}
+
+@section Styles {
+
+    <!-- Datatables -->
+    <link href="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/css/dataTables.bootstrap.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/css/dataTables.responsive.css")" rel="stylesheet">
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/jquery.dataTables.js")"></script>
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/dataTables.bootstrap.js")"></script>
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/dataTables.responsive.min.js")"></script>
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/tables-datatables.js")"></script>
+
+    <!-- Bootbox Modals -->
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/bootbox/js/bootbox.min.js")"></script>
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/bootbox/js/ui-modals.js")"></script>
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">Glossary</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <section class="container-fluid" style="margin-bottom:25px;">
+        <div class="row">
+            <div class="hidden-xs text-center">
+                <div class="btn-group text-center" role="group" aria-label="Alpha buttons">
+                    @foreach (string letter in ViewBag.alphabet)
+                    {
+                        <a href="@Url.Action("Glossary", "Student", new { id = letter }, Request.Url.Scheme)">
+                            <button type="button" class="btn btn-sm btn-success">
+                                @letter
+                            </button>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </section>
+
+    <!-- Glossary Panel -->
+    <!-- Basic Data Tables -->
+    <!--===================================================-->
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Glossary</h3>
+        </div>
+        <div class="panel-body">
+            <table id="demo-dt-basic" class="table table-bordered table-striped table-responsive results" cellspacing="0" width="100%">
+
+                <!-- Glossary Table Headings -->
+                <thead>
+                    <tr>
+                        <th>@(Html.DisplayNameFor(model => model.Term))</th>
+                        <th>@(Html.DisplayNameFor(model => model.Definition))</th>
+                    </tr>
+                </thead>
+
+                <!-- Glossary Table Content -->
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.Raw(item.Term)</td>
+                            <td>@Html.Raw(item.Definition)</td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <!--===================================================-->
+    <!-- End Striped Table -->
+
+</div>
+

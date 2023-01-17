@@ -1,0 +1,47 @@
+﻿`@model Source.Models.GroupWithStudentsViewModel
+<!-- Main Content -->
+<div class="col-md-4" >
+    <div class="container-fluid">
+        <div class="group-panel panel @((Model.group.groupId == ViewBag.activeGroupId)? "active-group-border" : "")" id="gId-@Model.group.groupId">
+            <!--Heading-->
+            <div class="panel-heading">
+                <div class="panel-control not-panel">
+                    <a href="@Url.Action("RemoveGroupPartial", "Teacher", new { projectid = Model.group.projectId, groupid = Model.group.groupId })" class="fa fa-minus btn btn-orangeRoughy"> Delete</a>
+                </div>
+                <div class="panel-title">
+                    <h3 class="panel-title" style="padding-right: 0px">Group @Model.group.groupNumber:</h3>
+                </div>
+            </div>
+            <!--Body-->
+            <div class="panel-body">
+
+                <table id="tableClassRoster" class="table table-bordered table-hover toggle-circle">
+                    <thead>
+                        <tr>
+                            <th data-sort-initial="true">Last Name</th>
+                            <th>First Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <!-- Table Content -->
+                    <tbody>
+                        @foreach (var student in Model.groupRoster)
+                        {
+                            <tr>
+                                <td>
+                                    @student.LastName
+                                </td>
+                                <td>
+                                    @student.FirstName
+                                </td>
+                                <td class="not-panel">
+                                    @Html.ActionLink("Remove", "RemoveStudentFromGroup", "Teacher", new { studentID = student.StudentID, groupId = Model.group.groupId, projectId = Model.group.projectId }, null)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

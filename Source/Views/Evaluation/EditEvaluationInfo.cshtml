@@ -1,0 +1,30 @@
+﻿@model Source.Models.EditScoreViewModel
+@{
+    ViewBag.Title = "EditEvaluationInfo";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<h2>Edit Comments and Feedback</h2>
+@using(Html.BeginForm("EditEvaluationInfo", "Evaluation", FormMethod.Post))
+{
+    @Html.HiddenFor(model => Model.Score.EvaluationID)
+    @Html.HiddenFor(model => Model.PaperID)
+    <div class="panel">
+        <div class="panel-body">
+            <div class="panel-body">
+                <section class="form-horizontal">
+                    <div class="col-md-12">
+                        Student Feedback: @Html.TextAreaFor(model => model.Score.StudentFeedback, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-12">
+                        Comments: @Html.TextAreaFor(model => model.Score.Comments, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-12 center">
+                        <button>Submit</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+}
+

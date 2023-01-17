@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "My Profile";
+    Layout = "~/Views/Shared/_ParentLayout.cshtml";
+}
+
+@section Styles {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <div class="fixed-fluid">
+        <div class="fixed-sm-200 fixed-lg-250 pull-sm-left">
+            <div class="panel">
+                <!-- Simple profile -->
+                <div class="text-center pad-all bord-btm">
+                    <div class="pad-ver">
+                        <img src="@Url.Content("~/Images/avatar.png")   " class="img-lg img-border img-circle" alt="Profile Picture">
+                    </div>
+                    <h4 class="text-lg text-overflow mar-no">Full Name</h4>
+                    <p class="text-sm text-muted">email@email.com</p>
+                </div>
+
+                <p class="text-semibold text-main pad-all mar-no">Badges</p>
+                <ul class="list-inline mar-hor">
+                    <li class="tag tag-sm">Badge One</li>
+                    <li class="tag tag-sm">Badge Two</li>
+                    <li class="tag tag-sm">Badge Three</li>
+                    <li class="tag tag-sm">Badge Four</li>
+                    <li class="tag tag-sm">Badge Five</li>
+                </ul>
+            </div>
+        </div>
+        <div class="fluid">
+
+            <div class="fixed-fluid">
+                <div class="fluid">
+                    <!-- Status Form -->
+                    <!--===================================================-->
+                    <div class="panel">
+                        <div class="panel-body">
+                            <textarea class="form-control" rows="2" placeholder="What are you thinking?"></textarea>
+                            <div class="mar-top clearfix">
+                                <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="demo-psi-right-4 icon-fw"></i> Share</button>
+                                <a class="btn btn-trans btn-icon fa fa-smile-o icon-lg add-tooltip" href="#" data-original-title="Happy" data-toggle="tooltip"></a>
+                                <a class="btn btn-trans btn-icon fa fa-meh-o icon-lg add-tooltip" href="#" data-original-title="Meh" data-toggle="tooltip"></a>
+                                <a class="btn btn-trans btn-icon fa fa-frown-o icon-lg add-tooltip" href="#" data-original-title="Sad" data-toggle="tooltip"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================================================-->
+                    <!-- End Status Form -->
+
+                    <div class="panel">
+                        <div class="panel-body">
+
+                            <!-- Newsfeed Content -->
+                            <!--===================================================-->
+                            <div class="media-block">
+                                <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="@Url.Content("~/Images/avatar.png")"></a>
+                                <div class="media-body">
+                                    <div class="pad-btm">
+                                        <a href="#" class="btn-link text-semibold media-heading box-inline">Lisa D</a> graded a <span class="text-semibold">Student Paper</span>
+                                        <p class="text-muted text-sm"><i class="demo-pli-smartphone-3 icon-lg"></i> - From Mobile - 11 min ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--===================================================-->
+                            <!-- End Newsfeed Content -->
+
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-body">
+
+                            <!-- Newsfeed Content -->
+                            <!--===================================================-->
+                            <div class="media-block">
+                                <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="@Url.Content("~/Images/avatar.png")"></a>
+                                <div class="media-body">
+                                    <div class="pad-btm">
+                                        <a href="#" class="btn-link text-semibold media-heading box-inline">Lisa D</a> graded a <span class="text-semibold">Student Paper</span>
+                                        <p class="text-muted text-sm"><i class="demo-pli-smartphone-3 icon-lg"></i> - From Desktop - 19 min ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--===================================================-->
+                            <!-- End Newsfeed Content -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

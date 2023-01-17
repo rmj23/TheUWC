@@ -1,0 +1,99 @@
+﻿@model Source.Models.DistrictModelViewModel
+@{
+    ViewBag.Title = "Bulk Insert Student (District)";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+
+@section Styles {
+
+}
+
+@section Scripts {
+
+}
+
+@section RenderBlockingScripts {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        @if (ViewData["feedback"] != null)
+        {
+            <p>@Html.Encode(ViewData["Feedback"])</p>
+        }
+
+        <div class="card">
+            <div class="card-heading">
+                <h3 class="card-title">
+                    Instructions
+                </h3>
+            </div>
+            <div class="card-body">
+
+                <ol>
+                    <li>
+                        <a href="@Url.Content("~/")" target="_self">Download this document.</a> Do NOT remove the first row in the file.
+                    </li>
+                    <li>
+                        Fill the Excel sheet with your students' data. If there is not a student number, leave the cells blank.
+                    </li>
+                    <li>
+                        Save the modified Excel sheet as a .csv file. Click <a href="https://support.office.com/en-us/article/Import-or-export-text-txt-or-csv-files-5250ac4c-663c-47ce-937b-339e391393ba" style="color: orangered">here</a> for additional instructions.
+                    </li>
+                    <li>
+                        Upload the Excel sheet by clicking the button.
+                    </li>
+                </ol>
+
+                <p>
+                    Upon uploading, you should receive a message indicating the status of the upload. If the upload is successful, it will display the details of the upload.
+                    If the upload is not successful, please read the instructions carefully and try again. If you are still experiencing issues please fill out a ticket
+                    <a href="@Url.Content("~/")" target="_blank" style="color: orangered;">here</a>.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- Selections Panel -->
+        <div class="card" style="margin-top: 20px;">
+            <div class="card-header">
+                <h3 class="card-title">@ViewBag.Title</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("BulkInsertStudentDistrict", "WebAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <section class="form-horizontal">
+                    
+                    <div class="card-body">
+                        @Html.DropDownListFor(model => Model.DistrictID, Model.DistrictSelectList, new {@class="form-control"})
+                        <input type="file" name="fileUpload" accept=".csv" />
+                    </div>
+
+                    <div class="card-footer">
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success">Upload</button>
+                        </div>
+                    </div>
+                </section>
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+    </div>
+</div>

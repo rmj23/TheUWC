@@ -1,0 +1,53 @@
+﻿@model Source.Models.EngagementsViewModel
+@{
+    ViewBag.Title = "View Engagement";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="p-3 mb-2 bg-success"></div>
+<h2 class="ml-1 ml-md-3">View Engagement</h2>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                @Model.Engagement.Title
+            </div>
+        </div>
+        <section class="form-horizontal">
+            <div class="card-body">
+                <div class="form-group">
+                    @Html.HiddenFor(model => Model.Engagement.ID)
+                    @*@Html.DisplayFor(model => Model.Engagement.Title, new { @class = "col-sm-3 control-label" })*@
+                    @*<div class="col-sm-6">
+                        @Html.TextBoxFor(model => Model.Engagement.Title)
+                    </div>*@
+                </div>
+                <div class="form-group">
+                    @Html.DisplayFor(model => Model.Engagement.GradeLevel, new { @class = "col-sm-3 control-label" })
+                    <!--Empty paragraph for line spaceing-->
+                    <p> </p>
+                    @*<div class="col-sm-6">
+                        @Html.DropDownListFor(model => Model.Engagement.GradeLevelRangeID, Model.GradeLevelRange, new { @class = "form-control" })
+                    </div>*@
+                </div>
+                <div class="form-group">
+                    @*@Html.DisplayFor(model => Model.Engagement.Keywords, new { @class = "col-sm-3 control-label" })*@
+                    @*<div class="col-sm-6">
+                        @Html.TextBoxFor(model => Model.Engagement.Keywords)
+                    </div>*@
+                </div>
+                <div class="form-group">
+                    @*@Html.LabelFor(model => Model.Engagement.Text, new { @class = "col-sm-3 control-label" })*@
+                    @*<div class="col-sm-6">
+                            @Html.TextAreaFor(model => Html.Raw(Model.Engagement.Text), new { @class = "form-control" })
+                        </div>*@
+                    <div class="display-field">
+                        @Html.Raw(Model.Engagement.Text)
+                    </div>
+                </div>
+                <input type="button" value="Print" onclick="window.print()" />
+            </div>
+        </section>
+    </div>
+</div>

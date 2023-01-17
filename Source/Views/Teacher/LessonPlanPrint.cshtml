@@ -1,0 +1,161 @@
+﻿@model Source.Models.LessonPlanModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Lesson Plan";
+
+    string[] learningCycleHeadings = new string[6]
+    {
+        "Engage",
+        "Model",
+        "Explore",
+        "Explain",
+        "Apply",
+        "Share"
+    };
+    string[] learningCycleSubHeadings = new string[6]
+    {
+        "",
+        "(Use Mentor Text)",
+        "(Use Mentor Text)",
+        "(Make Anchor Chart in Students' Words)",
+        "",
+        ""
+    };
+}
+<title>The Universal Writing Continuum - Lesson Plans</title>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<!-- Main Content -->
+<div style="margin-left: 5em">
+    <div>
+        <div>
+            <div>
+                <h3>@ViewBag.Title</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            <form>
+                <div>
+                    <!-- Title -->
+                    <div class="form-group col-sm-12">
+                        @Html.LabelFor(model => model.Title)
+                        <div>
+                            <p style="font-size: 1.5em">@Model.Title</p>
+                        </div>
+                    </div>
+
+                    <!-- Objective -->
+                    <div class="form-group col-sm-12">
+                        @Html.LabelFor(model => model.Objective)
+                        <div>
+                            @Model.Objective
+                        </div>
+                    </div>
+
+                    <!-- Standard -->
+                    <div class="form-group col-sm-12">
+                        @Html.LabelFor(model => model.Standard)
+                        <div>
+                            @Model.Standard
+                        </div>
+                    </div>
+
+                    <!-- Lesson Plan Record Table -->
+                    <table class="table">
+
+                        <!-- Table Headings -->
+                        <thead>
+                        <tr>
+                            <th style="width: 25%">Learning Cycle</th>
+                            <th>My Plan</th>
+                        </tr>
+                        </thead>
+
+                        <!-- Table Content -->
+                        <tbody>
+
+                        <!-- Engage -->
+                        <tr>
+                            <td>
+                                Engage
+                            </td>
+                            <td>
+                                @Model.EngageDesc
+                            </td>
+                        </tr>
+
+                        <!-- Model -->
+                        <tr>
+                            <td>
+                                Model <br/>
+                                (Use Mentor Text)
+                            </td>
+                            <td>
+                                @Model.ModelDesc
+                            </td>
+                        </tr>
+
+
+                        <!-- Explore -->
+                        <tr>
+                            <td>
+                                Explore <br/>
+                                (Use Mentor Text)
+                            </td>
+                            <td>
+                                @Model.ExploreDesc
+                            </td>
+                        </tr>
+
+
+                        <!-- Explain -->
+                        <tr>
+                            <td>
+                                Explain <br/>
+                                (Make Anchor Chart in Students' Words)
+                            </td>
+                            <td>
+                                @Model.ExplainDesc
+                            </td>
+                        </tr>
+
+                        <!-- Apply -->
+                        <tr>
+                            <td>
+                                Apply
+                            </td>
+                            <td>
+                                @Model.ApplyDesc
+                            </td>
+                        </tr>
+
+                        <!-- Share -->
+                        <tr>
+                            <td>
+                                Share
+                            </td>
+                            <td>
+                                @Model.ShareDesc
+                            </td>
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+                @*<div>
+                    <button onclick="print();">
+                        Print
+                    </button>
+                </div>*@
+            </form>
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+    </div>
+</div>
+

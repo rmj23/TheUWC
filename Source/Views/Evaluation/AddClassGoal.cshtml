@@ -1,0 +1,108 @@
+﻿@model Source.Models.AddClassGoalViewModel
+@{
+    ViewBag.Title = "AddClassGoal";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Datatables -->
+    <link href="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/css/dataTables.bootstrap.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/css/dataTables.responsive.css")" rel="stylesheet">
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/jquery.dataTables.js")"></script>
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/dataTables.bootstrap.js")"></script>
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/dataTables.responsive.min.js")"></script>
+    <script src="@Url.Content("~/Content/nifty/v2.5/plugins/datatables/js/tables-datatables.js")"></script>
+
+}
+
+@section Scripts {
+
+
+}
+
+@section RenderBlockingScripts {
+
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <!-- Class Selection Table -->
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+        </div>
+        <div class="panel-body">
+            
+            @using (Html.BeginForm("AddClassGoal", "Evaluation", FormMethod.Get))
+            {
+                Html.RenderPartial("_CourseSelection", Model);
+            }
+
+        </div>
+    </div>
+
+    @if (ViewBag.showForm)
+    {
+        <!-- Insert Class Goals Form -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewBag.Title</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("InsertClassGoal", "Evaluation", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.HiddenFor(model => model.Goal.courseID)
+                <div class="panel-body">
+
+                    <!-- Short Description -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="shortDescription">Short Description</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.Goal.shortDescription, new { @placeholder = "Short Description", @name = "shortDescription", @id = "shortDescription", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Goal.shortDescription)
+                        </div>
+                    </div>
+
+                    <!-- Full Description -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="fullDescription">Full Description</label>
+                        <div class="col-sm-9">
+                            @Html.TextAreaFor(model => model.Goal.fullDescription, new { @placeholder = "Full Description", @name = "fullDescription", @id = "fullDescription", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Goal.fullDescription)
+                        </div>
+                    </div>
+
+                    <!-- Deadline -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="fullDescription">Deadline</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.Goal.deadlineDate, new { @placeholder = "Deadline Date", @name = "deadlineDate", @id = "deadlineDate", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Goal.deadlineDate)
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-success" type="submit">Add Goal</button>
+                </div>
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+    }
+
+</div>

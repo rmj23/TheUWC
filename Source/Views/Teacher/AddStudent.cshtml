@@ -1,0 +1,122 @@
+﻿@model Source.Models.StudentModel
+@{
+    ViewBag.Title = "Add Student";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+
+}
+
+@section Scripts {
+
+}
+
+@section RenderBlockingScripts {
+
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">District Roster</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+    
+        <!-- Controls -->
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-control">
+                    @*Removing Bulk insert for Parents at this time.
+                    <a href="@Url.Action("AddParent", "Teacher")" class="btn btn-blueTradewind">
+                        <i class="fa fa-files-o"></i> Bulk Insert
+                    </a>*@
+                </div>
+                <h3 class="panel-title">@ViewBag.Title</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("AddStudent", "Teacher", FormMethod.Post))
+            {
+                <section class="form-horizontal">
+                    <div class="panel-body">
+
+                        <!-- Student First Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentFirstName">First Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Student Middle Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentMiddleName">Middle Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Student Last Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentLastName">Last Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        
+                        <!-- Student Suffix Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentSuffix">Suffix: </label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" id="studentSuffix" />
+                            </div>
+                        </div>
+
+                        <!-- Student Number Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentNumber">Student Number: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.StudentNumber, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.StudentNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        
+                        <!-- Student Email Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentEmail">Email: </label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" id="studentEmail" />
+                            </div>
+                        </div>
+                        
+                        @Html.HiddenFor(model => model.SchoolID)
+                        @Html.HiddenFor(model => model.DistrictID)
+
+                    </div>
+                    <div class="panel-footer">
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-default">Add Student</button>
+                        </div>
+                    </div>
+                </section>
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+    </div>
+</div>
+

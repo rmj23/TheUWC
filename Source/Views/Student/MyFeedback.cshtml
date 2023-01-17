@@ -1,0 +1,87 @@
+﻿@model Source.Models.MyFeedbackViewModel
+@{
+    ViewBag.Title = "My Feedback";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+@section Styles {
+
+}
+
+<!-- Page Title -->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-danger"></div>
+    <h1 class="ml-md-3 ml-1">@ViewBag.Title</h1>
+</div>
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container">
+        <!-- Student Goals card -->
+        <div class="card">
+            <!-- card Heading -->
+            <div class="card-header">
+                <h3 class="card-title">
+                    All of @ViewBag.Title
+                </h3>
+            </div>
+            <!-- card Body -->
+            <div class="card-body">
+                <!-- Class Goals Table -->
+                @if (Model.StudentFeedback != null)
+                {
+                    <table id="tableMyFeedback" class="table table-bordered table-hover">
+
+                        <!-- Table Headings -->
+                        <thead>
+                            <tr>
+                                <th>Paper Title</th>
+                                <th>Student Feedback</th>
+                            </tr>
+                        </thead>
+
+                        <!-- Table Content -->
+                        <tbody>
+                            @foreach (var x in Model.StudentFeedback)
+                            {
+                                if (x.StudentFeedback == null)
+                                {
+                                    <tr>
+
+                                        <td>@x.PaperTitle</td>
+                                        <td class="font-weight-bold">Feedback was not left on this paper.</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@x.PaperTitle</td>
+                                        <td>@x.StudentFeedback</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div>
+                        <p class="text-danger font-weight-bold">No goals have been assigned yet.</p>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('#tableMyFeedback').DataTable({
+            responsive: true,
+            "ordering": false
+        });
+        
+    </script>
+}

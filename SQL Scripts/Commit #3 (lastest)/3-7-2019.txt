@@ -1,0 +1,3 @@
+went to twcLevel table and edited bans L and N to "End of 8th to End of 10th grade" and "Grade 13: Dual Creat & Honors"
+
+cleared out the tblError table

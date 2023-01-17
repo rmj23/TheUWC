@@ -1,0 +1,209 @@
+﻿/*
+    Please use the color naming tool to get color names.
+    http://chir.ag/projects/name-that-color/
+
+    Insert a hexidecimal value for the color that you would like to use.
+    The tool will identify what the color name is.
+    Use the provided color name to create a variable for that color.
+
+    For instance, if you were to enter the hexidecimal value '#6195ED', the tool would
+    identify that color to be 'Cornflower Blue'.
+    To create a SASS variable to reference that color, use '$blueCornflower: #6195ED;'
+*/
+.padding-top-15 {
+  padding-top: 15px; }
+
+.main-features {
+    margin-bottom: 0;
+    background-color: #12723a;
+    color: #f9702d;
+}
+  .main-features .feature-heading {
+    margin: 0;
+    color: #fff;
+    font-weight: 300;
+    font-size: 18px; }
+
+.hero-unit-slider {
+  margin-bottom: 0; }
+
+.benefits {
+  margin-bottom: 0; }
+
+.section-content {
+  margin: 40px 0 0; }
+
+.navbar-brand.navbar-logo-bigger > img {
+  top: 7px; }
+
+@media screen and (min-width: 993px) {
+  #main-nav .navbar-left {
+    padding-left: 15px; } }
+
+.main-features img {
+  margin-bottom: 14px; }
+
+@media screen and (max-width: 768px) {
+  .hero-unit-slider.slider-responsive .carousel-caption {
+    top: 8em; } }
+
+@media screen and (max-width: 1200px) {
+  .hero-unit-slider.slider-responsive .carousel-caption {
+    top: 8em; } }
+
+@media screen and (max-width: 768px) {
+  .hero-unit-slider .carousel-caption {
+    top: 11em; } }
+
+.footer-nav > li {
+  margin-bottom: 5px; }
+
+.footer-gradient .copyright {
+  background-color: #f2f2f2;
+  border-top: 1px solid #dedede;
+  color: #49494b; }
+
+.newsletter-form .input-group-lg > .input-group-btn > .btn {
+    background-color: #12723a;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: #12723a;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #12723a;
+}
+
+.hero-unit-slider .hero-button:hover, .hero-unit-slider .hero-button:focus {
+    background: #12723a;
+    border: 3px solid #1e5f8b;
+    color: #fff;
+}
+
+@media screen and (max-width: 992px) {
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active.open > a, .navbar-default .navbar-nav > .active.open > a:hover, .navbar-default .navbar-nav > .active.open > a:focus {
+        background-color: #12723a;
+        color: #fff;
+        border: 1px solid #1e5f8b;
+    } }
+
+.navbar-toggle {
+    background-color: #12723a;
+}
+
+.benefits {
+  margin-top: 20px; }
+
+#teachers-benefits-tab,
+#students-benefits-tab,
+#families-benefits-tab,
+#administrators-benefits-tab {
+    border-bottom: 1px solid #ddd;
+}
+
+#teachers-benefits-tab.active,
+#students-benefits-tab.active,
+#families-benefits-tab.active,
+#administrators-benefits-tab.active {
+    border: 2px solid #12723a;
+}
+
+#teachers-benefits-tab > a > h3,
+#students-benefits-tab > a > h3,
+#families-benefits-tab > a > h3,
+#administrators-benefits-tab > a > h3 {
+    color: #aaa;
+    margin: 20px 0;
+    font-size: 24px;
+}
+
+#teachers-benefits-tab.active > a > h3,
+#students-benefits-tab.active > a > h3,
+#families-benefits-tab.active > a > h3,
+#administrators-benefits-tab.active > a > h3 {
+    color: #656565;
+}
+
+.feature-item {
+  padding: 15px; }
+
+.feature-item img {
+  outline: 2px solid #fff;
+  padding: 2px; }
+
+ol.list-padding li {
+  padding-bottom: 15px; }
+
+/*********** LOGIN FORM ************/
+.login-container {
+  position: relative;
+  margin: 40px auto;
+  max-width: 600px;
+  padding: 20px 40px 40px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #ccc; }
+
+.login-container::before, .login-container::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 3.5px;
+  left: 0;
+  background: #fff;
+  z-index: -1;
+  -webkit-transform: rotateZ(4deg);
+  -moz-transform: rotateZ(4deg);
+  -ms-transform: rotateZ(4deg);
+  border: 1px solid #ccc; }
+
+.login-container::after {
+  top: 5px;
+  z-index: -2;
+  -webkit-transform: rotateZ(-2deg);
+  -moz-transform: rotateZ(-2deg);
+  -ms-transform: rotateZ(-2deg); }
+
+.form-box input {
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  height: 40px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  transition: 0.2s ease-in-out; }
+
+.form-box input:focus {
+  outline: 0;
+  background: #eee; }
+
+.form-box button.login {
+  margin-top: 15px;
+  padding: 10px 20px; }
+
+.copyright a {
+  color: #f9702d;
+  text-decoration: none; }
+  .copyright a:hover {
+    color: #f9702d;
+    text-decoration: solid; }
+
+footer .logo {
+  border: 2px solid #CCCCCC;
+  background-color: #ffffff;
+  padding: 5px 10px;
+  width: 150px; }
+
+main {
+  /**
+        Footer: 360px
+        .page-content margin-bottom: 40px
+    **/
+  min-height: calc(100vh - 360px - 40px); }
+.left-photo {
+    float: left;
+    padding: 0px 20px 20px 0px;
+}
+

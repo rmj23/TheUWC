@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = ViewBag.Layout;
+}
+
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Evaluate Writing <small>for Teacher use only.</small>
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <form role="form">
+            <div class="form-group">
+                <label for="selectClass">Select Class:</label>
+                <select class="form-control" id="selectClass">
+                    <option>-- Select Class --</option>
+                    <!-- List of classes that the Teacher is in charge of -->
+                    <!-- On selection, populates the table below and removes the 'hidden' class associated with the table -->
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Table Container -->
+<div class="row">
+    <div class="col-lg-12">
+
+        <!-- Roster Table -->
+        <table id="" class="table table-bordered table-hover table-striped">
+
+            <!-- Roster Table Headings -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <!-- Roster Table Content -->
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>First Middle Last</td>
+                    <td>
+                        <input type="image" name="evaluateStudentPapers" id="evaluateStudentPapers" class="evaluate-icon" src="@Url.Content("~/Images/Edit.png")" onclick="alert('Function not available.');" />
+                    </td>
+                </tr>
+
+                @*
+    @foreach (var Student in Model.AllStudentsInSchool)
+    {
+        <tr>
+
+            <td>@Student.ID</td>
+            <td>@Student.User.FirstName</td>
+            <td>@Student.User.MiddleName</td>
+            <td>@Student.User.LastName</td>
+            <td>
+                <input type="image" name="edit1" id="edit1" class="edit-icon" src="@Url.Content("~/Images/Edit.png")" onclick="alert('Function not available.');" />
+            </td>
+
+        </tr>
+    }
+                *@
+            </tbody>
+
+        </table>
+
+    </div>
+</div>

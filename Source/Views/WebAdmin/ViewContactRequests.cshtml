@@ -1,0 +1,67 @@
+﻿@model Source.Models.ContactModelViewModel
+@{
+    ViewBag.Title = "Contact Requests";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+
+<div id="page-content">
+    <div class="container-fluid">
+        <div class="panel" style="overflow-x:auto;">
+            <table id="tableContactRequests" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Request Type</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Message</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>ZipCode</th>
+                        <th>Street Number</th>
+                        <th>Street Name</th>
+                        <th>Country</th>
+                        <th>Date Received</th>
+                        <th>Status</th>
+                        <th>Web Admin Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model.AllContacts)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink("Acknowledge", "AcknowledgeContactRequest", new { ContactRequestID = x.ID }, new { @style = "color:#ffa500" })
+                        @Html.ActionLink("Resolve", "ResolveContactRequest", new { ContactRequestID = x.ID, ReasonType = x.Reason }, new { @style = "color:#008000" })
+                        @Html.ActionLink("Spam", "DeleteContactRequest", new { ContactRequestID = x.ID }, new { @style = "color:#ff0000" })
+                        @Html.ActionLink("Comment", "InsertContactRequestComment", new { ContactRequestID = x.ID })
+                    </td>
+                    <td>@x.Reason</td>
+                    <td>@x.FirstName</td>
+                    <td>@x.LastName</td>
+                    <td>@x.Email</td>
+                    <td>@x.Phone</td>
+                    <td>@x.Message</td>
+                    <td>@x.City</td>
+                    <td>@x.State</td>
+                    <td>@x.ZipCode</td>
+                    <td>@x.StreetNumber</td>
+                    <td>@x.StreetName</td>
+                    <td>@x.Country</td>
+                    <td>@x.TimeStamp</td>
+                    <td>@x.Result</td>
+                    <td>@x.WebAdminComments</td>
+                </tr>
+        }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,913 @@
+﻿@model Source.Models.SchoolAdminYearlyBenchmarkReportsViewModel
+@{
+    ViewBag.Title = "Yearly Benchmark Reports";
+    Layout = "~/Views/Shared/_SchoolAdminLayout.cshtml";
+}
+<style>
+    .google_chart_responsive {
+        width: 100%;
+        min-height: 400px;
+    }
+</style>
+@{
+    string[] Evaluations = new string[5]
+    {
+"Below Basic",
+"Basic",
+"Proficient",
+"Advanced",
+"Advanced+"
+    };
+
+    string[] EvaluationcardStyleClass = new string[5]
+    {
+"card-orangeRoughy",
+"card-yellowFuel",
+"card-greenJewel",
+"card-blueTradewind",
+"card-blueBluemine"
+    };
+
+    int[] GraphDataJan = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataFeb = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataMar = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataApril = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataMay = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataJune = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataJuly = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataAug = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataSept = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataOct = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataNov = new int[5] { 0, 0, 0, 0, 0 };
+    int[] GraphDataDec = new int[5] { 0, 0, 0, 0, 0 };
+}
+<div id="page-content">
+    <!--card-->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">@ViewBag.Title</h3>
+            </div>
+            <section class="form-horizontal">
+                <div class="card-body">
+                    @using (Html.BeginForm("YearlyBenchmarkReports", "SchoolAdmin", FormMethod.Get))
+                    {
+                        Html.RenderPartial("_YearGradeCourseSelection", Model);
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+    @if (Model.State == Source.Models.AYearGradeCourseEvaluationViewModel.YearGradeCoursePeriod.CourseSelected && Model.BenchmarkYearReports == null)
+    {
+        <!--A class exists, but there is no data.-->
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">No Reports</h3>
+                </div>
+                <div class="card-body">
+                    @if (Model.CourseID != -1)
+                    {
+                        <p>There are currently no Benchmark Reports for this class.</p>
+                    }
+                    else
+                    {
+                        <p>There are currently no Benchmark Reports for this grade.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.State == Source.Models.AYearGradeCourseEvaluationViewModel.YearGradeCoursePeriod.CourseSelected && Model.BenchmarkYearReports != null)
+    {
+
+        <!--July-->
+        if (Model.BenchmarkYearReports[0] != null)
+        {
+            if (Model.BenchmarkYearReports[0] != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    foreach (var student in Model.BenchmarkYearReports[0].components)
+                    {
+                        if (student.ProfLevel.ID == i + 1)
+                        {
+                            if (student.Students.Count > 0)
+                            {
+                                foreach (var x in student.Students)
+                                {
+                                    GraphDataAug[i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">July</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_july" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Aug-->
+        if (Model.BenchmarkYearReports[1] != null)
+        {
+            if (Model.BenchmarkYearReports[1] != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    foreach (var student in Model.BenchmarkYearReports[1].components)
+                    {
+                        if (student.ProfLevel.ID == i + 1)
+                        {
+                            if (student.Students.Count > 0)
+                            {
+                                foreach (var x in student.Students)
+                                {
+                                    GraphDataAug[i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">August</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_aug" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Sept-->
+        if (Model.BenchmarkYearReports[2] != null)
+        {
+            for (var i = 0; i < 5; i++)
+            {
+                foreach (var student in Model.BenchmarkYearReports[2].components)
+                {
+                    if (student.ProfLevel.ID == i + 1)
+                    {
+                        if (student.Students.Count > 0)
+                        {
+                            foreach (var x in student.Students)
+                            {
+                                GraphDataSept[i] += 1;
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">September</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_sept" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Oct-->
+        if (Model.BenchmarkYearReports[3] != null)
+        {
+            for (var i = 0; i < 5; i++)
+            {
+                foreach (var student in Model.BenchmarkYearReports[3].components)
+                {
+                    if (student.ProfLevel.ID == i + 1)
+                    {
+                        if (student.Students.Count > 0)
+                        {
+                            foreach (var x in student.Students)
+                            {
+                                GraphDataOct[i] += 1;
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">October</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_oct" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Nov-->
+        if (Model.BenchmarkYearReports[4] != null)
+        {
+            if (Model.BenchmarkYearReports[4] != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    foreach (var student in Model.BenchmarkYearReports[4].components)
+                    {
+                        if (student.ProfLevel.ID == i + 1)
+                        {
+                            if (student.Students.Count > 0)
+                            {
+                                foreach (var x in student.Students)
+                                {
+                                    GraphDataNov[i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">November</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_nov" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Dec-->
+        if (Model.BenchmarkYearReports[5] != null)
+        {
+            if (Model.BenchmarkYearReports[5] != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    foreach (var student in Model.BenchmarkYearReports[5].components)
+                    {
+                        if (student.ProfLevel.ID == i + 1)
+                        {
+                            if (student.Students.Count > 0)
+                            {
+                                foreach (var x in student.Students)
+                                {
+                                    GraphDataDec[i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">December</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_dec" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Jan-->
+        if (Model.BenchmarkYearReports[6] != null)
+        {
+            if (Model.BenchmarkYearReports[6] != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    foreach (var student in Model.BenchmarkYearReports[6].components)
+                    {
+                        if (student.ProfLevel.ID == i + 1)
+                        {
+                            if (student.Students.Count > 0)
+                            {
+                                foreach (var x in student.Students)
+                                {
+                                    GraphDataJan[i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">January</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_jan" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Feb-->
+        if (Model.BenchmarkYearReports[7] != null)
+        {
+            if (Model.BenchmarkYearReports[7] != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    foreach (var student in Model.BenchmarkYearReports[7].components)
+                    {
+                        if (student.ProfLevel.ID == i + 1)
+                        {
+                            if (student.Students.Count > 0)
+                            {
+                                foreach (var x in student.Students)
+                                {
+                                    GraphDataFeb[i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">February</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_feb" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Mar-->
+        if (Model.BenchmarkYearReports[8] != null)
+        {
+            if (Model.BenchmarkYearReports[8] != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    foreach (var student in Model.BenchmarkYearReports[8].components)
+                    {
+                        if (student.ProfLevel.ID == i + 1)
+                        {
+                            if (student.Students.Count > 0)
+                            {
+                                foreach (var x in student.Students)
+                                {
+                                    GraphDataMar[i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">March</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_mar" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--April-->
+        if (Model.BenchmarkYearReports[9] != null)
+        {
+            if (Model.BenchmarkYearReports[9] != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    foreach (var student in Model.BenchmarkYearReports[9].components)
+                    {
+                        if (student.ProfLevel.ID == i + 1)
+                        {
+                            if (student.Students.Count > 0)
+                            {
+                                foreach (var x in student.Students)
+                                {
+                                    GraphDataApril[i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">April</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_april" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--May-->
+        if (Model.BenchmarkYearReports[10] != null)
+        {
+            if (Model.BenchmarkYearReports[10] != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    foreach (var student in Model.BenchmarkYearReports[10].components)
+                    {
+                        if (student.ProfLevel.ID == i + 1)
+                        {
+                            if (student.Students.Count > 0)
+                            {
+                                foreach (var x in student.Students)
+                                {
+                                    GraphDataMay[i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">May</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_may" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--June-->
+        if (Model.BenchmarkYearReports[11] != null)
+        {
+            if (Model.BenchmarkYearReports[11] != null)
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    foreach (var student in Model.BenchmarkYearReports[11].components)
+                    {
+                        if (student.ProfLevel.ID == i + 1)
+                        {
+                            if (student.Students.Count > 0)
+                            {
+                                foreach (var x in student.Students)
+                                {
+                                    GraphDataJune[i] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">June</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div id="chart_div_june" class="google_chart_responsive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <!--A class is not selected. Don't display anything.-->
+    }
+</div>
+
+@if (Model.State == Source.Models.AYearGradeCourseEvaluationViewModel.YearGradeCoursePeriod.CourseSelected && Model.BenchmarkYearReports != null)
+{
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChartJuly);
+        google.charts.setOnLoadCallback(drawChartSept);
+        google.charts.setOnLoadCallback(drawChartOct);
+        google.charts.setOnLoadCallback(drawChartNov);
+        google.charts.setOnLoadCallback(drawChartDec);
+        google.charts.setOnLoadCallback(drawChartJan);
+        google.charts.setOnLoadCallback(drawChartFeb);
+        google.charts.setOnLoadCallback(drawChartMar);
+        google.charts.setOnLoadCallback(drawChartApril);
+        google.charts.setOnLoadCallback(drawChartMay);
+        google.charts.setOnLoadCallback(drawChartJune);
+        
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        //Function for 
+        function drawChartJuly() {
+
+            // Create the data table.
+            var bb = @GraphDataJuly[0];
+            var b = @GraphDataJuly[1];
+            var p = @GraphDataJuly[2];
+            var a = @GraphDataJuly[3];
+            var ap = @GraphDataJuly[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'],            // RGB value
+                ['Basic', b, '#ebae26'],            // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced',a,'#6ca9b0'],
+                ['Advanced Plus',ap,'#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_july'));
+            chart.draw(data, options);
+        }
+        //Function for Aug
+        function drawChartAug() {
+
+            // Create the data table.
+            var bb = @GraphDataAug[0];
+            var b = @GraphDataAug[1];
+            var p = @GraphDataAug[2];
+            var a = @GraphDataAug[3];
+            var ap = @GraphDataAug[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'],            // RGB value
+                ['Basic', b, '#ebae26'],            // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced',a,'#6ca9b0'],
+                ['Advanced Plus',ap,'#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_aug'));
+            chart.draw(data, options);
+        }
+        //Function for Sept
+        function drawChartSept() {
+
+            // Create the data table.
+            var bb = @GraphDataSept[0];
+            var b = @GraphDataSept[1];
+            var p = @GraphDataSept[2];
+            var a = @GraphDataSept[3];
+            var ap = @GraphDataSept[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'],            // RGB value
+                ['Basic', b, '#ebae26'],            // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced',a,'#6ca9b0'],
+                ['Advanced Plus',ap,'#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_sept'));
+            chart.draw(data, options);
+        }
+        //Function for October
+        function drawChartOct() {
+
+            // Create the data table.
+            var bb = @GraphDataOct[0];
+            var b = @GraphDataOct[1];
+            var p = @GraphDataOct[2];
+            var a = @GraphDataOct[3];
+            var ap = @GraphDataOct[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'],            // RGB value
+                ['Basic', b, '#ebae26'],            // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced',a,'#6ca9b0'],
+                ['Advanced Plus',ap,'#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_oct'));
+            chart.draw(data, options);
+        }
+        //Function for Nov
+        function drawChartNov() {
+
+            // Create the data table.
+            var bb = @GraphDataNov[0];
+            var b = @GraphDataNov[1];
+            var p = @GraphDataNov[2];
+            var a = @GraphDataNov[3];
+            var ap = @GraphDataNov[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'],            // RGB value
+                ['Basic', b, '#ebae26'],            // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced',a,'#6ca9b0'],
+                ['Advanced Plus',ap,'#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_nov'));
+            chart.draw(data, options);
+        }
+        //Function for Dec
+        function drawChartDec() {
+
+            // Create the data table.
+            var bb = @GraphDataDec[0];
+            var b = @GraphDataDec[1];
+            var p = @GraphDataDec[2];
+            var a = @GraphDataDec[3];
+            var ap = @GraphDataDec[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'], // RGB value
+                ['Basic', b, '#ebae26'], // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced', a, '#6ca9b0'],
+                ['Advanced Plus', ap, '#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_dec'));
+            chart.draw(data, options);
+        }
+
+        //Function for Jan
+        function drawChartJan() {
+
+            // Create the data table.
+            var bb = @GraphDataJan[0];
+            var b = @GraphDataJan[1];
+            var p = @GraphDataJan[2];
+            var a = @GraphDataJan[3];
+            var ap = @GraphDataJan[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'], // RGB value
+                ['Basic', b, '#ebae26'], // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced', a, '#6ca9b0'],
+                ['Advanced Plus', ap, '#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_jan'));
+            chart.draw(data, options);
+        }
+
+        //Function for Feb
+        function drawChartFeb() {
+
+            // Create the data table.
+            var bb = @GraphDataFeb[0];
+            var b = @GraphDataFeb[1];
+            var p = @GraphDataFeb[2];
+            var a = @GraphDataFeb[3];
+            var ap = @GraphDataFeb[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'],            // RGB value
+                ['Basic', b, '#ebae26'],            // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced',a,'#6ca9b0'],
+                ['Advanced Plus',ap,'#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_feb'));
+            chart.draw(data, options);
+        }
+        //Function for Mar
+        function drawChartMar() {
+
+            // Create the data table.
+            var bb = @GraphDataMar[0];
+            var b = @GraphDataMar[1];
+            var p = @GraphDataMar[2];
+            var a = @GraphDataMar[3];
+            var ap = @GraphDataMar[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'],            // RGB value
+                ['Basic', b, '#ebae26'],            // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced',a,'#6ca9b0'],
+                ['Advanced Plus',ap,'#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_mar'));
+            chart.draw(data, options);
+        }
+        //Function for April
+        function drawChartApril() {
+
+            // Create the data table.
+            var bb = @GraphDataApril[0];
+            var b = @GraphDataApril[1];
+            var p = @GraphDataApril[2];
+            var a = @GraphDataApril[3];
+            var ap = @GraphDataApril[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'],            // RGB value
+                ['Basic', b, '#ebae26'],            // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced',a,'#6ca9b0'],
+                ['Advanced Plus',ap,'#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_april'));
+            chart.draw(data, options);
+        }
+        //Function for May
+        function drawChartMay() {
+
+            // Create the data table.
+            var bb = @GraphDataMay[0];
+            var b = @GraphDataMay[1];
+            var p = @GraphDataMay[2];
+            var a = @GraphDataMay[3];
+            var ap = @GraphDataMay[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'],            // RGB value
+                ['Basic', b, '#ebae26'],            // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced',a,'#6ca9b0'],
+                ['Advanced Plus',ap,'#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_may'));
+            chart.draw(data, options);
+        }
+        //Function for June
+        function drawChartJune() {
+
+            // Create the data table.
+            var bb = @GraphDataJune[0];
+            var b = @GraphDataJune[1];
+            var p = @GraphDataJune[2];
+            var a = @GraphDataJune[3];
+            var ap = @GraphDataJune[4];
+
+            var data = google.visualization.arrayToDataTable([
+                ['Proficiency Band', 'Students', { role: 'style' }],
+                ['Below Basic', bb, '#be4916'],            // RGB value
+                ['Basic', b, '#ebae26'],            // English color name
+                ['Proficient', p, '#12723a'],
+                ['Advanced',a,'#6ca9b0'],
+                ['Advanced Plus',ap,'#1e5f8b']
+            ]);
+
+            // Set chart options
+            var options = {
+                legend: { position: "none" }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_june'));
+            chart.draw(data, options);
+        }
+
+        $(window).resize(function () {
+            drawChartJuly();
+            drawChartAug();
+            drawChartSept();
+            drawChartOct();
+            drawChartNov();
+            drawChartDec();
+            drawChartJan();
+            drawChartFeb();
+            drawChartMar();
+            drawChartApril();
+            drawChartMay();
+            drawChartJune();
+        });
+
+    </script>
+}
+

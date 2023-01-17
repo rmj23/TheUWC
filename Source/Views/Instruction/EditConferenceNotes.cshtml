@@ -1,0 +1,89 @@
+﻿@model Source.Models.EditConferenceNotesViewModel
+@{
+    ViewBag.Title = "Edit Conference Notes";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+<!-- Page Title -->
+<div id="page-title">
+    <h1 class="page-header text-overflow">Conference Notes</h1>
+</div>
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewBag.Title for @Model.StudentName</h3>
+            </div>
+            <!--Content-->
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("EditConferenceNotes", "Instruction", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.ConferenceNotes.ConferenceID)
+                @Html.HiddenFor(model => model.YearID)
+                @Html.HiddenFor(model => model.ConferenceNotes.CourseID)
+                @Html.HiddenFor(model => model.ConferenceNotes.StudentID)
+
+                <section class="form-horizontal">
+                    <div class="panel-body">
+
+                        <!--Date Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="date">Date: </label>
+                            <div class="col-sm-6">
+                                <p class="form-control">@Model.ConferenceNotes.Date.Value.ToShortDateString()</p>
+                            </div>
+                        </div>
+
+                        <!--Conference Type Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="description">Conference Type: </label>
+                            <div class="col-sm-6">
+                                <p class = "form-control" >@Model.ConferenceNotes.Description</p>
+                            </div>
+                        </div>
+
+                        <!--Stage/Draft Field EDITABLE-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="stageordraft">Stage/Draft: </label>
+                            <div class="col-sm-6">
+
+                                @Html.DropDownListFor(model => model.ConferenceNotes.StageOrDraftID, Model.StageOrDraft, new { @class = "form-control" })
+
+                            </div>
+                        </div>
+
+                        <!--Comments EDITABLE Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="comments">Comments: </label>
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(model => model.ConferenceNotes.Comments, new { @class = "form-control"})
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </div>
+                </section>
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+        </div>
+    </div>
+</div>

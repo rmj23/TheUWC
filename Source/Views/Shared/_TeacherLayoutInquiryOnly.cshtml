@@ -1,0 +1,632 @@
+﻿@using Source.Models
+@using Source.Utilities
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>The Universal Writing Continuum - @ViewBag.Title</title>
+
+    <!--Favicon-->
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+
+    @*<!-- Regular Meta Info - used by search engines and browsers -->
+    <meta name="description" content="{{description}}">
+    <meta name="keywords" content="{{keywords}}">
+    <link rel="author" href="https://plus.google.com/{{googlePlusId}}" />
+    <link rel="canonical" href="{{pageUrl}}" />
+
+    <!-- Facebook Meta Info - used by Facebook when someone shares your url -->
+    <meta property="og:url" content="{{pageUrl}}">
+    <meta property="og:image" content="{{imageUrl}}">
+    <meta property="og:description" content="{{description}}">
+    <meta property="og:title" content="{{pageTitle}}">
+    <meta property="og:site_name" content="{{siteTitle}}">
+    <meta property="og:see_also" content="{{homepageUrl}}">
+
+    <!-- Google+ Meta Info - used by Google+ when someone shares your url -->
+    <meta itemprop="name" content="{{pageTitle}}">
+    <meta itemprop="description" content="{{description}}">
+    <meta itemprop="image" content="{{imageUrl}}">
+
+    <!-- Twitter Meta Info - used by Twitter when someone shares your url -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="{{pageUrl}}">
+    <meta name="twitter:title" content="{{pageTitle}}">
+    <meta name="twitter:description" content="{{description}}">
+    <meta name="twitter:image" content="{{imageUrl}}">*@
+
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Bundles/jQuery/js/jquery-2.2.4.min.js")"></script>
+
+    <!-- Boostrap CSS -->
+    <link href="@Url.Content("~/Bundles/Bootstrap/css/bootstrap.min.css")" rel="stylesheet">
+
+    <!-- Nifty CSS -->
+    <link href="@Url.Content("~/Bundles/Nifty/v2.5/css/nifty.min.css")" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="@Url.Content("~/Styles/Teacher/main.min.css")" rel="stylesheet">
+
+    @RenderSection("Styles", false)
+    @RenderSection("Scripts", false)
+
+</head>
+<body class="@Html.ControllerActionCombo()">
+
+    <div id="container" class="effect aside-float aside-bright mainnav-lg">
+
+        <!-- NAVBAR -->
+        <header id="navbar">
+            <div id="navbar-container" class="boxed">
+
+                <!-- Branding Area -->
+                <div class="navbar-header">
+                    <a href="javascript:void(0);" class="navbar-brand">
+                        <div class="brand-title">
+                            <span class="brand-text">Hello, @Source.Models.SessionModel.GetUserName(HttpContext.Current.Request.RequestContext)!</span>
+                        </div>
+                    </a>
+
+                </div>
+                <!-- ./Branding Area -->
+                <!-- Navbar Link Items -->
+                <div class="navbar-content clearfix">
+                    <ul class="nav navbar-top-links pull-left">
+
+                        <!-- Mobile Navigation Toggle Button -->
+                        <li class="tgl-menu-btn">
+                            <a class="mainnav-toggle" href="#">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </li>
+                        <!-- ./Mobile Navigation Toggle Button -->
+
+                        <li>
+                            <a href="@Url.Action("Index", "Home")" target="_blank">
+                                <img src="@Url.Content("~/Images/logo.png")" alt="" class="navbar-logo" />
+                            </a>
+                        </li>
+                        <!-- Defualt Class Selection-->
+                        @Html.Partial("_DefualtClass", Source.Models.SessionModel.DefaultClassEnabled(HttpContext.Current.Request.RequestContext))
+
+
+                    </ul>
+                    <ul class="nav navbar-top-links pull-right">
+
+                        <!-- Points Item -->
+                        @*<li>
+                                <a href="@Url.Action("Points", "Teacher")">
+                                    <div class="points hidden-xs">@Source.Models.SessionModel.GetUserPoints(HttpContext.Current.Request.RequestContext)</div>
+                                </a>
+                            </li>*@
+
+                        <!-- User Dropdown Item -->
+                        <li id="dropdown-user" class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                                <span class="pull-right">
+                                    <i class="demo-pli-male ic-user"></i>
+                                </span>
+                                <div class="username hidden-xs">@Source.Models.SessionModel.GetUserName(HttpContext.Current.Request.RequestContext)</div>
+                            </a>
+
+
+                            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
+
+                                <!-- User Dropdown Item Menu -->
+                                <ul class="head-list">
+                                    <li>
+                                        <a href="@Url.Action("Profile", "Teacher")">
+                                            <i class="fa fa-user icon-lg icon-fw"></i> Your Profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Inbox", "Teacher")">
+                                            <span class="badge badge-danger pull-right">9</span>
+                                            <i class="fa fa-envelope icon-lg icon-fw"></i> Your Messages
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="badge badge-danger pull-right">9</span>
+                                            <i class="fa fa-exclamation-circle icon-lg icon-fw"></i> Your Notifications
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- ./User Dropdown Item Menu -->
+                                <!--TODO: Implement Settings-->
+                                <!-- User Dropdown Item Footer -->
+                                <div class="pad-all">
+                                    <div class="text-left pull-left">
+                                        <a href="@Url.Action("Settings", "Teacher")" class="btn btn-default">
+                                            <i class="fa fa-gear"></i> Settings
+                                        </a>
+                                    </div>
+                                    <div class="text-right">
+                                        <a href="@Url.Action("Logout", "Authentication")" class="btn btn-primary">
+                                            <i class="fa fa-sign-out"></i> Logout
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- ./User Dropdown Item Footer -->
+
+                            </div>
+                        </li>
+                        <!-- ./User Dropdown Item -->
+
+                    </ul>
+                </div>
+                <!-- ./Navbar Link Items -->
+
+            </div>
+        </header>
+        <!-- ./NAVBAR -->
+
+        <div class="boxed">
+
+            <!-- Main Content -->
+            <div id="content-container">
+                <!--ColorBar Color Bar for different main headings in Nav Bar.-->
+                <!--Look for /* == "The Bar" == */ in main.scss under Styles/Teacher if controller or action change-->
+                <div class="container-fluid bar bar-@Html.ControllerActionCombo()">
+
+                </div>
+
+                @RenderBody()
+
+            </div>
+            <!-- ./Main Content -->
+            <!-- Navigation Menu -->
+            <nav id="mainnav-container">
+                <div id="mainnav">
+
+                    <!-- Menu -->
+                    <div id="mainnav-menu-wrap">
+                        <div class="nano has-scrollbar">
+                            <div class="nano-content" tabindex="0" style="right: -17px;">
+
+                                <!-- Shortcut Buttons -->
+                                <div id="mainnav-shortcut">
+                                    <ul class="list-unstyled">
+                                        <li class="col-xs-3" data-content="My Profile" data-original-title="" title="">
+                                            <a class="shortcut-grid" href="@Url.Action("Profile", "Teacher")">
+                                                <i class="fa fa-user"></i>
+                                            </a>
+                                        </li>
+                                        <li class="col-xs-3" data-content="My Messages" data-original-title="" title="">
+                                            <a class="shortcut-grid" href="@Url.Action("Inbox", "Teacher")">
+                                                <i class="fa fa-envelope"></i>
+                                            </a>
+                                        </li>
+                                        <li class="col-xs-3" data-content="My Points" data-original-title="" title="">
+                                            <a class="shortcut-grid" href="@Url.Action("Points", "Teacher")">
+                                                <i class="fa fa-usd"></i>
+                                            </a>
+                                        </li>
+                                        <li class="col-xs-3" data-content="My Settings" data-original-title="" title="">
+                                            <a class="shortcut-grid" href="@Url.Action("Settings", "Teacher")">
+                                                <i class="fa fa-gear"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- ./Shortcut Buttons -->
+
+                                <ul id="mainnav-menu" class="list-group">
+
+                                    <!-- Navigation Category Header -->
+                                    <li class="list-header">Navigation</li>
+                                    <!-- ./Navigation Category Header -->
+                                    <!-- Navigation Category Content -->
+                                    <li>
+
+                                        <!-- Dashboard Subcategory Header -->
+                                        <a href="@Url.Action("Dashboard", "Teacher")">
+                                            <i class="fa fa-home"></i>
+                                            <span class="menu-title">
+                                                <strong>Dashboard</strong>
+                                            </span>
+                                        </a>
+                                        <!-- ./Dashboard Subcategory Header -->
+
+                                    </li>
+                                    <!-- ./Navigation Category Content -->
+                                    <!-- Management Category Header -->
+                                    <li class="list-header">Management</li>
+                                    <!-- ./Management Category Header -->
+                                    <!-- Management Subcategory Content -->
+                                    <li>
+
+                                        <!-- Manage Class Subcategory Header -->
+                                        <a href="#">
+                                            <i class="fa fa-circle" style="color:#6ca9b0"></i>
+                                            <span class="menu-title">Manage Class</span>
+                                            <i class="arrow"></i>
+                                        </a>
+                                        <!-- ./Manage Class Subcategory Header -->
+                                        <!-- Manage Class Subcategory Dropdown Items -->
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li><a href="@Url.Action("AddClass","Teacher")">Add Class</a></li>
+                                            <li><a href="@Url.Action("UpdateRoster","Teacher")">Update District Roster</a></li>
+                                            <li><a href="@Url.Action("EnrollStudent","Teacher")">Enroll Student</a></li>
+                                            <li><a href="@Url.Action("ParentStudentAccounts","Teacher")">Student/Parent Accounts</a></li>
+                                        </ul>
+                                        <!-- ./Manage Class Subcategory Dropdown Items -->
+
+                                    </li>
+                                    <!-- ./Management Subcategory Content -->
+                                    <!-- Evaluation Subcategory Content -->
+
+ 
+                                    <li>
+
+                                        <!-- Evaluation Subcategory Header -->
+                                        <a href="#">
+                                            <i class="fa fa-circle" style="color:#be4916"></i>
+                                            <span class="menu-title">Evaluation</span>
+                                            <i class="arrow"></i>
+                                        </a>
+
+                                        <!-- ./Evaluation Subcategory Header -->
+                                        <!-- Evaluation Subcategory Dropdown Items -->
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li>
+                                                <a href="#">
+                                                    <span class="menu-title">Project Management</span>
+                                                    <i class="arrow"></i>
+                                                </a>
+                                                <ul class="collapse" aria-expanded="false">
+                                                    <li><a href="@Url.Action("InsertProject","Teacher")">Insert New Project</a></li>
+                                                    <li><a href="@Url.Action("MyProjects","Teacher")">Class Projects</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <!-- ./Evaluation Subcategory Dropdown Items -->
+
+                                    </li>
+      
+                                    <!-- ./Evaluation Subcategory Content -->
+                                    <!-- Reports Subcategory Content -->
+                                    <li>
+
+                                        <!-- Reports Subcategory Header -->
+                                        <a href="#">
+                                            <i class="fa fa-circle" style="color:#ebae26"></i>
+                                            <span class="menu-title">Reports</span>
+                                            <i class="arrow"></i>
+                                        </a>
+                                        <!-- ./Reports Subcategory Header -->
+                                        <!-- Reports Subcategory Dropdown Items -->
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li><a href="@Url.Action("ClassData","Evaluation")">Class Data</a></li>
+                                            <li><a href="@Url.Action("StudentProgress","Teacher")">Student Progress</a></li>
+                                            <li><a href="@Url.Action("BenchmarkReports","Teacher")">Benchmark Reports</a></li>
+
+                                        </ul>
+                                        <!-- ./Reports Subcategory Dropdown Items -->
+
+                                    </li>
+                                    <!-- ./Reports Subcategory Content -->
+                                    <!-- Instruction Subcategory Content -->
+                                    <li>
+
+                                        <!-- Instruction Subcategory Header -->
+                                        <a href="#">
+                                            <i class="fa fa-circle" style="color:#12723a"></i>
+                                            <span class="menu-title">Instruction</span>
+                                            <i class="arrow"></i>
+                                        </a>
+                                        <!-- ./Instruction Subcategory Header -->
+                                        <!-- Instruction Subcategory Dropdown Items -->
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li><a href="@Url.Action("ViewClassGoals","Instruction")">Class Goals</a></li>
+                                            <li><a href="@Url.Action("ViewStudentGoals","Instruction")">Student Goals</a></li>
+                                            <li><a href="@Url.Action("LessonPlans","Teacher")">Lesson Plans</a></li>
+                                            <li><a href="@Url.Action("InteractiveMentorTexts", "Instruction")">Interactive Mentor Texts</a></li>
+                                            <li><a href="@Url.Action("ViewEngagement","Instruction")">Engagements</a></li>
+                                            <li><a href="@Url.Action("ConferenceNotes","Instruction")">Conference Notes</a></li>
+                                        </ul>
+                                        <!-- ./Instruction Subcategory Dropdown Items -->
+
+                                    </li>
+                                    <!-- ./Instruction Subcategory Content -->
+                                    <!-- Resources Subcategory Content -->
+                                    <li>
+
+                                        <!-- Resources Subcategory Header -->
+                                        <a href="#">
+                                            <i class="fa fa-circle" style="color:#1e5f8b"></i>
+                                            <span class="menu-title">Resources</span>
+                                            <i class="arrow"></i>
+                                        </a>
+                                        <!-- ./Resources Subcategory Header -->
+                                        <!-- Resources Subcategory Dropdown Items -->
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li>
+                                                <a href="#">
+                                                    <span class="menu-title">Anchor Papers</span>
+                                                    <i class="arrow"></i>
+                                                </a>
+                                                <ul class="collapse" aria-expanded="false">
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">A</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("A1.Narr.Three Billy Goats Gruff.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">A1 (Narrative)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("A2.Opin.You Are My Best Teacher.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   , '_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">A2 (Opinion)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("A3.Infor.Orange Pumpkin.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">A3 (Informational)</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">B</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("B1.Opinion.I want to play baseball .pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">B1 (Opinion)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("B2.Narr.At School Today.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">B2 (Narrative)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("B3.Infor.Whales see with their ears.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">B3 (Informational)</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">C</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("C1.Opinion.TheRainbow.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">C1 (Opinion)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("C1. Narrative.My Kitten.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">C1 (Narrative)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("C2.Narrative.A story.A Bird Is a Bird.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">C2 (Narrative)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("C3.Narrative.Sheldon the Turtle.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">C3 (Narrative)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("C3.The Snake Book. Informational.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">C3 (Informational)</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">D</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("D1.Opinion.Reading.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">D1 (Argument)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("D3.Informational.Recipe for a Smoothie.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">D3 (Informational)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("A1.Narr.Three Billy Goats Gruff.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">D (Informational)</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">E</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("E1.Argumentative.Nature in the Woods.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">E1 (Argumentative)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("E1.Informational.Nature in the Woods.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">E1 (Informational)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("E2.Narrative.Doug Dracula, the Pizza-eater.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">E2 (Narrative)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("E3. Informational.Diabetes.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">E3 (Informational)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("E.Response.Nana Upstairs and Nana Downstairs.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">E (Response)</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">F</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("F.Informational.Recreation in the future.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">F (Informational)</a>
+                                                            </li>
+
+                                                            @*<li><a href="@Url.Action("F.Informational.Recreation in the future.pdf", "Content/Teacher/Resources/AnchorPapers")" target="_blank">F (Informational)</a></li>*@
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">G</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("G.Opinion.Recycling will save the earth.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">G (Argumentative)</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("G. Narrative.Gemstone Mining with Dad.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">G (Narrative)</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">H</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("H.Narrative.Battle Cry of Freedom.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">H (Narrative)</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">I</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("I.Argument.Letter to State Board of Education.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">I (Argumentative)</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">J</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("J.Poetry.Maria.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">J (Narrative)</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="menu-title">K</span>
+                                                            <i class="arrow"></i>
+                                                        </a>
+                                                        <ul class="collapse" aria-expanded="false">
+                                                            <li>
+                                                                <a href="#" onclick="window.open('@Url.Action("K.Argument.Risks Due to Obesity.pdf", "Content/Teacher/Resources/AnchorPapers")'
+                                                                   ,'_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">K (Argumentative)</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="@Url.Action("Glossary","Teacher")">Glossary</a></li>
+                                            <li><a href="@Url.Action("GraphicOrganizers","Teacher")">Graphic Organizers</a></li>
+                                            <li><a href="@Url.Action("StudentChecklist","Teacher")">Students Self-Evaluation</a></li>
+                                            <li><a href="@Url.Action("WritingStandards","Teacher")">CCSS Standards</a></li>
+                                        </ul>
+                                        <!-- ./resources Subcategory Dropdown Items -->
+
+                                    </li>
+                                    <!-- ./Resources Subcategory Content -->
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-book"></i>
+                                            <span class="menu-title">Help Center</span>
+                                            <i class="arrow"></i>
+                                        </a>
+                                        <ul class="collapse" aria-expanded="false">
+                                            <li><a href="@Url.Action("HelpVideos","Teacher")">Help Videos</a></li>
+                                            @*<li><a href="@Url.Action("Error","Shared")">Using Scanner Apps</a></li>
+                                                <li><a href="@Url.Action("Error","Shared")">Downloading Zipped Files</a></li>
+                                                <li><a href="@Url.Action("Error","Shared")">Alignment to CCSS</a></li>
+                                                <li><a href="@Url.Action("Error","Shared")">UWC Levels Explained</a></li>*@
+                                            <li><a href="@Url.Action("Frequently Asked Questions.pdf","Content/Teacher/Resources")" target="_blank">Frequently Asked Questions</a></li>
+                                            @*<li><a href="@Url.Action("Error", "Shared")">Research</a></li>*@
+                                        </ul>
+                                        <!-- ./resources Subcategory Dropdown Items -->
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./Menu -->
+
+                </div>
+            </nav>
+            <!-- ./Navigation Menu -->
+
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+
+            <p class="pad-lft">
+                Copyright © 2011-
+                <!-- Current Year for copywrite-->
+                <script>
+    var d = new Date();
+                    document.write(d.getFullYear());</script>
+                Uni-Spire
+            </p>
+
+        </footer>
+        <!-- ./Footer -->
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="@Url.Content("~/Bundles/Bootstrap/js/bootstrap.min.js")"></script>
+
+    <!-- Nifty JS -->
+    <script src="@Url.Content("~/Bundles/Nifty/v2.5/js/nifty.min.js")"></script>
+    @*<script src="@Url.Content("~/Bundles/JQuery/js/jquery-2.2.4.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")"></script>*@
+
+
+    @RenderSection("RenderBlockingScripts", false)
+
+    <script type="text/javascript">
+        function show(value) {
+            //if ($("#pdfviewer").hasClass("hidden")) {
+            //    $("#pdfviewer").removeClass("hidden");
+            //}
+            //$('#pdfviewer').prop('src', value);
+            window.open(value);
+        }
+    </script>
+
+</body>
+</html>

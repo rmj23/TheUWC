@@ -1,0 +1,295 @@
+﻿@model Source.Models.PaperResultsViewModel
+@{
+    ViewBag.Title = "ViewPaperResults";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+
+}
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-danger"></div>
+    <h1 class="ml-3">Paper Results</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+
+@if (Model.Paper.Continuing == true)
+{
+    <div id="page-content">
+        <div class="container">
+            <!--Panel Head-->
+            <dv class="card">
+                <div class="card-header">
+                    <h3 class="card-title">@Model.Reports.FirstOrDefault().LastName, @Model.Reports.FirstOrDefault().FirstName - @Model.Reports.FirstOrDefault().PaperTitle</h3>
+                </div>
+                <div class="card-body">
+                    <!--Paper Details-->
+                    <div class="row">
+                        <div class="col-11">
+                            <div class="row">
+                                <h4 class="col-3 text-right">Title:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Paper.PaperTitle - Draft: @Model.Paper.Draft - Stage: Final</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Class:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Paper.CourseName</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Evaluation Period:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Paper.evalDescription</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Holistic Band:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Reports.FirstOrDefault().HolisticScoreLetter</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Proficiency Band:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Paper.ProficiencyLevel</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Teacher Comments:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Comments</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Student Feedback:</h4>
+                                <h6 class="col text-left align-self-center">@Model.StudentFeedback</h6>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <p><a class="btn btn-outline-success" href="@Url.Action("EditEvaluationInfo", new { EvaluationID = Model.EvaluationID, PaperID = Model.Paper.PaperID })">Edit</a></p>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <table id="viewPaperResults" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Writing Element</th>
+                                <th>Band</th>
+                                <th>Proficiency</th>
+                                <th>Tasks</th>
+                                @*<th>Date Scored</th>
+                                <th>Draft/Final</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var x in Model.Reports)
+                            {
+                                if (x.ScoreType == "Spelling" || x.ScoreType == "Usage/Mechanics")
+                                {
+                                    <tr>
+                                        <td class="text-center">@x.ScoreType</td>
+                                        <td>@x.ScoreData</td>
+                                        <td>@x.Proficiency</td>
+                                        <td><a href="@Url.Action("EditScore", new { EvaluationScoreID = x.EvaluationScoresID, PaperID = x.PaperID, IsFinal = x.IsFinal })">Edit</a></td>
+                                        @*<td>@x.DateScored</td>
+                                        @if (x.IsFinal)
+                                        {
+                                            <td>Final</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Draft</td>
+                                        }*@
+                                    </tr>
+                                }
+                                else if (x.ScoreType == "Conventions")
+                                {
+                                    <tr>
+                                        <td>Conventions</td>
+                                        <td>@x.ScoreData</td>
+                                        <td>@x.Proficiency</td>
+                                        <td></td>
+                                        @*<td>@x.DateScored</td>
+                                        @if (x.IsFinal)
+                                        {
+                                            <td>Final</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Draft</td>
+                                        }*@
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@x.ScoreType</td>
+                                        <td>@x.ScoreData</td>
+                                        <td>@x.Proficiency</td>
+                                        <td><a href="@Url.Action("EditScore", new { EvaluationScoreID = x.EvaluationScoresID, PaperID = x.PaperID, IsFinal = x.IsFinal })">Edit</a></td>
+                                        @*<td>@x.DateScored</td>
+                                        @if (x.IsFinal)
+                                        {
+                                            <td>Final</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Draft</td>
+                                        }*@
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="card-footer" style="clear:both">
+                    <div>
+                        <button>
+                            @Html.ActionLink("Student Portfolios", "ViewPortfolio", "Evaluation", new
+                            {
+                                State = Source.Models.ACourseStudentYearSelectionViewModel.CourseStudentYearSelectionState.CourseSelected,
+                                CourseID = Model.Paper.CourseID,
+                                YearID = Model.Paper.YearID
+                            }, null)
+                        </button>
+
+                    </div>
+
+                    <div>
+                        <button>
+                            @Html.ActionLink("Set a Goal", "InsertStudentGoals", "Instruction", new
+                            {
+                                State = Source.Models.APaperResultsSelection.PaperResultSelection.PaperSelected,
+                                PaperID = Model.Reports.FirstOrDefault().PaperID,
+                                CourseID = Model.Paper.CourseID,
+                                StudentID = Model.Paper.StudentID,
+                                YearID = Model.Paper.YearID
+                            }, null)
+                        </button>
+
+                    </div>
+
+
+                </div>
+        </div>
+    </div>
+}
+else
+{
+    <div id="page-content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h2>@Model.Reports.FirstOrDefault().LastName, @Model.Reports.FirstOrDefault().FirstName</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-11">
+                            <div class="row">
+                                <h4 class="col-3 text-right">Title:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Paper.PaperTitle - Draft: @Model.Paper.Draft - Stage: Final</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Class:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Paper.CourseName</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Evaluation Period:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Paper.evalDescription</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Holistic Band:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Reports.FirstOrDefault().HolisticScoreLetter</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Proficiency Band:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Reports.FirstOrDefault().Proficiency</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Teacher Comments:</h4>
+                                <h6 class="col text-left align-self-center">@Model.Comments</h6>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-3 text-right">Student Feedback:</h4>
+                                <h6 class="col text-left align-self-center">@Model.StudentFeedback</h6>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <p><a class="btn btn-outline-success" href="@Url.Action("EditEvaluationInfo", new { EvaluationID = Model.EvaluationID, PaperID = Model.Paper.PaperID })">Edit</a></p>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <table id="viewPaperResults" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Writing Element</th>
+                                <th>Band</th>
+                                <th>Proficiency</th>
+                                <th>Tasks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var x in Model.Reports)
+                            {
+                                if (x.ScoreType == "Spelling" || x.ScoreType == "Usage/Mechanics")
+                                {
+                                    <tr>
+                                        <td style="padding-left: 15px;">@x.ScoreType</td>
+                                        <td>@x.ScoreData</td>
+                                        <td>@x.Proficiency</td>
+                                        <td><a class="btn btn-outline-success" href="@Url.Action("EditScore", new { EvaluationScoreID = x.EvaluationScoresID, PaperID = x.PaperID })">Edit</a></td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@x.ScoreType</td>
+                                        <td>@x.ScoreData</td>
+                                        <td>@x.Proficiency</td>
+                                        <td><a class="btn btn-outline-success" href="@Url.Action(" EditScore", new { EvaluationScoreID=x.EvaluationScoresID, PaperID=x.PaperID })">Edit</a></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@using (Html.BeginForm("UploadPaperDataOnly", "Evaluation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container mt-3">
+        <div class="card">
+            @Html.HiddenFor(x => x.Paper.PaperID)
+            @Html.HiddenFor(x => x.Paper.StudentID)
+            @Html.HiddenFor(x => x.Paper.EvaluationPeriodID)
+            @Html.HiddenFor(x => x.Paper.CourseID)
+            @Html.HiddenFor(x => x.Paper.YearID)
+            <div class="card-header">
+                <h5 class="card-title">Upload Paper</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-main text-bold mar-no">Please select the file that you would like to upload.</p>
+                <p>We currently accept <strong>.PDF, .DOC, .DOCX, .JPEG, .JPG, and .PNG</strong> file types for papers. The maximum size for papers is 5MB.</p>
+                <p>We also accept <strong>.MP4, .MPEG, and .MOV</strong> file types for video assignments. The maximum size for videos is 500MB.</p>
+                <input id="file" style="display: inline;" name="file" type="file" accept="application/pdf, .doc, .docx, .jpg, .png, .mp4, .mpeg, .mov, .ppt">
+            </div>
+            <div class="card-footer">
+                <div class="btn-group-justified text-center">
+                    <button id="submitBtn" type="submit" name="submit" class="btn btn-outline-primary">Upload Paper </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@*@Html.Action("UploadPaperDataOnly", "Evaluation", Model.Paper.PaperID)*@
+
+@section Scripts {
+    <script>
+        $("#viewPaperResults").dataTable({
+            "order": [],
+            "searching": false,
+            "columnDefs": [
+                {
+                    "targets": [0, 1, 2, 3],
+                    "orderable": false
+                }
+            ]
+        });
+    </script>
+}

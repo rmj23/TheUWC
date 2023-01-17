@@ -1,0 +1,107 @@
+﻿@model Source.Models.EditStudentViewModel
+@{
+    ViewBag.Title = "EditStudentDistrict";
+    Layout = "~/Views/Shared/_DistrictAdminLayout.cshtml";
+}
+
+@section Styles {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        @Model.Student.FirstName @((Model.Student.MiddleName == "") ? Model.Student.LastName : Model.Student.MiddleName + " " + Model.Student.LastName)
+                    </h3>
+                </div>
+
+                <!--Horizontal Form-->
+                <!--===================================================-->
+                @using (Html.BeginForm("EditStudentDistrict", "DistrictAdmin", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.CourseID)
+                    @Html.HiddenFor(model => model.Student.StudentID)
+                    @Html.HiddenFor(model => model.Student.ID)
+
+                    <section class="form-horizontal">
+                        <div class="panel-body">
+
+                            <!-- Student First Name Field -->
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Student.FirstName, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.Student.FirstName, new { @class = "form-control", @id = "studentFirstName", @name = "studentFirstName" })
+                                </div>
+                            </div>
+                            <!-- Student Middle Name Field -->
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Student.MiddleName, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.Student.MiddleName, new { @class = "form-control", @id = "studentMiddleName", @name = "studentMiddleName" })
+                                </div>
+                            </div>
+
+                            <!-- Student Last Name Field -->
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Student.LastName, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.Student.LastName, new { @class = "form-control", @id = "studentLastName", @name = "studentLastName" })
+                                </div>
+                            </div>
+
+                            <!-- Student Suffix Field -->
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Student.Suffix, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.Student.Suffix, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <!-- Student Number Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Student Number: </label>
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.Student.StudentNumber)
+                                </div>
+                            </div>
+
+                            <!-- Student Email Field -->
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Student.Email, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.Student.Email, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-footer">
+                            <!-- Submit Button -->
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-default">Update Student</button>
+                            </div>
+                        </div>
+                    </section>
+                }
+                <!--===================================================-->
+                <!--End Horizontal Form-->
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

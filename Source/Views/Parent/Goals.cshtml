@@ -1,0 +1,223 @@
+﻿@model Source.Models.ParentGoalsViewModel
+
+@{
+    ViewBag.Title = "Goals";
+    Layout = "~/Views/Shared/_ParentLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#tableStudentGoals');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableStudentGoals-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableStudentGoals-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableStudentGoals-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<!-- Page Title -->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+@if (Model.AllStudentsModel == null || Model.AllStudentsModel.Count == 0)
+{
+    <div id="page-content">
+        <div class="container-fluid">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        My Students
+                    </h3>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <p>No students linked to your account.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    for (int i = 0; i < Model.AllStudentsModel.Count; i++)
+    {
+        <!-- Main Content -->
+        string name;
+        if (Model.AllStudentsModel[i].LastName.Last() == 's')
+        {
+            name = Model.AllStudentsModel[i].FirstName + " " + Model.AllStudentsModel[i].LastName + "' Goals";
+        }
+        else
+        {
+            name = Model.AllStudentsModel[i].FirstName + " " + Model.AllStudentsModel[i].LastName + "'s Goals";
+        }
+        if (Model.StudentsGoals[i].SelectStudentGoals.Count == 0)
+        {
+            <div id="page-content">
+
+                <div class="container-fluid">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                @name
+                            </h3>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-body">
+                                <p>There are no goals assigned yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="page-content">
+                <div class="container-fluid">
+                    <!-- Student Goals Panel -->
+                    <div class="panel">
+                        <!-- Panel Heading -->
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                All of @name
+                            </h3>
+                        </div>
+                        <!-- Panel Body -->
+                        <div class="panel-body">
+                            <!-- Class Goals Table -->
+                            @if (Model.StudentsGoals[i].SelectStudentGoals != null)
+                            {
+                                <table id="tableStudentGoals" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                                    <!-- Table Headings -->
+                                    <thead>
+                                        <tr>
+                                            <th>Paper Title</th>
+                                            <th>Course</th>
+                                            <th>Writing Element</th>
+                                            <th>Goal Description</th>
+                                            <th data-sort-initial="descending">Date Assigned</th>
+                                            <th data-sort-ignore="true">Deadline</th>
+                                            <th data-sort-ignore="true">Date Completed</th>
+                                        </tr>
+                                    </thead>
+
+                                    <!-- Table Controls -->
+                                    <div class="pad-btm form-inline">
+                                        <div class="row">
+
+                                            <!-- Table Control: Dropdown -->
+                                            <div class="col-sm-6 text-xs-center hidden">
+                                                <div class="form-group">
+                                                    <label class="control-label">Evaluation Status</label>
+                                                    <select id="tableStudentGoals-filter-status" class="form-control">
+                                                        <option value="">Show all</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Table Control: Search -->
+                                            <div class="col-sm-6 col-xs-push-6 text-xs-center text-right">
+                                                <div class="form-group">
+                                                    <input id="tableStudentGoals-foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Table Content -->
+                                    <tbody>
+                                        <tr>
+                                            @foreach (var x in Model.StudentsGoals[i].SelectStudentGoals)
+                                            {
+                                                if (x.dateFinished == null)
+                                                {
+                                                <tr>
+
+                                                    <td>@x.goalPaperTitle</td>
+                                                    <td>@x.courseTitle</td>
+                                                    <td>@x.goalScoreType</td>
+                                                    <td>@x.Description</td>
+                                                    <td>@x.dateAdded.ToShortDateString()</td>
+                                                    <td>@x.deadlineDate.Value.ToShortDateString()</td>
+                                                    <td>Not Completed</td>
+                                                </tr>
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td>@x.goalPaperTitle</td>
+                                                        <td>@x.courseTitle</td>
+                                                        <td>@x.goalScoreType</td>
+                                                        <td>@x.Description</td>
+                                                        <td>@x.dateAdded.ToShortDateString()</td>
+                                                        <td>@x.deadlineDate.Value.ToShortDateString()</td>
+                                                        <td>@x.dateFinished.Value.ToShortDateString()</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+
+                                        <!-- Table Footer -->
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="text-center">
+                                                        <ul class="pagination"></ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+
+                                    </table>
+                            }
+                            else
+                            {
+                                <div>
+                                    <p>No goals have been assigned yet.</p>
+                                </div>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+
+}

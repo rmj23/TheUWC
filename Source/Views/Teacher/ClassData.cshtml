@@ -1,0 +1,129 @@
+﻿
+@model Source.Models.ClassDataViewModel
+@{
+    ViewBag.Title = "Class Data";
+    Layout = ViewBag.Layout;
+}
+
+@{
+    string[] Evaluations = new string[5]
+        {
+        "Below Basic",
+        "Basic",
+        "Proficient",
+        "Advanced",
+        "Advanced+"
+                };
+
+    string[] EvaluationPanelStyleClass = new string[5]
+    {
+        "panel-orangeRoughy",
+        "panel-yellowFuel",
+        "panel-greenJewel",
+        "panel-blueTradewind",
+        "panel-blueBluemine"
+            };
+
+    int[] GraphData = new int[5] { 0, 0, 0, 0, 0 };
+}
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="http://www.themeon.net/nifty/v2.5/plugins/dropzone/dropzone.min.css" />
+    <!-- Chartist Styles -->
+    <link href="@Url.Content("~/Bundles/ChartistJS/dist/scss/chartist.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Select Styles -->
+    <link href="@Url.Content("~/Bundles/BootstrapSelect/css/bootstrap-select.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Animate CSS -->
+    <link href="@Url.Content("~/Bundles/AnimateCSS/css/animate.css")" rel="stylesheet" type="text/css" />
+}
+
+
+@section RenderBlockingScripts {
+
+    <!-- Chartist Render-Blocking Scripts -->
+    <script src="@Url.Content("~/Bundles/ChartistJS/dist/chartist.min.js")"></script>
+}
+
+
+
+
+<!-- Page Title -->
+<div id="page-title">
+    <h1 class="page-header text-overflow">Reports</h1>
+</div>
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Controls -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewBag.Title</h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            <section class="form-horizontal">
+                <div class="panel-body">
+
+                    @using (Html.BeginForm("ClassData", "Teacher", FormMethod.Get))
+                    {
+
+                        Html.RenderPartial("_EvaluationPeriodCourseSelection", Model);
+
+                    }
+
+                </div>
+            </section>
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+
+        @for (var i = 0; i < 5; i++)
+        {
+            <div class="panel @EvaluationPanelStyleClass[i]">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Evaluations[i]</h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="list-group">
+                                @foreach (var student in Model.BenchmarkReports.components)
+                                {
+                                    if (student.ProfLevel.ID == i + 1)
+                                    {
+                                        if (student.Students.Count > 0)
+                                        {
+                                            foreach (var x in student.Students)
+                                            {
+                                                GraphData[i] += 1;
+                                                <a class="list-group-item" href="javascript:void();">@x.ToString()</a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a class="list-group-item" href="javascript:void();"><span class="text-danger">No students found.</span></a>
+                                        }
+                                    }
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+@section Scripts {
+    <script src="~/Scripts/Teacher/ClassData.js"></script>
+}

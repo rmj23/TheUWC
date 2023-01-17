@@ -1,0 +1,219 @@
+﻿@model Source.Models.MyStudentPortfolioViewModel
+
+@{
+    ViewBag.Title = "My Writing";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+@section Styles {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-info"></div>
+    <h1 class="ml-1 ml-md-3">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col col-md-6">
+                        <h3 class="card-title">All of My Papers and Projects</h3>
+                    </div>
+                    <div class="col col-md-6">
+                        <a class="btn btn-greenJewel float-right" href="@Url.Action("UploadPaper", "Student")">
+                            <i class="fa fa-plus"></i>
+                            Upload Paper
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card">
+                @if (Model.AllPapers.Count != 0)
+                {
+                    <div class="card-body">
+                        <table id="myWritingTable" class="table table-striped table-bordered dt-responsive" style="width: 100%">
+                            <!-- Roster Table Headings -->
+                            <thead>
+                                <tr>
+                                    <th>Paper Title</th>
+                                    <th>Evaluation Period</th>
+                                    <th>Evaluation Date</th>
+                                    <th>Class</th>
+                                    <th>Holistic Band</th>
+                                    <th>View Paper</th>
+                                    <th>View Results</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var Paper in Model.AllPapers)
+                                {
+                                    if (Paper.Paper == null)
+                                    {
+                                        //Not Uploaded and IS Evaluated
+                                        if (Paper.evaluationDate != null)
+                                        {
+                                            <tr>
+                                                <td>@Paper.PaperTitle -  - @Paper.Draft</td>
+                                                <td>@Paper.evalDescription</td>
+                                                <td>@Paper.evaluationDate.Value.ToShortDateString()</td>
+                                                <td>@Paper.CourseName</td>
+                                                <td>@Paper.HolisticScoreLetter</td>
+                                                <td>
+                                                    <button id="tooltip" data-placement="bottom" data-target="#UploadPaperModal" data-toggle="modal" class="btn btn-orangeRoughy" title="Upload Paper" onclick="AssignPaperIdToModal(@Paper.PaperID)">
+                                                        <span>Not Uploaded</span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-greenJewel" data-toggle="tooltip" data-placement="bottom" title="View Results">@Html.ActionLink("View Results", "MyResults", new { PaperID = Paper.PaperID })</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                        //Not uploaded and Not Evaluated
+                                        else
+                                        {
+                                            // string title = Paper.PaperTitle.ToString() + Paper.Draft.ToString();
+
+                                            <tr>
+                                                <td>@Paper.PaperTitle -  - @Paper.Draft</td>
+                                                <td>@Paper.evalDescription</td>
+                                                <td>@Paper.evaluationDate</td>
+                                                <td>@Paper.CourseName</td>
+                                                <td>@Paper.HolisticScoreLetter</td>
+                                                <td>
+                                                    <button id="tooltip" data-placement="bottom" data-target="#UploadPaperModal" data-toggle="modal" class="btn btn-orangeRoughy" title="Upload Paper" onclick="AssignPaperIdToModal(@Paper.PaperID)">
+                                                        <span>Not Uploaded</span>
+                                                    </button>
+                                                </td>
+                                                <td><span class="btn bg-orangeRoughy text-white">No Results</span></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //IS Uploaded and IS Evaluated
+                                        if (Paper.evaluationDate != null)
+                                        {
+                                            <tr>
+                                                <td style="word-wrap: break-word">@Paper.PaperTitle -  - @Paper.Draft</td>
+                                                <td>@Paper.evalDescription</td>
+                                                <td>@Paper.evaluationDate.Value.ToShortDateString()</td>
+                                                <td>@Paper.CourseName</td>
+                                                <td>@Paper.HolisticScoreLetter</td>
+                                                <td>
+                                                    <button class="btn btn-greenJewel" onclick="window.open('@Url.Action("ViewIndividualPaper", new {id = Paper.PaperID})','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                        <span>Download</span>
+                                                    </button>
+                                                </td>
+                                                <td><button class="btn btn-greenJewel" data-toggle="tooltip" data-placement="bottom" title="View Results">@Html.ActionLink("View Results", "MyResults", new { PaperID = Paper.PaperID })</button></td>
+                                            </tr>
+                                        }
+                                        //Is Uploaded and Not Evaluated
+                                        else
+                                        {
+                                            // string title = Paper.PaperTitle.ToString() + " - " + Paper.Draft.ToString();
+
+                                            <tr>
+                                                <td>@Paper.PaperTitle - @Paper.Draft</td>
+                                                <td>@Paper.evalDescription</td>
+                                                <td>@Paper.evaluationDate</td>
+                                                <td>@Paper.CourseName</td>
+                                                <td>@Paper.HolisticScoreLetter</td>
+                                                <!--Cannot get the font to change to white-->
+                                                <td>
+                                                    <button class="btn btn-greenJewel" onclick="window.open('@Url.Action("ViewIndividualPaper", new {id = Paper.PaperID})','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                        <span>Download</span>
+                                                    </button>
+                                                </td>
+                                                <td><span class="btn bg-orangeRoughy text-white">No Results</span></td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-body">
+                        <b style="color: red;">You have not uploaded any papers or projects yet! Click the green Upload Paper link to upload a paper.</b>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal for paper upload *@
+<div id="UploadPaperModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            @Html.Hidden("PaperID")
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Paper</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Feature Coming Soon</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="UploadPaperAjax()">Upload Paper</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#myWritingTable").DataTable();
+            $("#tooltip").tooltip();
+        });
+
+        function AssignPaperIdToModal(paperid) {
+            $("#PaperID").val(paperid);
+        }
+
+        function UploadPaperAjax() {
+            alert("Feature Coming Soon");
+            //removing this for now, will fix it over weekend. Current workaround is have teacher upload file. - Devante 09/03/19
+
+            //window.location.href = '/Student/UploadPaper'
+            //var $buttonClicked = $(this);
+            //var id = $buttonClicked.attr('data-id');
+            //var options = { "backdrop": "static", keyboard: true };
+            //$.ajax({
+            //    type: "GET",
+            //    url: PostBackURL,
+            //    contentType: "application/json; charset=utf-8",
+            //    data: { "paperID": id },
+            //    datatype: "json",
+            //    success: function (data) {
+            //        $('#myModal').html(data);
+            //        $('#myModal').modal(options);
+            //        $('#myModal').modal('show');
+
+            //    },
+            //    error: function () {
+            //        alert("Dynamic content load failed.");
+            //    }
+            //});
+        }
+    </script>
+
+}
+
+@section RenderBlockingScripts {
+
+
+}

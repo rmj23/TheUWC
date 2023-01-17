@@ -1,0 +1,228 @@
+﻿@model Source.Models.GroupStudentViewModel
+@{
+    ViewBag.activeGroupId = Model.activeGroupId;
+    ViewBag.Title = "Project Management";
+    Layout = ViewBag.Layout;
+    
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+    <style>
+        .button-look-like-link {
+            color: rebeccapurple;
+        }
+    </style>
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+
+}
+
+@section RenderBlockingScripts {
+    <script>
+        $(function () {
+
+            // District Roster Initialization
+
+            var tableGroupRoster = $('#tableGroupRoster');
+            tableGroupRoster.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableGroupRoster-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            $('#tableGroupRoster-filter-status').change(function (e) {
+                e.preventDefault();
+                tableGroupRoster.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            $('#tableGroupRoster-foo-search').on('input', function (e) {
+                e.preventDefault();
+                tableGroupRoster.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+        });
+    </script>
+    <script>
+        $(function () {
+
+            // District Roster Initialization
+
+            var tableClassRoster = $('#tableClassRoster');
+            tableClassRoster.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableClassRoster-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            $('#tableClassRoster-filter-status').change(function (e) {
+                e.preventDefault();
+                tableClassRoster.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            $('#tableClassRoster-foo-search').on('input', function (e) {
+                e.preventDefault();
+                tableClassRoster.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+        });
+    </script>
+    <script>
+        var oldGroupId = @Model.activeGroupId;
+        var jGroupId = @Model.activeGroupId;
+        var jProjectId = @Model.project.projectId;
+        var btnClick = false;
+        $(".not-panel").click(function(e) {
+            btnClick = true;
+        });
+
+        $(".group-panel").click(function(e) {//This function for setting active group. Both the border and the jGroupId which will be used to add students to the active group
+            if (btnClick == true) {
+                btnClick = false;
+                return;
+            }
+            else {
+                $(".active-group-border").removeClass("active-group-border");
+                $(this).addClass("active-group-border");
+                var wid = $(this).attr('id');
+                var sid = wid.indexOf('-') + 1;
+                oldGroupId = jGroupId; //Set the groupid being changed to the old
+                jGroupId = wid.slice(sid); //Set the new groupid
+                var currentUrlList = $(".add-student-link");
+                console.log(currentUrlList);
+                $.each(currentUrlList, function () {//Replace the add url group ids with the newly selected one
+                    var oldGroupIdString = "groupId="+oldGroupId;
+                    var newGroupIdString = "groupId=" + jGroupId;
+                    var newUrl = this.href.replace(oldGroupIdString, newGroupIdString);
+                    this.href = newUrl;
+                });
+            }
+        });
+    </script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+        <!-- Panel-->
+        <div class="panel">
+            <!-- Panel Heading -->
+            <div class="panel-heading">
+                <div class="panel-control">
+                    <a href="@Url.Action("AddGroupPartial", "Teacher", new { projectid = Model.project.projectId })" class="btn btn-greenJewel fa fa-plus"> Add a group</a>
+                </div> 
+                <div class="panel-title">
+                    <h3 class="panel-title">Add Groups to Project: @Model.project.projectName</h3>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Students in my class -->
+        <div class="panel col-md-4">
+            <!--Heading-->
+            <div class="panel-heading">
+                <h3 class="panel-title">Add Students from My Class </h3>
+                <a href="#" class="fa fa-info fa-rounded add-tooltip text-muted" data-toggle="tooltip" data-container="body" data-placement="bottom"
+                   data-original-title="Select a group, then click Add next to the student to be added"></a>
+            </div>
+            <!--Body-->
+            <div class="panel-body">
+                <!-- Table for project -->
+
+                <table id="tableClassRoster" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+                    <thead>
+                        <tr>
+                            <th data-sort-initial="true">Last Name</th>
+                            <th>First Name</th>
+                            <th data-sort-ignore="true">Actions</th>
+                        </tr>
+                    </thead>
+                    @*<div class="pad-btm form-inline">*@
+                    @*<div class="row">
+
+                            <!-- Table Control: Dropdown -->
+                            <div class="col-sm-6 text-xs-center">
+                                <div class="form-group hidden">
+                                    <label class="control-label">Evaluation Status</label>
+                                    <select id="tableDistrictRoster-filter-status" class="form-control">
+                                        <option value="">Show all</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Table Control: Search -->
+                            <div class="col-sm-6 text-xs-center text-right">
+                                <div class="form-group">
+                                    <input id="tableDistrictRoster-foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*</div>*@
+                    <!-- Table Content -->
+                    <tbody>
+                        @foreach (var student in Model.classRoster)
+                        {
+                            <tr>
+                                <td>
+                                    @student.LastName
+                                </td>
+                                <td>
+                                    @student.FirstName
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Add", "AddStudentToGroup", new { studentID = student.StudentID, groupId = Model.activeGroupId, projectId = Model.project.projectId }, new { @class = "add-student-link" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                    <!-- Table Footer -->
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <div class="text-center">
+                                    <ul class="pagination"></ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!--Groups-->
+        @if (Model.groups != null)
+        {
+            if (Model.groups.Count != 0)
+            {
+                foreach (var group in Model.groups)
+                {
+                    Html.RenderPartial("_AddGroupPanel", group);
+                }
+            }
+        }
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <!-- Submit Button -->
+            <div class="form-group text-center">
+                <button onclick="location.href='@Url.Action("MyProjects", "Teacher", new { courseId = Model.project.courseId})';return false;">Done</button>
+            </div>
+        </div>
+    </div>
+</div>

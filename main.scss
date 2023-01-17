@@ -1,0 +1,467 @@
+﻿/* == COLOR VARIABLES == */
+
+$orangeRoughy: #BE4916; /* (Below Basic) */
+$yellowFuel: #EBAE26; /* (Basic) */
+$greenJewel: #12723A; /* (Proficient) */
+$blueTradewind: #6CA9B0; /* (Advanced) */
+$blueBluemine: #1E5F8B; /* (Advanced Plus) */
+
+$silver: #CDCDCD;
+$silverMercury: #E7E7E7; 
+
+$greenAquaDeep: #014B43;
+
+$blueOuterSpace: #263238;
+
+$white: #FFFFFF;
+$whiteAquaHaze: #F6F8FA;
+
+$black: #000000;
+$blackMineShaft: #2D2C2C;
+
+/* == BACKGROUND HELPER CLASSES == */
+
+.bg-orangeRoughy {
+    background-color: $orangeRoughy !important;
+}
+
+.bg-yellowFuel {
+    background-color: $yellowFuel !important;
+}
+
+.bg-greenJewel {
+    background-color: $greenJewel !important;
+}
+
+.bg-blueTradewind {
+    background-color: $blueTradewind !important;
+}
+
+.bg-blueBluemine {
+    background-color: $blueBluemine !important;
+}
+
+.bg-silver {
+    background-color: $silver !important;
+}
+
+.bg-silverMercury {
+    background-color: $silverMercury !important;
+}
+
+.bg-greenAquaDeep {
+    background-color: $greenAquaDeep !important;
+}
+
+.bg-white {
+    background-color: $white !important;
+}
+
+.bg-whiteAquaHaze {
+    background-color: $whiteAquaHaze !important;
+}
+
+.bg-blueOuterSpace {
+    background-color: $blueOuterSpace !important;
+}
+
+/* == TEXT COLOR HELPER CLASSES == */
+
+.text-orangeRoughy {
+    color: $orangeRoughy !important;
+}
+
+.text-yellowFuel {
+    color: $yellowFuel !important;
+}
+
+.text-greenJewel {
+    color: $greenJewel !important;
+}
+
+.text-blueTradewind {
+    color: $blueTradewind !important;
+}
+
+.text-blueBluemine {
+    color: $blueBluemine !important;
+}
+
+.text-silver {
+    color: $silver !important;
+}
+
+.text-silverMercury {
+    color: $silverMercury !important;
+}
+
+.text-greenAquaDeep {
+    color: $greenAquaDeep !important;
+}
+
+.text-white {
+    color: $white !important;
+}
+
+.text-whiteAquaHaze {
+    color: $whiteAquaHaze !important;
+}
+
+.text-blueOuterSpace {
+    color: $blueOuterSpace !important;
+}
+
+/* == BUTTONS == */
+
+.btn-orangeRoughy {
+    background-color: $orangeRoughy;
+    border-color: $orangeRoughy;
+    color: #fff;
+}
+
+.btn-yellowFuel {
+    background-color: $yellowFuel;
+    border-color: $yellowFuel;
+    color: #fff;
+}
+
+.btn-greenJewel {
+    background-color: $greenJewel;
+    border-color: $greenJewel;
+    color: #fff;
+}
+
+.btn-blueTradewind {
+    background-color: $blueTradewind;
+    border-color: $blueTradewind;
+    color: #fff;
+}
+
+.btn-blueBluemine {
+    background-color: $blueBluemine;
+    border-color: $blueBluemine;
+    color: #fff;
+}
+
+.btn-silver {
+    background-color: $silver;
+    border-color: $silver;
+    color: #fff;
+}
+
+.btn-silverMercury {
+    background-color: $silverMercury;
+    border-color: $silverMercury;
+    color: #fff;
+}
+
+.btn-greenAquaDeep {
+    background-color: $greenAquaDeep;
+    border-color: $greenAquaDeep;
+    color: #fff;
+}
+
+.btn-white {
+    background-color: $white;
+    border-color: $white;
+    color: #000;
+}
+
+.btn-whiteAquaHaze {
+    background-color: $whiteAquaHaze;
+    border-color: $whiteAquaHaze;
+    color: #fff;
+}
+
+.btn-blueOuterSpace {
+    background-color: $blueOuterSpace;
+    border-color: $blueOuterSpace;
+    color: #fff;
+}
+
+/* == ALERTS == */
+
+.alert-greenJewel {
+    background-color: $greenJewel;
+    border-color: transparent;
+    border-left: 6px solid $greenAquaDeep;
+    color: #fff;
+}
+
+/* == PANELS == */
+
+.panel-orangeRoughy {
+    .panel-heading {
+        color: $orangeRoughy !important;
+        border-bottom: 1px solid $orangeRoughy !important;
+    }
+}
+
+.panel-yellowFuel {
+    .panel-heading {
+        color: $yellowFuel !important;
+        border-bottom: 1px solid $yellowFuel !important;
+    }
+}
+
+.panel-greenJewel {
+    .panel-heading {
+        color: $greenJewel !important;
+        border-bottom: 1px solid $greenJewel !important;
+    }
+}
+
+.panel-blueTradewind {
+    .panel-heading {
+        color: $blueTradewind !important;
+        border-bottom: 1px solid $blueTradewind !important;
+    }
+}
+
+.panel-blueBluemine {
+    .panel-heading {
+        color: $blueBluemine !important;
+        border-bottom: 1px solid $blueBluemine !important;
+    }
+}
+
+.panel-silver {
+    .panel-heading {
+        color: $silver !important;
+        border-bottom: 1px solid $silver !important;
+    }
+}
+
+.panel-silverMercury {
+    .panel-heading {
+        color: $silverMercury !important;
+        border-bottom: 1px solid $silverMercury !important;
+    }
+}
+
+.panel-greenAquaDeep {
+    .panel-heading {
+        color: $greenAquaDeep !important;
+        border-bottom: 1px solid $greenAquaDeep !important;
+    }
+}
+
+.panel-white {
+    .panel-heading {
+        color: $white !important;
+        border-bottom: 1px solid $white !important;
+    }
+}
+
+.panel-whiteAquaHaze {
+    .panel-heading {
+        color: $whiteAquaHaze !important;
+        border-bottom: 1px solid $whiteAquaHaze !important;
+    }
+}
+
+.panel-blueOuterSpace {
+    .panel-heading {
+        color: $blueOuterSpace !important;
+        border-bottom: 1px solid $blueOuterSpace !important;
+    }
+}
+
+.panel {
+    border: 0;
+}
+
+.panel {
+
+    &.panel-default {
+        .panel-heading {
+            background-color: $whiteAquaHaze;
+            border-color: $whiteAquaHaze;
+
+            .panel-control {
+                .bootstrap-select {
+                    .btn-default {
+                        border: 1px solid $blueOuterSpace;
+                    }
+                }
+            }
+        }
+    }
+
+    .panel-heading {
+        .panel-control {
+            .btn-default {
+                background-color: $white;
+                border-color: #d1d9de;
+                color: #758697;
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .panel-body {
+        > ul {
+            list-style-type: none;
+        }
+    }
+
+    .panel-footer.panel-footer-default {
+        background-color: #f6f8fa;
+        color: #758697;
+        border-color: rgba(0,0,0,0.07);
+        position: relative;
+    }
+
+}
+
+/* == "The Bar" == */
+
+.bar {
+    width: 100%;
+    height: 20px;
+
+    // Dashboard
+    &.bar-teacherDashboard {
+    display: none;
+    }
+
+    // Manage Class
+    &.bar-teacherAddClass,
+    &.bar-teacherUpdateRoster,
+    &.bar-teacherEnrollStudents,
+    &.bar-teacherParentStudentAccounts {
+        background-color: #6ca9b0;
+    }
+
+    // Evaluation
+    &.bar-evaluationUploadPaper,
+    &.bar-evaluationViewPortfolio,
+    &.bar-evaluationMyClasses,
+    &.bar-evaluationStudentPortfolio {
+        background-color: #be4916;
+    }
+
+    // Reports
+    &.bar-evaluationClassData,
+    &.bar-teacherStudentReports,
+    &.bar-teacherBenchmarkReports    {
+        background-color: #ebae26;
+    }
+
+    // Instruction
+    &.bar-evaluationInsertClassGoals,
+    &.bar-evaluationViewClassGoals,
+    &.bar-evaluationInsertStudentGoals,
+    &.bar-teacherLessonPlans,
+    &.bar-instructionEngagements,
+    &.bar-teacherInsertLessonPlans
+    {
+        background-color: #12723a;
+    }
+
+    // Resources
+    &.bar-teacherAnchorPapers,
+        &.bar-teacherGlossary,
+        &.bar-teacherGraphicOrganizers,
+        &.bar-teacherInteractiveMentorTexts,
+        &.bar-teacherWritingStandards {
+        background-color: #1e5f8b;
+    }
+}
+
+/* == CORE CUSTOM CSS == */
+
+body {
+    background-color: $silver;
+}
+
+#content-container {
+    background-color: $silver;
+}
+
+
+
+
+
+
+@media (min-width: 768px) {
+    .navbar-text {
+        display: none;
+    }
+}
+
+.navbar-logo {
+    height: 100%;
+    padding: 10px 0;
+}
+
+#container:not(.mainnav-sm) #mainnav-menu-wrap>.nano>.nano-content {
+    padding-top: 0;
+}
+
+.points {
+    float: right;
+    white-space: nowrap;
+    line-height: 40px;
+    margin: 0 10px;
+}
+
+.alert-bottom-right {
+    position: fixed;
+    bottom: 30px;
+    right: 15px;
+    width: calc(50% - 220px);
+    z-index: 9999;
+}
+
+@media (max-width: 768px) {
+    .alert-bottom-right {
+        display: none;
+    }
+}
+
+.table {
+    >thead, >tbody, >tfoot {
+        >tr {
+            >th, >td {
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    #navbar-container {
+        background-color: $silverMercury;
+    }
+}
+
+#mainnav {
+    background-color: $blackMineShaft;
+}
+
+.navbar-brand {
+    background-color: $blackMineShaft;
+}
+
+#mainnav-menu>.active {
+    
+}
+
+#mainnav-menu a {
+    color: $silverMercury;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: $blackMineShaft;
+}
+
+.continuumContentHeader,
+.continuumContent,
+.continuumFooter {
+    display: none;
+    &.active,
+    &.active + & {
+        display: table-cell;
+    }
+}

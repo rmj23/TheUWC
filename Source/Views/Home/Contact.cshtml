@@ -1,0 +1,249 @@
+﻿@using Microsoft.Win32
+@model Source.Models.ContactModel
+
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    ViewBag.Reasons = new List<SelectListItem>();
+    ViewBag.Reasons.Add(new SelectListItem() { Text = "-- Select a reason --" });
+    ViewBag.Reasons.Add(new SelectListItem() { Text = "General Questions" });
+    ViewBag.Reasons.Add(new SelectListItem() { Text = "Pricing" });
+    ViewBag.Reasons.Add(new SelectListItem() { Text = "Request a Demo" });
+    ViewBag.Reasons.Add(new SelectListItem() { Text = "Technical Issues" });
+
+}
+
+
+@section Scripts {
+
+
+}
+
+@section Styles {
+
+
+}
+
+@section RenderBlockingScripts {
+    
+    <!-- Google Maps API -->
+    @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAG9MU4XW9FGCmK8CRBTRAwCr2pk7WobWY&libraries=places&callback=initAutocomplete"
+            type="text/javascript"></script>
+
+    <script>
+          // This example displays an address form, using the autocomplete feature
+          // of the Google Places API to help users fill in the information.
+
+          // This example requires the Places library. Include the libraries=places
+          // parameter when you first load the API.
+
+          var placeSearch, autocomplete;
+          var componentForm = {
+            street_number: 'short_name',
+            route: 'long_name',
+            locality: 'long_name',
+            administrative_area_level_1: 'short_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+          };
+
+          function initAutocomplete() {
+            // Create the autocomplete object, restricting the search to geographical
+            // location types.
+              autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')),
+                  { types: ['geocode'] });
+
+            // When the user selects an address from the dropdown, populate the address
+            // fields in the form.
+            autocomplete.addListener('place_changed', fillInAddress);
+          }
+
+          function fillInAddress() {
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+
+            for (var component in componentForm) {
+              document.getElementById(component).value = '';
+              document.getElementById(component).disabled = false;
+            }
+
+            // Get each component of the address from the place details
+            // and fill the corresponding field on the form.
+            for (var i = 0; i < place.address_components.length; i++) {
+              var addressType = place.address_components[i].types[0];
+              if (componentForm[addressType]) {
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType).value = val;
+              }
+            }
+          }
+
+          // Bias the autocomplete object to the user's geographical location,
+          // as supplied by the browser's 'navigator.geolocation' object.
+          function geolocate() {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                var geolocation = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
+                var circle = new google.maps.Circle({
+                  center: geolocation,
+                  radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle.getBounds());
+              });
+            }
+          }
+    </script>*@
+}
+
+<!-- BREADCRUMBS -->
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title pull-left">CONTACT US</h1>
+    </div>
+</div>
+<!-- END BREADCRUMBS -->
+
+<!-- PAGE CONTENT -->
+<div class="page-content">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+
+                @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+                {
+                    <!--Horizontal Form-->
+                    <!--===================================================-->
+                    <section class="form-horizontal">
+                        <section class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Contact Us Form</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <!-- Reason for contacting us Field -->
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Reason, "Reason for contacting us", new { @class = "col-sm-4 control-label", @for = "contactReason" })
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(model => model.Reason, (List<SelectListItem>)ViewBag.Reasons, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Reason)
+                                    </div>
+                                </div>
+
+                                <!-- First Name Field -->
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstName, "First Name", new { @class = "col-sm-4 control-label", @for = "fname" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @placeholder = "First Name", @required = "required" })
+                                        @Html.ValidationMessageFor(model => model.FirstName)
+                                    </div>
+                                </div>
+
+                                <!-- Last Name Field -->
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LastName, "Last Name", new { @class = "col-sm-4 control-label", @for = "lname" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Last Name", @required = "required" })
+                                        @Html.ValidationMessageFor(model => model.LastName)
+                                    </div>
+                                </div>
+
+                                <!-- Email Field -->
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Email, "Email Address", new { @class = "col-sm-4 control-label", @for = "email" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email Address", @required = "required" })
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </div>
+                                </div>
+
+                                <!-- Phone Number Field -->
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Phone, "Phone Number (Optional)", new { @class = "col-sm-4 control-label", @for = "phone" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Phone Number" })
+                                        
+                                    </div>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="address">Street Number (Optional)</label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => Model.StreetNumber, new { @id = "street_number", @class = "form-control", @placeholder = "Street Number"})
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Street Name (Optional)</label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => Model.StreetName, new { @id = "route", @class = "form-control", @placeholder = "Street Name"})
+                                       
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">City:</label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => Model.City, new { @id = "locality", @class = "form-control" , @required = "required", @placeholder = "City" })
+                                        @Html.ValidationMessageFor(model => model.City)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">State:</label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => Model.State, new { @id = "administrative_area_level_1", @class = "form-control", @required = "required", @placeholder = "State" })
+                                        @Html.ValidationMessageFor(model => model.State)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Country:</label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => Model.Country, new { @id = "country", @class = "form-control", @required = "required", @placeholder = "Country" })
+                                        @Html.ValidationMessageFor(model => model.Country)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Zip Code</label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => Model.ZipCode, new { @id = "postal_code", @class = "form-control", @required = "required", @placeholder = "Zip Code"})
+                                        @Html.ValidationMessageFor(model => model.ZipCode)
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Your Message Field -->
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Message, "Your Message", new { @class = "col-sm-4 control-label", @for = "message" })
+                                    <div class="col-sm-6">
+                                        @Html.TextAreaFor(model => model.Message, new { @class = "form-control", @placeholder = "Your message", style = "resize:vertical;" })
+                                        @Html.ValidationMessageFor(model => model.Message)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="panel-footer">
+                                <!-- Submit Button -->
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-default">Send Message</button>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                            <!--===================================================-->
+                            <!--End Horizontal Form-->
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

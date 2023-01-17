@@ -1,0 +1,83 @@
+﻿@using Source.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<section id="container-main" class="container">
+
+    <!-- Page Content Heading -->
+    <!--This is a Test-->
+
+    <div class="row">
+        <div class="col-lg-12 text-center page-header">
+            <h2 class="section-heading">Login</h2>
+            <hr class="section-divider">
+            <h4>Use a local account to log in.</h4>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <!-- Login Button -->
+
+                        <div class="col-md-offset-2 col-md-5 pull-left">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="submit" value="Log in" class="btn btn-default" />
+                                </div>
+                                <div class="col-md-offset-1 col-md-9 checkbox hidden">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 pull-right" >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.ActionLink("Register as a new user", "Register")
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.ActionLink("Set New Passwords", "PasswordUpdate", "Authentication")
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                }
+            </section>
+        </div>
+        <div class="col-md-4 hidden">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>
+
+</section>

@@ -1,0 +1,178 @@
+﻿@model Source.Models.PaperResultsViewModel
+@{
+    ViewBag.Title = "My Results";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-info"></div>
+    <h1 class="ml-1 ml-md-3">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+@if (Model.Paper.Continuing == true)
+{
+    <div id="page-content">
+        <div class="container">
+            <!--Panel Head-->
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">@Model.Reports[0].LastName, @Model.Reports[0].FirstName - @Model.Reports[0].PaperTitle</h4>
+                </div>
+                <div>
+                    <!--Panel Body-->
+                    <div class="card-body">
+                        <div class="row">
+                            <h4 class="col-md-3 text-right">Title:</h4>
+                            <p class="col text-left">@Model.Paper.PaperTitle - Draft: @Model.Paper.Draft - Stage: Continuing</p>
+                        </div>
+                        <div class="row">
+                            <h4 class="col-md-3 text-right">Holistic Band:</h4>
+                            <p class="col-md-3 text-left">@Model.Reports[0].HolisticScoreLetter</p>
+                        </div>
+                        <div class="row">
+                            <h4 class="col-md-3 text-right">Proficiency:</h4>
+                            <p class="col-md-3 text-left">@Model.Paper.ProficiencyLevel</p>
+                        </div>
+                        <div class="row">
+                            <h4 class="col-md-3 text-right">Student Feedback:</h4>
+                            <p class="col-md-3 text-left">@Model.StudentFeedback</p>
+                        </div>
+                        <table id="viewPaperResultsTable" class="table table-bordered table-hover table-striped dt-responsive" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Writing Element</th>
+                                    <th>Score</th>
+                                    <th>Proficiency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var x in Model.Reports)
+                                {
+                                    if (x.ScoreTypeID == 6)
+                                    {
+                                        <tr>
+                                            <td class="font-weight-bold">@x.ScoreType</td>
+                                            <td>@x.ScoreData</td>
+                                            <td>@x.Proficiency</td>
+                                        </tr>
+                                    }
+                                    else if (x.ScoreTypeID == 7 || x.ScoreTypeID == 8)
+                                    {
+                                        <tr>
+                                            <td class="pl-5">@x.ScoreType</td>
+                                            <td>@x.ScoreData</td>
+                                            <td>@x.Proficiency</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>@x.ScoreType</td>
+                                            <td>@x.ScoreData</td>
+                                            <td>@x.Proficiency</td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div id="page-content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h4>@Model.Reports[0].LastName, @Model.Reports[0].FirstName</h4>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h4 class="col-md-3 text-right">Title:</h4>
+                            <p class="col-md-3 text-left">@Model.Paper.PaperTitle - Draft: @Model.Paper.Draft - Stage: Final</p>
+                        </div>
+                        <div class="row">
+                            <h4 class="col-md-3 text-right">Holistic Band:</h4>
+                            <p class="col-md-3 text-left">@Model.Reports[0].HolisticScoreLetter</p>
+                        </div>
+                        <div class="row">
+                            <h4 class="col-md-3 text-right">Proficiency:</h4>
+                            <p class="col-md-3 text-left">@Model.Reports[0].Proficiency</p>
+
+                        </div>
+                        <div class="row">
+                            <h4 class="col-md-3 text-right">Teacher Comments:</h4>
+                            <p class="col-md-3 text-left">@Model.Comments</p>
+
+                        </div>
+                        <div class="row">
+                            <h4 class="col-md-3 text-right">Student Feedback:</h4>
+                            <p class="col-md-3 text-left">@Model.StudentFeedback</p>
+                        </div>
+                        <table id="viewPaperResultsTable" class="table table-bordered table-hover table-striped dt-responsive" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Writing Element</th>
+                                    <th>Score</th>
+                                    <th>Proficiency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var x in Model.Reports)
+                                {
+                                    if (x.ScoreTypeID == 6)
+                                    {
+                                        <tr>
+                                            <td class="font-weight-bold">@x.ScoreType</td>
+                                            <td>@x.ScoreData</td>
+                                            <td>@x.Proficiency</td>
+                                        </tr>
+                                    }
+                                    else if (x.ScoreTypeID == 7 || x.ScoreTypeID == 8)
+                                    {
+                                        <tr>
+                                            <td class="pl-5">@x.ScoreType</td>
+                                            <td>@x.ScoreData</td>
+                                            <td>@x.Proficiency</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>@x.ScoreType</td>
+                                            <td>@x.ScoreData</td>
+                                            <td>@x.Proficiency</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#viewPaperResultsTable").DataTable({
+                "ordering": false,
+                "searching": false,
+                "paging": false,
+                "info": false
+            });
+        });
+    </script>
+}
+
+
+

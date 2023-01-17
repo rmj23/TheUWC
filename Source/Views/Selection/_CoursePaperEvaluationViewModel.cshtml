@@ -1,0 +1,29 @@
+﻿<!-- Class Selection Field -->
+<div class="form-group row">
+    <label class="col-sm-3 control-label" for="class">Class: </label>
+    <div class="col-sm-6">
+        <select id="classDropdown" class="form-control">
+            <option value="-1">---</option>
+        </select>
+    </div>
+</div>
+<!--Paper Type Selection Field-->
+<div class="form-group row">
+    <label class="col-sm-3 control-label" for="paperType">Paper Type: </label>
+    <div class="col-sm-6">
+        <select id="paperType" class="form-control">
+            <option value="-1">---</option>
+        </select>
+    </div>
+</div>
+<!--Evaluation(Writing) Type Selection Field-->
+<div class="form-group row">
+    <label class="col-sm-3 control-label" for="evalType">Writing Element: </label>
+    <div class="col-sm-6">
+        <select id="evalPeriods" class="form-control">
+            <option value="-1">---</option>
+        </select>
+        @*@Html.DropDownListFor(model => Model.EvaluationTypeID, Model.EvaluationTypeDropDown, new { @class = "form-control" })*@
+    </div>
+</div>
+

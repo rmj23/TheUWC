@@ -1,0 +1,117 @@
+﻿@model Source.Models.EngagementsViewModel
+@{
+    ViewBag.Title = "Engagements Insert";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+    <script type="text/javascript">
+        $('#tableEngagements').DataTable({
+            responsive: true
+        });
+    </script>
+    
+}
+
+
+
+
+<h2>Engagements Insert</h2>
+@using (Html.BeginForm("EngagementsInsert", "WebAdmin", FormMethod.Post))
+{
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <div class="panel-title">
+                    @ViewBag.Title
+                </div>
+            </div>
+            <section class="form-horizontal">
+                <div class="card-body">
+                    <div class="form-group">
+                        @Html.LabelFor(model => Model.Engagement.Title, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(model => Model.Engagement.Title, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => Model.Engagement.GradeLevel, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-6">
+                            @Html.DropDownListFor(model => Model.Engagement.GradeLevelRangeID, Model.GradeLevelRange, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => Model.Engagement.Keywords, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextAreaFor(model => Model.Engagement.Keywords, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => Model.Engagement.Text, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextAreaFor(model => Model.Engagement.Text, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success">Insert</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        @if (Model.Engagements.Count != 0)
+        {
+            <div class="card">
+                <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover toggle-circle" data-page-size="20" id="tableEngagements">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Grade Levels</th>
+                                    <th>Keywords</th>
+                                    <th>Tasks</th>
+                                </tr>
+                            </thead>                           
+                            <tbody>
+                                @foreach (var eng in Model.Engagements)
+                                {
+                                    <tr>
+                                        <td>@eng.Title</td>
+                                        <td>@eng.GradeLevel</td>
+                                        <td>@eng.Keywords</td>
+                                        <td>
+                                            <a href="@Url.Action("ViewEngagement", "WebAdmin", new { ID = eng.ID })" class="btn btn-sm btn-default" title="View More">
+                                                <i class="fa fa-external-link"></i>
+                                            </a>
+                                            <a href="@Url.Action("DeleteEngagement", "WebAdmin", new { ID = eng.ID})" class="btn btn-sm btn-default" title="Delete Engagement.">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                            <a href="@Url.Action("EditEngagement", "WebAdmin", new { ID = eng.ID })" class="btn btn-sm btn-default" title="Edit Engagement.">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>                           
+                        </table>
+                    </div>
+            </div>
+        }
+    </div>
+
+
+}
+

@@ -1,0 +1,301 @@
+﻿/* == COLOR VARIABLES == */
+/* (Below Basic) */
+/* (Basic) */
+/* (Proficient) */
+/* (Advanced) */
+/* (Advanced Plus) */
+/* == BACKGROUND HELPER CLASSES == */
+.bg-orangeRoughy {
+  background-color: #BE4916 !important; }
+
+.bg-yellowFuel {
+  background-color: #EBAE26 !important; }
+
+.bg-greenJewel {
+  background-color: #12723A !important; }
+
+.bg-blueTradewind {
+  background-color: #6CA9B0 !important; }
+
+.bg-blueBluemine {
+  background-color: #1E5F8B !important; }
+
+.bg-silver {
+  background-color: #CDCDCD !important; }
+
+.bg-silverMercury {
+  background-color: #E7E7E7 !important; }
+
+.bg-greenAquaDeep {
+  background-color: #014B43 !important; }
+
+.bg-white {
+  background-color: #FFFFFF !important; }
+
+.bg-whiteAquaHaze {
+  background-color: #F6F8FA !important; }
+
+.bg-blueOuterSpace {
+  background-color: #263238 !important; }
+
+/* == TEXT COLOR HELPER CLASSES == */
+.text-orangeRoughy {
+  color: #BE4916 !important; }
+
+.text-yellowFuel {
+  color: #EBAE26 !important; }
+
+.text-greenJewel {
+  color: #12723A !important; }
+
+.text-blueTradewind {
+  color: #6CA9B0 !important; }
+
+.text-blueBluemine {
+  color: #1E5F8B !important; }
+
+.text-silver {
+  color: #CDCDCD !important; }
+
+.text-silverMercury {
+  color: #E7E7E7 !important; }
+
+.text-greenAquaDeep {
+  color: #014B43 !important; }
+
+.text-white {
+  color: #FFFFFF !important; }
+
+.text-whiteAquaHaze {
+  color: #F6F8FA !important; }
+
+.text-blueOuterSpace {
+  color: #263238 !important; }
+
+/* == BUTTONS == */
+.btn-orangeRoughy {
+  background-color: #BE4916;
+  border-color: #BE4916;
+  color: #fff; }
+
+.btn-yellowFuel {
+  background-color: #EBAE26;
+  border-color: #EBAE26;
+  color: #fff; }
+
+.btn-greenJewel {
+  background-color: #12723A;
+  border-color: #12723A;
+  color: #fff; }
+
+.btn-blueTradewind {
+  background-color: #6CA9B0;
+  border-color: #6CA9B0;
+  color: #fff; }
+
+.btn-blueBluemine {
+  background-color: #1E5F8B;
+  border-color: #1E5F8B;
+  color: #fff; }
+
+.btn-silver {
+  background-color: #CDCDCD;
+  border-color: #CDCDCD;
+  color: #fff; }
+
+.btn-silverMercury {
+  background-color: #E7E7E7;
+  border-color: #E7E7E7;
+  color: #fff; }
+
+.btn-greenAquaDeep {
+  background-color: #014B43;
+  border-color: #014B43;
+  color: #fff; }
+
+.btn-white {
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+  color: #000; }
+
+.btn-whiteAquaHaze {
+  background-color: #F6F8FA;
+  border-color: #F6F8FA;
+  color: #fff; }
+
+.btn-blueOuterSpace {
+  background-color: #263238;
+  border-color: #263238;
+  color: #fff; }
+
+/* == ALERTS == */
+.alert-greenJewel {
+  background-color: #12723A;
+  border-color: transparent;
+  border-left: 6px solid #014B43;
+  color: #fff; }
+
+/* == PANELS == */
+.panel-orangeRoughy .panel-heading {
+  color: #BE4916 !important;
+  border-bottom: 1px solid #BE4916 !important; }
+
+.panel-yellowFuel .panel-heading {
+  color: #EBAE26 !important;
+  border-bottom: 1px solid #EBAE26 !important; }
+
+.panel-greenJewel .panel-heading {
+  color: #12723A !important;
+  border-bottom: 1px solid #12723A !important; }
+
+.panel-blueTradewind .panel-heading {
+  color: #6CA9B0 !important;
+  border-bottom: 1px solid #6CA9B0 !important; }
+
+.panel-blueBluemine .panel-heading {
+  color: #1E5F8B !important;
+  border-bottom: 1px solid #1E5F8B !important; }
+
+.panel-silver .panel-heading {
+  color: #CDCDCD !important;
+  border-bottom: 1px solid #CDCDCD !important; }
+
+.panel-silverMercury .panel-heading {
+  color: #E7E7E7 !important;
+  border-bottom: 1px solid #E7E7E7 !important; }
+
+.panel-greenAquaDeep .panel-heading {
+  color: #014B43 !important;
+  border-bottom: 1px solid #014B43 !important; }
+
+.panel-white .panel-heading {
+  color: #FFFFFF !important;
+  border-bottom: 1px solid #FFFFFF !important; }
+
+.panel-whiteAquaHaze .panel-heading {
+  color: #F6F8FA !important;
+  border-bottom: 1px solid #F6F8FA !important; }
+
+.panel-blueOuterSpace .panel-heading {
+  color: #263238 !important;
+  border-bottom: 1px solid #263238 !important; }
+
+.panel {
+  border: 0; }
+
+.panel.panel-default .panel-heading {
+  background-color: #F6F8FA;
+  border-color: #F6F8FA; }
+  .panel.panel-default .panel-heading .panel-control .bootstrap-select .btn-default {
+    border: 1px solid #263238; }
+
+.panel .panel-heading .panel-control .btn-default {
+  background-color: #FFFFFF;
+  border-color: #d1d9de;
+  color: #758697;
+  margin-top: 10px; }
+
+.panel .panel-body > ul {
+  list-style-type: none; }
+
+.panel .panel-footer.panel-footer-default {
+  background-color: #f6f8fa;
+  color: #758697;
+  border-color: rgba(0, 0, 0, 0.07);
+  position: relative; }
+
+/* == "The Bar" == */
+.bar {
+  width: 100%;
+  height: 20px; }
+  .bar.bar-teacherDashboard {
+    display: none; }
+  .bar.bar-teacherAddClass, .bar.bar-teacherUpdateRoster, .bar.bar-teacherEnrollStudents, .bar.bar-teacherParentStudentAccounts {
+    background-color: #6ca9b0; }
+  .bar.bar-evaluationUploadPaper, .bar.bar-evaluationViewPortfolio, .bar.bar-evaluationMyClasses, .bar.bar-evaluationStudentPortfolio {
+    background-color: #be4916; }
+  .bar.bar-evaluationClassData, .bar.bar-teacherStudentReports, .bar.bar-teacherBenchmarkReports {
+    background-color: #ebae26; }
+  .bar.bar-evaluationInsertClassGoals, .bar.bar-evaluationViewClassGoals, .bar.bar-evaluationInsertStudentGoals, .bar.bar-teacherLessonPlans, .bar.bar-instructionEngagements, .bar.bar-teacherInsertLessonPlans {
+    background-color: #12723a; }
+  .bar.bar-teacherAnchorPapers, .bar.bar-teacherGlossary, .bar.bar-teacherGraphicOrganizers, .bar.bar-teacherInteractiveMentorTexts, .bar.bar-teacherWritingStandards {
+    background-color: #1e5f8b; }
+
+/* == CORE CUSTOM CSS == */
+body {
+  background-color: #CDCDCD; }
+
+#content-container {
+  background-color: #CDCDCD; }
+
+@media (min-width: 768px) {
+  .navbar-text {
+    display: none; } }
+
+.navbar-logo {
+  height: 100%;
+  padding: 10px 0; }
+
+#container:not(.mainnav-sm) #mainnav-menu-wrap > .nano > .nano-content {
+  padding-top: 0; }
+
+.points {
+  float: right;
+  white-space: nowrap;
+  line-height: 40px;
+  margin: 0 10px; }
+
+.alert-bottom-right {
+  position: fixed;
+  bottom: 30px;
+  right: 15px;
+  width: calc(50% - 220px);
+  z-index: 9999; }
+
+@media (max-width: 768px) {
+  .alert-bottom-right {
+    display: none; } }
+
+.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+  vertical-align: middle; }
+
+@media (min-width: 768px) {
+  #navbar-container {
+    background-color: #E7E7E7; } }
+
+#mainnav {
+  background-color: #2D2C2C; }
+
+.navbar-brand {
+  background-color: #2D2C2C; }
+
+#mainnav-menu a {
+  color: #E7E7E7; }
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  color: #2D2C2C; }
+
+.continuumContentHeader,
+.continuumContent,
+.continuumFooter {
+  display: none; }
+  .continuumContentHeader.active,
+  .continuumContentHeader.active + .continuumContentHeader,
+  .continuumContent.active,
+  .continuumContent.active + .continuumContentHeader,
+  .continuumFooter.active,
+  .continuumFooter.active + .continuumContentHeader,
+  .continuumContentHeader.active +
+  .continuumContent,
+  .continuumContent.active +
+  .continuumContent,
+  .continuumFooter.active +
+  .continuumContent,
+  .continuumContentHeader.active +
+  .continuumFooter,
+  .continuumContent.active +
+  .continuumFooter,
+  .continuumFooter.active +
+  .continuumFooter {
+    display: table-cell; }
+

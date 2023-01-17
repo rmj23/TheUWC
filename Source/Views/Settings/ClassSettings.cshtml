@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "ClassSettings";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="p-3 mb-2 bg-info"></div>
+<h1 class="ml-md-3 ml-1">Class Settings</h1>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Class Settings</h2>
+        </div>
+        <div class="card-body ">
+            <div class="row mb-5">
+                <label class="col-2 control-label">Academic Year:</label>
+                <select id="academicYears" class="form-control col-5">
+                    <option value="-1">---</option>
+                </select>
+            </div>
+            <table id="listOfClasses" width="100%" class="table table-striped table-bordered dt-responsive">
+                <thead>
+                    <tr>
+                        <td>Course</td>
+                        <td>Task</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Teacher/ClassSettings.js"></script>
+}

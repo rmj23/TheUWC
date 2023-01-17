@@ -1,0 +1,170 @@
+﻿@model Source.Models.UpdateRosterViewModel
+@{
+    ViewBag.Title = "District Roster";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+
+    <!-- page CSS -->
+    @*<link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />*@
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+
+
+}
+
+
+
+<!-- Page Title -->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-info"></div>
+    <h1 class="ml-1 ml-md-3">@ViewBag.Title</h1>
+</div>
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container">
+        @*@if(ViewBag.Msg != null)
+        {
+            <h3 class="text-center text-success">@ViewBag.Msg</h3>
+        }*@
+        <!-- Class Records Panel -->
+        <div class="card">
+
+            <!-- Panel Heading -->
+            <div class="card-header">
+                <div class="row">
+                    <div class="row col">
+                        <h4 class="card-title">Add Students New to District</h4>
+                        <i class="fas fa-info-circle fa-md" style="color: gray;"
+                           title="Steps for Enrolling Students in the District Roster: If your school has recently joined UWC, then all students in participating classes will need to be added to the DISTRICT.  Please contact your school administrator if this step has not been completed.  Uni-SPIRE will add all students after an Excel spreadsheet (found on the administrator’s site) has been submitted. If you receive a new student, use this form to add the one student to the DISTRICT ROSTER.">
+                        </i>
+                    </div>
+                    <div class="col">
+                        <div class="float-right">
+
+                            @*@Html.ActionLink("Add Student", "AddStudent", "Teacher", null, new { @class = "btn btn-blueTradewind" })*@
+                            <button id="AddClassButton" class="btn btn-blueTradewind" data-toggle="modal" data-target="#dialog">Add Student</button>
+
+                            @*Removeing Bulk Insert at this time.
+                                @Html.ActionLink("Bulk Insert", "BulkInsert", "Teacher", null, new { @class = "btn btn-blueTradewind" })*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Body -->
+            <div class="card-body">
+                <!-- Student Portfolio Table -->
+                <table id="tableSchoolRoster" class="table table-striped table-bordered" style="width: 100%;">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Student Number</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Controls -->
+                    <!-- Table Content -->
+                    <tbody>
+                        @foreach(var Student in Model.AllStudentsInSchool)
+                        {
+                            <tr data-student="@Student.StudentID">
+                                <td>@Student.LastName</td>
+                                <td>@Student.FirstName</td>
+                                <td>@Student.MiddleName</td>
+                                <td>@((Student.StudentNumber == "") ? "No Student Number" : Student.StudentNumber)</td>
+                                <td>
+                                    <a href="@Url.Action("EditStudentDistrict", new { studentID = Student.StudentID })" class="btn btn-outline-primary" title="Edit Student.">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    @*<a href="@Url.Action("DeleteStudent", new {studentID = Student.StudentID})" class="btn btn-sm btn-default" title="Delete Student." onclick="return confirm('Are you sure that you would like to delete this student?')">
+                                        <i class="fa fa-trash-o"></i>
+                                        </a>*@
+                                    <a href="#" class="btn btn-outline-secondary" title="Delete Student." onclick="deleteStudent(@Student.StudentID)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="dialog" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            @using (Html.BeginForm("InsertStudent", "Teacher", FormMethod.Post, new { @id = "InsertStudentForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Student</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Student's First Name: </label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.StudentModel.FirstName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Student's Middle Name: </label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.StudentModel.MiddleName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Student's Last Name: </label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.StudentModel.LastName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Suffix: </label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.StudentModel.Suffix, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Student Number: </label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.StudentModel.StudentNumber, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Student's Email: </label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.StudentModel.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-primary" type="submit" role="button">Add Student</button>
+
+                    <button class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                </div>
+            }
+            </div>
+        </div>
+</div>
+
+@section Scripts {
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>*@
+    <script src="~/Scripts/Teacher/UpdateRoster.js"></script>
+
+}

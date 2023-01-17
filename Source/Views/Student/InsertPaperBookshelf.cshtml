@@ -1,0 +1,65 @@
+﻿@model Source.Models.InsertBookshelfPaperViewModel
+@{
+    ViewBag.Title = "InsertBookshelfPaper";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<div id="page-title">
+    <h1 class="page-header text-overflow">Add Papers To Class Bookshelf</h1>
+</div>
+
+@using (Html.BeginForm("InsertPaperBookshelf", "Student", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.StudentId);
+    for (int i = 0; i < Model.EligiblePapers.Count; i++)
+    {
+        @Html.HiddenFor(m => m.EligiblePapers[i])
+    }
+    for (int i = 0; i < Model.ContentTypes.Count; i++)
+    {
+        @Html.HiddenFor(m => m.ContentTypes[i])
+    }
+    <div id="page-content">
+        <div class="container-fluid">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Select Item to Add to Bookshelf
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    @if (Model.EligiblePapers != null && Model.EligiblePapers.Count > 0)
+                    {
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-3">
+                                    Select Item Type:
+                                </div>
+                                @Html.DropDownListFor(model => model.ContentId, Model.ContentTypes, new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-3">
+                                    Select Item:
+                                </div>
+                                @Html.DropDownListFor(model => model.PaperId, Model.EligiblePapers, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="text-center">
+                                <button class="btn btn-default" onclick="form.submit();">Submit</button>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <p>All your papers have either already been added to your bookshelf, or your teacher hasn't graded them yet!</p>
+                        <p>To view your bookshelf click @Html.ActionLink("here!", "ViewBookshelf", "Student")</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+

@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_ParentLayout.cshtml";
+}
+
+
+@section Styles {
+
+    <!-- Bootstrap Select Styles -->
+    <link href="@Url.Content("~/Bundles/BootstrapSelect/css/bootstrap-select.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Animate CSS -->
+    <link href="@Url.Content("~/Bundles/AnimateCSS/css/animate.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+
+    <!-- Bootstrap Select Scripts -->
+    <script src="@Url.Content("~/Bundles/BootstrapSelect/js/bootstrap-select.min.js")"></script>
+
+    <!-- Bootbox Modal Scripts -->
+    <script src="@Url.Content("~/Bundles/Nifty/v2.5/plugins/bootbox/js/bootbox.min.js")"></script>
+
+    <!-- Dashboard Header Height Adjustment-->
+    <script src="@Url.Content("~/Scripts/Shared/DashboardHeight.js")" type="text/javascript"> </script>
+}
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title" class="hidden">
+    <h1 class="page-header text-overflow">Dashboard</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <!-- Shortcut Items -->
+    <div class="row">
+
+        <!-- Item: Evaluate Writing -->
+        <div class="col-sm-3">
+
+            <!--Tile-->
+            <!--===================================================-->
+            <a href="@Url.Action("TeacherFeedback","Parent")">
+                <div class="panel">
+                    <div class="panel-body text-center bg-orangeRoughy"></div>
+                    <div class="pad-all text-center dashHeader">
+                        <p class="h2 text-thin mar-no dashText">Teacher Feedback</p>
+                    </div>
+                </div>
+                <!--===================================================-->
+            </a>
+        </div>
+
+        <!-- Item: Student Data -->
+        <div class="col-sm-3">
+
+            <!--Tile-->
+            <!--===================================================-->
+            <a href="@Url.Action("ParentPortfolio","Parent")">
+                <div class="panel">
+                    <div class="panel-body text-center bg-yellowFuel"></div>
+                    <div class="pad-all text-center dashHeader">
+                        <p class="h2 text-thin mar-no dashText">Portfolio</p>
+                    </div>
+                </div>
+                <!--===================================================-->
+            </a>
+
+        </div>
+
+        <!-- Item: Engagements -->
+        <div class="col-sm-3">
+
+            <!--Tile-->
+            <!--===================================================-->
+            <a href="#" onclick="LeavingOurSite();">
+               @*<a href="@Url.Action("MyConferencing","Student")" target="_blank">*@
+                <div class="panel">
+                    <div class="panel-body text-center bg-greenJewel"></div>
+                    <div class="pad-all text-center dashHeader">
+                        <p class="h2 text-thin mar-no dashText">Helping Your Child</p>
+                    </div>
+                </div>
+                <!--===================================================-->
+            </a>
+        </div>
+
+        <!-- Item: Teacher Forum -->
+        <div class="col-sm-3">
+
+            <!--Tile-->
+            <!--===================================================-->
+            <a href="@Url.Action("Goals","Parent")">
+                <div class="panel">
+                    <div class="panel-body text-center bg-blueBluemine"></div>
+                    <div class="pad-all text-center dashHeader">
+                        <p class="h2 text-thin mar-no dashText">Goals</p>
+                    </div>
+                </div>
+                <!--===================================================-->
+            </a>
+        </div>
+    </div>
+    <!--Horizontal Form-->
+</div>
+
+<!-- Quote of the Day Overlay -->
+<div class="row">
+    <div class="col-lg-3">
+        <div class="alert alert-greenJewel alert-bottom-right animated fadeInRight">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <p>
+                <i class="fa fa-quote-left"></i> <strong>Quote of the Day </strong>
+            </p>
+            <p style="padding: 0 15px;">@Source.Models.QuoteModelDb.SelectDailyQuotes().Description.ToString()</p>
+            <p class="text-right">
+                - <strong>@Source.Models.QuoteModelDb.SelectDailyQuotes().Author.ToString()</strong>
+            </p>
+        </div>
+    </div>
+</div>
+<script>
+    function LeavingOurSite() {
+        if (confirm("You are now leaving The Writing Continuum.")) {
+            window.open("http://www2.ncte.org/statement/howtohelpenglish/", '_blank');
+        }
+    }
+</script>

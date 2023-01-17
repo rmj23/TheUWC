@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Students and Parents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Scripts {
+    
+
+}
+
+
+@section Styles {
+
+
+}
+
+@section RenderBlockingScripts {
+
+<script>
+
+        $(function () {
+            var toggleStudentProgressImage = $("#toggleStudentProgressImage");
+            var studentProgressImage = $("#studentProgressImage");
+
+            toggleStudentProgressImage.on("click", function () {
+                if (studentProgressImage.hasClass("hidden")) {
+                    studentProgressImage.removeClass("hidden");
+                    toggleStudentProgressImage.text("See Less");
+                } else {
+                    studentProgressImage.addClass("hidden");
+                    toggleStudentProgressImage.text("See More");
+                }
+            });
+
+        });
+
+</script>
+}
+
+<!-- BREADCRUMBS -->
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title pull-left">STUDENTS AND PARENTS</h1>
+    </div>
+</div>
+<!-- END BREADCRUMBS -->
+
+<!-- PAGE CONTENT -->
+<div class="page-content">
+    <div class="container">
+        <section class="row">
+            <div class="col-md-6">
+                <h2 class="section-heading">STUDENTS</h2>
+                <p class="lead">
+                    Each student has an electronic portfolio for PK to grade 12. Students receive written feedback from
+                    their teacher(s), see their goals and can monitor their own progress for each trait of writing.
+                    Students have access to the notes their teacher makes as they conference about their writing and any
+                    goals set to remind the students what they agreed to work on next. We urge students to receive
+                    feedback from peers before they ask for assistance from their teacher. Students are encouraged to
+                    self-evaluate their own work before they peer conference. If students want to examine their growth,
+                    they can look through their writing in their electronic portfolio from Kindergarten up to their high
+                    school graduation.
+                </p>
+                <p>
+                    We believe that students can accept responsibility for monitoring their own growth and assist
+                    teachers in filling in gaps in their learning. With the UWC, teachers can challenge students to do
+                    just that! <a href="javascript:void(0);" id="toggleStudentProgressImage">See More</a>
+                </p>
+                <img src="@Url.Content("~/Images/StudentScoresShot.png")" class="img-responsive center-block hidden"
+                     id="studentProgressImage" alt="" title="" />
+            </div>
+
+            <div class="col-md-6">
+                <h2 class="section-heading">PARENTS</h2>
+                <p class="lead">
+                    Parents can view their student’s portfolio from Pre-K to grade 12 at any time, read feedback from
+                    their student’s teachers, pull up their student’s writing and view a graph indicating the student’s
+                    progress as compared to the expected progress for the grade level.
+                </p>
+                <p>
+                    Parents and students can view the students’ progress over time. They can view the student’s written
+                    pieces, their holistic evaluations and specific strengths and needs. Parents can stay informed with
+                    the UWC!
+                </p>
+            </div>
+
+        </section>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿@model Source.Models.UploadPaperDataOnlyViewModel
+@using (Html.BeginForm("UploadPaperDataOnly", "Evaluation", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    <div id="page-content">
+        <div class="container-fluid">
+            @Html.HiddenFor(model =>model.Paper.PaperID)
+            @Html.HiddenFor(model => model.PreviousUrl)
+            <!-- Select The Paper -->
+            <div class="panel">
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">Upload/Update The Paper</h3>
+
+                </div>
+                @if (TempData["Upload"] != null)
+                {
+                    if (TempData["Upload"].ToString() == "true")
+                    {
+                        <div class="panel-heading bg-greenJewel">
+                            <div class="panel-control">
+                            </div>
+                            <h3 class="panel-title" style="color:white">Upload Success</h3>
+                        </div>
+                    }
+                    else if (TempData["Upload"].ToString() == "false")
+                    {
+                        <div class="panel-heading bg-orangeRoughy">
+                            <div class="panel-control">
+                            </div>
+                            <h3 class="panel-title" style="color:white">Upload was not successful. Please try again and contact our support.</h3>
+                        </div>
+                    }
+                }
+                <div class="panel-body">
+                    <div class="form-horizontal">
+
+                        <p class="text-main text-bold mar-no">Please select the file that you would like to upload.</p>
+                        <p>We currently accept <strong>.PDF, .DOC, .DOCX, .JPEG, .JPG, and .PNG</strong> file types for papers. The maximum size for papers is 5MB.</p>
+                        <p>We also accept <strong>.MP4, .MPEG, and .MOV</strong> file types for video assignments. The maximum size for videos is 500MB.</p>
+
+                        <div id="demo-dropzone" action="#" class="dropzone">
+                            <div class="dz-default dz-message">
+                                @*<div class="dz-icon">
+                            <i class="fa fa-cloud-upload fa-5x"></i>
+                        </div>
+                        <div>
+                            <span class="dz-text">Drop files to upload</span>
+                            <p class="text-sm text-muted">or click to pick manually</p>
+                        </div>*@
+                            </div>
+                            <div class="fallback">
+                                <input name="file" type="file" accept="application/pdf, .doc, .docx, .jpg, .png, .mp4, .mpeg, .mov">
+                            </div>
+                        </div>
+                        @if (TempData["notice"] != null)
+                        {
+                            var mess = TempData["notice"].ToString();
+                            <p style="color: red">@mess</p>
+                        }
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <!-- Submit Button -->
+                    <div class="form-group text-center">
+                        <button type="submit" name="submit" class="btn btn-default">Upload Paper </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

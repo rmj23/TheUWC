@@ -1,0 +1,5 @@
+school name,street1,street2,city,state,country,zip,phone#,schedule (block/reg), admin last name, admin firstname,admin email,admin phone,admin ext.,admin2 last name,admin2 first name,admin2 email,admin2 phone,admin2 ext.,secretary last name,secretary first name,grade levels,# of licenses
+University Middle Schoo, 20 University Way,N/A, Uni-SPIRE, NC, USA, 22226, 222-222-6777, b,Jones,Rick, rjones@ups.k12.com, 222-222-6778, n/a, n/a, n/a,,n/a, n/a, n/a, Jacob, Sherry
+Wonder School,12 Wonder Ave.,N/A,Uni-SPIRE,NC,USA,22224,222-222-4444,r,Wonderful,Joe,jwonderful@ups.K12.com,222-222-4444,1,Marsh,Jean,jmarsh@ups.k12.com,222-222-4444,3,Maybury,Maple,K-8,4
+Inspiration School,10 Inspire St.,N/A,Uni-SPIRE,NC,USA,22225,222-222-5555,r,Inspirelli,Marge,minspirelli@ups.k12.com,2222-222-5555,1,Cody,Ann,acody@ups.k12.com,222-222-5555,3,Smith,Maria,K-8,15
+University High School,14 University Way,N/A,Uni-SPIRE,NC,USA,22226,222-222-6666,b,Universal,Pat,puniversal@ups.k12.com,222-222-6666,1,Salazar,Dina,dsalazar@ups.k12.com,222-222-6666,3,Trump,Don,12-Sep,30

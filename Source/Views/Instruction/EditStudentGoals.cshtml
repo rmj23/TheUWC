@@ -1,0 +1,96 @@
+﻿@model Source.Models.EditStudentGoalsViewModel
+@{
+    ViewBag.Title = "Edit Student Goals";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+<!-- Page Title -->
+<div id="page-title">
+    <h1 class="page-header text-overflow">Student Goals</h1>
+</div>
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewBag.Title for @Model.StudentGoals.studentFN @Model.StudentGoals.studentLn</h3>
+            </div>
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("EditStudentGoals", "Instruction", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.StudentGoals.GoalID)
+                @Html.HiddenFor(model => model.YearID)
+                @Html.HiddenFor(model => model.CourseID)
+                @Html.HiddenFor(model => model.StudentGoals.studentID)
+
+                <section class="form-horizontal">
+                    <div class="panel-body">
+
+                        <!--Paper Title Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="papertitle">Paper Title: </label>
+                            <div class="col-sm-6">
+
+                                <p class="form-control">@Model.StudentGoals.goalPaperTitle</p>
+
+                            </div>
+                        </div>
+
+                        <!--Writing Element (Score Type) -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="writingelement">Writing Element: </label>
+                            <div class="col-sm-6">
+                                <p class="form-control">@Model.StudentGoals.goalScoreType</p>
+                            </div>
+                        </div>
+
+                        <!--Goal Description Field EDITABLE-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="goaldescription">Goal Description: </label>
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(model => model.StudentGoals.Description, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <!--Date Assigned Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="guidelines">Date Assigned: </label>
+                            <div class="col-sm-6">
+                                <p class="form-control">@Model.StudentGoals.dateAdded.ToShortDateString()</p>
+                            </div>
+                        </div>
+
+                        <!--Deadline Date Field EDITABLE -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="guidelines">Deadline Date:(This is not editable yet) </label>
+                            <div class="col-sm-6">
+                                <p class="form-control">@Model.StudentGoals.deadlineDate.Value.ToShortDateString()</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </div>
+                </section>
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+        </div>
+    </div>
+</div>

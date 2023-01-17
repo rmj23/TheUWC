@@ -1,0 +1,133 @@
+﻿@model Source.Models.ErrorModelViewModel
+@{
+    ViewBag.Title = "Error Log";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+@section RenderBlockingScripts {
+    <script>
+        $(function () {
+
+
+            var teacherTable = $('#teacherTable');
+            teacherTable.footable().on('footable_filtering', function (e) {
+                var selected = $('#teacherTable-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            $('#teacherTable-filter-status').change(function (e) {
+                e.preventDefault();
+                teacherTable.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            $('#teacherTable-foo-search').on('input', function (e) {
+                e.preventDefault();
+                teacherTable.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+        });
+    </script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("ErrorLog", "WebAdmin", FormMethod.Get))
+    {
+        <!-- Error Type Selection -->
+        <div class="panel">
+            <!--Panel Heading-->
+            <div class="panel-heading">
+                <h3 class="panel-title">Error Type Selection</h3>
+            </div>
+            <!--End Panel Heading-->
+            <!--Panel Body-->
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="goaltitle">Error Type: </label>
+                    <div class="col-sm-6">
+                        @Html.DropDownListFor(model => Model.ErrorTypeID, Model.ErrorTypeDropDown, new { @class = "form-control", onchange = "this.form.submit();" })
+                    </div>
+                </div>
+            </div>
+            <!--End Panel Body-->
+        </div>
+}
+        @if (Model.Errors != null)
+    {
+        <!--Error Table-->
+        <div class="panel">
+            <!--Panel Heading-->
+            <div class="panel-heading">
+                <h3 class="panel-title">Errors</h3>
+            </div>
+            <!--Panel Body-->
+            <div class="panel-body">
+                <table id="teacherTable" class="table table-bordered table-hover toggle-circle" data-page-size="20">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Error Message</th>
+                            <th>Time Stamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var error in Model.Errors)
+                    {
+                        <tr>
+                            <td>@error.ErrorID</td>
+                            <td>@error.ErrorMessage</td>
+                            <td>@error.TimeStamp</td>
+                        </tr>
+                }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <div class="text-center">
+                                    <ul class="pagination"></ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        }
+        else
+        {
+            <!-- No Error -->
+            <div class="panel">
+                <!--Panel Heading-->
+                <div class="panel-heading">
+                    <h3 class="panel-title">Errors</h3>
+                </div>
+                <!--Panel Body-->
+                <div class="panel-body">
+                    <div class="form-group">
+                        <p>Good new everyone, there are no errors of this type!!</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

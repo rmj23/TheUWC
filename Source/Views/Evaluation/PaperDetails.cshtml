@@ -1,0 +1,70 @@
+﻿@model Source.Models.PaperModel
+@{
+    ViewBag.Title = "Paper Details";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@section Styles  { }
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content">
+
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-control">
+                <a href="@Url.Action("EvaluatePaper", new { ID = Model.PaperID })">
+                    <button class="demo-panel-ref-btn btn btn-success data-target="#demo-panel-ref" data-toggle="panel-overlay">
+                        Evaluate Paper
+                    </button>
+                </a>
+            </div>
+            <h3 class="panel-title">Paper Details</h3>
+        </div>
+        <div class="panel-body">
+            <form>
+                
+                <!-- Paper Title Field -->
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Paper Title</label>
+                    <div class="col-md-9">
+                        <p class="form-control-static">@Model.PaperTitle</p>
+                    </div>
+                </div>
+
+                <!-- Student Name -->
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Student Name</label>
+                    <div class="col-md-9">
+                        <p class="form-control-static">@Model.StudentID</p>
+                    </div>
+                </div>
+
+                <!-- Evaluation Period -->
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Evaluation Period</label>
+                    <div class="col-md-9">
+                        <p class="form-control-static">@Model.EvaluationPeriodID</p>
+                    </div>
+                </div>
+
+                <!-- Evaluation Score -->
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Evaluation Score</label>
+                    <div class="col-md-9">
+                        <p class="form-control-static">@Model.EvaluationScoreID</p>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>

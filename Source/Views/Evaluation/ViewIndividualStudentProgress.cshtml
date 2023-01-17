@@ -1,0 +1,50 @@
+﻿@model Source.Models.ViewIndividualStudentProgressViewModel
+@{
+    ViewBag.Title = "ViewIndividualStudentProgress";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<h2>View Student Scores</h2>
+
+@foreach (var User in Model.Student)
+{
+    <h3>@User.LastName, @User.FirstName</h3>
+}
+
+<table id="viewClassTable" class="table table-bordered table-hover table-striped">
+
+    <!-- Roster Table Headings -->
+    <thead>
+        <tr>
+
+            <th>Paper Title</th>
+            <th>Holistic Band Letter</th>
+            <th>Evaluation Period ID (This Will Change)</th>
+            <th></th>
+            
+
+        </tr>
+    </thead>
+
+    <!-- Roster Table Content -->
+    <tbody>
+        @foreach (var Paper in Model.AllStudentPapers)
+            {
+            <tr>
+
+                <td>@Paper.PaperTitle</td>
+                <td>@Paper.HolisticScoreLetter</td>
+                <td>@Paper.EvaluationPeriodID</td>
+                <td>@Html.ActionLink("View Paper", "ViewIndividualPaper", new { id = Paper.PaperID })</td>
+                
+
+
+            </tr>
+
+
+        }
+
+</table>
+
+
+

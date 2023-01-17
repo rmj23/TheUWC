@@ -1,0 +1,28 @@
+﻿@model Source.Models.StudentBulkInsertViewModel
+@{
+    ViewBag.Title = "BulkInsertStudent";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+<h2>Bulk Insert Student</h2>
+
+@using (Html.BeginForm("BulkInsertStudent", "WebAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group col-md-12">
+                    <label class="control-label">Select School:</label>
+                    @Html.DropDownListFor(model => Model.SchoolID, Model.Schools, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12 form-group">
+                    <input type="file" name="fileUpload" accept=".csv" />
+                </div>
+                <div class="col-md-12 form-group text-center">
+                    <input type="submit" name="Submit" id="Submit" value="Upload" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

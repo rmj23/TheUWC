@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+
+@section Styles {
+
+    <!-- Bootstrap Select Styles -->
+    <link href="@Url.Content("~/Bundles/BootstrapSelect/css/bootstrap-select.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Animate CSS -->
+    <link href="@Url.Content("~/Bundles/AnimateCSS/css/animate.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+
+    <!-- Bootstrap Select Scripts -->
+    <script src="@Url.Content("~/Bundles/BootstrapSelect/js/bootstrap-select.min.js")"></script>
+
+    <!-- Bootbox Modal Scripts -->
+    <script src="@Url.Content("~/Bundles/Nifty/v2.5/plugins/bootbox/js/bootbox.min.js")"></script>
+    
+    <!-- Dashboard Header Height Adjustment-->
+    <script src="@Url.Content("~/Scripts/Shared/DashboardHeight.js")" type="text/javascript"> </script>
+}
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="" class="">
+    <h1 class="ml-md-3 ml-1">Dashboard</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content" class="container-fluid">
+
+    <!-- Shortcut Items -->
+    <div class="row">
+
+        <!-- Item: Evaluate Writing -->
+        <div class="col-md-3 mb-2 mb-md-0">
+
+            <!-- Item: MY TEACHERS FEEDBACK-->
+            <!--===================================================-->
+            <a href="@Url.Action("MyFeedback","Student")">
+                <div class="card h-100">
+                    <div class="card-header bg-orangeRoughy"></div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">My Teacher's Feedback</h4>
+                    </div>
+                </div>
+                <!--===================================================-->
+            </a>
+        </div>
+
+        <!-- Item: MY WRITING -->
+        <div class="col-md-3 mb-2 mb-md-0">
+
+            <!--Tile-->
+            <!--===================================================-->
+            <a href="@Url.Action("StudentPortfolio","Student")">
+                <div class="card h-100">
+                    <div class="card-header bg-yellowFuel"></div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">My Writing</h4>
+                    </div>
+                </div>
+                <!--===================================================-->
+            </a>
+
+        </div>
+
+        <!-- Item: MY CONFERENCING TOOL -->
+        <div class="col-md-3 mb-2 mb-md-0">
+
+            <!--Tile-->
+            <!--===================================================-->
+            <a href="@Url.Action("ConferenceTool", "Student")">
+            @*<a href="@Url.Action("MyConferencing","Student")" target="_blank">*@
+                <div class="card h-100">
+                    <div class="card-header bg-greenJewel"></div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">My Conferencing Tool</h4>
+                    </div>
+                </div>
+                <!--===================================================-->
+            </a>
+        </div>
+
+        <!-- Item: MY GOALS -->
+        <div class="col-md-3 mb-2 mb-md-0">
+
+            <!--Tile-->
+            <!--===================================================-->
+            <a href="@Url.Action("MyGoals","Student")">
+                <div class="card h-100">
+                    <div class="card-header bg-blueBluemine"></div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">My Goals</h4>
+                    </div>
+                </div>
+                <!--===================================================-->
+            </a>
+        </div>
+    </div>
+    <!--Horizontal Form-->
+    <!--===================================================-->
+    <!--Admin Sliders-->
+    <!--Take the day of the month and mod it by four.  Switch the slider based on that.-->
+    <div class="row mt-1">
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    @{int dayInt = DateTime.Now.Day % 3;
+                        switch (dayInt)
+                        {
+                            case 0:
+                                <img src="~/Images/Student_Sliders/K-1 photo.jpg"
+                                     style="max-height: 100%; max-width: 100%" />
+                                break;
+                            case 1:
+                                <img src="~/Images/Student_Sliders/2-5th grade photo.jpg"
+                                     style="max-height: 100%; max-width: 100%" />
+                                break;
+                            case 2:
+                                <img src="~/Images/Student_Sliders/High school photo.jpg"
+                                     style="max-height: 100%; max-width: 100%" />
+                                break;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=============================================-->
+    <!-- MyFeedback -->
+    @*<div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-heading text-center bg-primary">
+                    <h3 class="card-title">My Feedback</h3>
+                </div>
+                <div class="card-body">
+                    <div>Student feedback Coming soon...</div>
+                </div>
+                <div class="card-footer card-footer-default text-center">
+                    <button type="button" class="btn btn-default"> My Writing </button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+</div>
+
+<!-- Quote of the Day Overlay -->
+<div class="row">
+    <div class="col-3">
+        <div class="alert alert-greenJewel alert-bottom-right animated fadeInRight">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <p>
+                <i class="fa fa-quote-left"></i> <strong>Quote of the Day </strong>
+            </p>
+            <p style="padding: 0 15px;">@ViewBag.Quote</p>
+            <p class="text-right">
+                - <strong>@ViewBag.QuoteAuthor</strong>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Student Scripts-->
+@*<script>
+    $(document).ready(function() {
+        toAdapt();
+        $(window).resize(function() {
+            toAdapt();
+        });
+    });
+
+    function toAdapt() {
+        var heights = $(".dashText").map(function () {
+            return $(this).height();
+        }).get(),
+
+            maxHeight = Math.max.apply(null, heights);
+        console.log(heights);
+        $(".dashHeader").height(maxHeight);
+    }
+</script>*@

@@ -1,0 +1,155 @@
+﻿@model Source.Models.AssignViewViewModel
+@{ 
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+    <script>
+        $(function () {
+            var tableUnassignedViews = $('#tableUnassignedViews');
+            tableDistrictRoster.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableUnassignedViews-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            $('#tableUnassignedViews-filter-status').change(function (e) {
+                e.preventDefault();
+                tableDistrictRoster.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            $('#tableUnassignedViews-foo-search').on('input', function (e) {
+                e.preventDefault();
+                tableDistrictRoster.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            var tableAssignedViews = $('#tableAssignedViews');
+            tableDistrictRoster.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableAssignedViews-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            $('#tableAssignedViews-filter-status').change(function (e) {
+                e.preventDefault();
+                tableDistrictRoster.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+<div id="page-content">
+    <div class="container-fluid">
+        <h3 class="panel-title">Assign Views to Roles</h3>
+    </div>
+    <div class="panel">
+        <section class="form-horizontal">
+            <div class="panel-body">
+                @using (Html.BeginForm("AssignView", "WebAdmin", FormMethod.Get))
+                {
+                    Html.RenderPartial("_GlobalRoleSelection", Model);
+                }
+            </div>
+        </section>
+        <div class="panel-body">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    All Views Assigned to Selected Role
+                </h3>
+            </div>
+            <table id="tableAssignedViews" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+                <thead>
+                    <tr>
+                        <th>View</th>
+                        <th>Controller</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var view in Model.assignedViews)
+                    {
+                        <tr>
+                            <td>
+                                @view.viewName
+                            </td>
+                            <td>
+                                @view.controllerName
+                            </td>
+                            <td>
+                                <a href="@Url.Action("RemoveViewFromRole", "WebAdmin", new { viewId = view.Id, roleId = Model.roleId})" class="btn btn-sm btn-default" title="Remove View from Subscription">
+                                    <i class="fa fa-remove">Remove</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <!-- Table Footer -->
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <div class="text-center">
+                                <ul class="pagination"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="panel-body">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    All Views not Assigned to Selected Role
+                </h3>
+            </div>
+            <table id="tableUnassignedViews" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+                <thead>
+                    <tr>
+                        <th>View</th>
+                        <th>Controller</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var view in Model.unassignedViews)
+                    {
+                        <tr>
+                            <td>
+                                @view.viewName
+                            </td>
+                            <td>
+                                @view.controllerName
+                            </td>
+                            <td>
+                                <a href="@Url.Action("AssignViewToRole", "WebAdmin", new { roleId = Model.roleId, viewId = view.Id })" class="btn btn-sm btn-default" title="Add View to Subscription">
+                                    <i class="fa fa-plus">Assign</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <!-- Table Footer -->
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <div class="text-center">
+                                <ul class="pagination"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+

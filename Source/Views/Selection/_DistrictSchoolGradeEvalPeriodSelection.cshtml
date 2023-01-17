@@ -1,0 +1,50 @@
+﻿@model Source.Models.ASchoolGradeEvaluationPeriod
+
+@Html.HiddenFor(model => model.State)
+
+<!-- Year Selection Field -->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="year">Year: </label>
+    <div class="col-sm-6">
+
+        @Html.DropDownListFor(model => Model.YearID, Model.YearDropDown, new { @class = "form-control", onchange = "$('#State').val('YearSelected');this.form.submit();" })
+
+    </div>
+</div>
+<!-- Evaluation Period Selection Field -->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="evaluationPeriod">Evaluation Period: </label>
+    <div class="col-sm-6">
+
+        @Html.DropDownListFor(model => Model.EvalPeriodID, Model.EvaluationPeriodDropDown, new { @class = "form-control", onchange = "$('#State').val('EvalPeriodSelected');this.form.submit();" })
+
+    </div>
+</div>
+
+<!-- School Selection Field -->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="school">School: </label>
+    <div class="col-sm-6">
+
+        @Html.DropDownListFor(model => Model.SchoolID, Model.SchoolDropDown, new { @class = "form-control", onchange = "$('#State').val('SchoolSelected');this.form.submit();" })
+
+    </div>
+</div>
+
+<!-- Grade Selection Field -->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="gradeLevel">Grade Level: </label>
+    <div class="col-sm-6">
+
+        @Html.DropDownListFor(model => model.GradeLevelID, Model.GradeLevelDropDown, new { @class = "form-control", onchange = "$('#State').val('GradeLevelSelected');this.form.submit();" })
+
+    </div>
+</div>
+
+
+
+
+
+
+
+

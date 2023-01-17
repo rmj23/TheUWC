@@ -1,0 +1,149 @@
+﻿@model Source.Models.ProjectContinuumInsertViewModel
+@{
+    ViewBag.Title = "Inquiry Skill Continuum";
+    Layout = "~/Views/Shared/_WebAdminLayout.cshtml";
+
+}
+@section Styles {
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+            $('#tableContinuum').DataTable({
+                responsive: true
+            });
+
+        });
+
+/**/</script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+
+<div id="page-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Guideline Insert</h3>
+            </div>
+            @using (Html.BeginForm("ViewProjectContinuumInsert", "WebAdmin", FormMethod.Get))
+            {
+                <section class="form-horizontal">
+                    <div class="panel-body">
+                        @Html.HiddenFor(model => model.State)
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="element">Element: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.ElementID, Model.ElementDropDown, new { @class = "form-control", onchange = "$('#State').val('ElementSelected');this.form.submit();" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="characteristic">Characteristic: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.CharacteristicID, Model.CharacteristicDropDown, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="characteristic">Level: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.LevelID, Model.LevelDropDown, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="characteristic">Guideline: </label>
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(model => model.Guideline, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success">Insert</button>
+                    </div>
+                </section>
+
+            }
+        </div>
+        <div class="card">
+
+            <!-- Panel Heading -->
+            <div class="card-header">
+                <h3 class="card-title">
+                    Continuum
+                </h3>
+            </div>
+            <!-- Panel Body -->
+            <div class="card-body">
+
+                <!-- Student Portfolio Table -->
+                <table id="tableContinuum" class="table table-bordered table-hover toggle-circle" data-page-size="20">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <!--Name of Paper Type-->
+                            <th>Element</th>
+                            <!--Evaluation Types-->
+                            <th>Characteristic</th>
+                            <!--Name of Level. Letter Desc-->
+                            <th>Level</th>
+                            <!--Guidelines-->
+                            <th>Guidelines</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Content -->
+                    <tbody>
+                        @foreach (var c in Model.ContinuumData)
+                        {
+                            <tr>
+                                <td>
+                                    @c.Elelement
+                                </td>
+                                <td>
+                                    @c.Characteristic
+                                </td>
+                                <td>
+                                    @c.Level - @c.TimeFrame
+                                </td>
+                                <td>
+                                    @c.Guideline
+                                </td>
+                                <td>
+                                    <!--Edit the guidline-->
+                                    <a href="@Url.Action("EditProjectContinuum", new {ContinuumID = c.Id})" class="btn btn-sm btn-default" title="Edit Guidline.">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </a>
+                                    <!--Delete the entry in the continuum-->
+                                    <a href="@Url.Action("ProjectContinuumEntryDelete", new { ContinuumID = c.Id
+                                         })" class="btn btn-sm btn-default" title="Delete Continuum Entry." onclick="return confirm('Are you sure that you would like to delete this entry?')">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                    <a href="@Url.Action("ProjectHtmlViewer", new {continuumID = c.Id})"
+                                       class="btn btn-sm btn-default" title="View Continuum Entry" target="_blank">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

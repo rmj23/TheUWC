@@ -1,0 +1,118 @@
+﻿@model Source.Models.InsertProjectViewModel
+@{
+    ViewBag.Title = "Insert Project";
+    Layout = ViewBag.Layout;
+    ViewBag.hasCustom = "false";
+    ViewBag.ContinuumBaseLevel = 5;
+}
+@section Styles{
+
+}
+@section Scripts{
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Teacher/CustomContinuum.js")"></script>
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">Insert Project</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+        
+        
+            @for (int i = 0; i < Model.CustomContinuum.CustomContinuumRow.Count; i++)
+            {
+                @Html.HiddenFor(model => model.CustomContinuum.CustomContinuumRow[i].Level)
+                @Html.HiddenFor(model => model.CustomContinuum.CustomContinuumRow[i].LevelID)
+                @Html.HiddenFor(model => model.CustomContinuum.CustomContinuumRow[i].TimeFrame)
+                @Html.HiddenFor(model => model.CustomContinuum.CustomContinuumRow[i].Characteristic)
+                @Html.HiddenFor(model => model.CustomContinuum.CustomContinuumRow[i].CharacteristicID)
+                @Html.HiddenFor(model => model.CustomContinuum.CustomContinuumRow[i].ElementID)
+                @Html.HiddenFor(model => model.CustomContinuum.CustomContinuumRow[i].Elelement)
+            }
+
+            <!-- Panel-->
+        <div class="panel">
+            <!-- Panel Heading -->
+            <div class="panel-heading">
+                <h3 class="panel-title">Create New Project</h3>
+            </div>
+            <!-- Panel Body-->
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <!--Form Component-->
+                    @using (Html.BeginForm("newClassSelected", "Teacher", FormMethod.Post, new { model = Model }))
+                    {
+                        @Html.HiddenFor(model => model.State)
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Select Class:</label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.CourseID, Model.CourseDropDown, new { @class = "form-control", onchange = "$('#State').val('CourseSelected');this.form.submit();" })
+                            </div>
+                        </div>
+                    }
+                    @using (Html.BeginForm("InsertProject", "Teacher", FormMethod.Post))
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.project.projectName, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.project.projectName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.project.continuumType, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.project.continuumTypeId, Model.continuumType, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.project.dueDate, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-6">
+                                @Html.EditorFor(model => model.project.dueDate, new { @type = "date", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.project.customCriteria, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-6" style="padding-top: .5em">
+                                @* TODO: Inline style *@
+                                @Html.RadioButtonFor(model => model.project.customCriteria, true, new { onclick = "hasCustomCriteria()" }) Yes
+                                @Html.RadioButtonFor(model => model.project.customCriteria, false, new { onclick = "hasCustomCriteriaFalse()" }) No
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HasGroup, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-6" style="padding-top: .4em">
+                                @* TODO: Inline style *@
+                                @Html.RadioButtonFor(model => model.HasGroup, true) Yes
+                                @Html.RadioButtonFor(model => model.HasGroup, false) No
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            @using (Html.BeginForm("InsertProject", "Teacher", FormMethod.Post))
+            {
+                <!--Custom Criteria-->
+                <div class="hidden" id="customCriteriaPartial">
+                    @{ Html.RenderPartial("_CustomCriteria", Model); }
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+</div>

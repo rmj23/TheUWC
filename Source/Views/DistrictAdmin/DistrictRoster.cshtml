@@ -1,0 +1,165 @@
+﻿@model Source.Models.UpdateRosterViewModel
+
+@{
+    ViewBag.Title = "DistrictRoster";
+    Layout = "~/Views/Shared/_DistrictAdminLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            // Filtering
+            var filtering = $('#tableSchoolRoster');
+            filtering.footable().on('footable_filtering', function (e) {
+                var selected = $('#tableSchoolRoster-filter-status').find(':selected').val();
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            });
+
+            // Filter status
+            $('#tableSchoolRoster-filter-status').change(function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+
+            // Search input
+            $('#tableSchoolRoster-foo-search').on('input', function (e) {
+                e.preventDefault();
+                filtering.trigger('footable_filter', { filter: $(this).val() });
+            });
+        });
+    </script>
+}
+
+<!-- Page Title -->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Class Records Panel -->
+        <div class="panel">
+
+            <!-- Panel Heading -->
+            <div class="panel-heading">
+                <div class="panel-control">
+
+                    @Html.ActionLink("Add Student", "AddStudent", "DistrictAdmin", null, new { @class = "btn btn-blueTradewind" })
+
+                    @*Removeing Bulk Insert at this time.
+                        @Html.ActionLink("Bulk Insert", "BulkInsert", "Teacher", null, new { @class = "btn btn-blueTradewind" })*@
+
+                </div>
+                <h3 class="panel-title">
+                    Add Students New to District
+                    <i class="fa fa-info fa-rounded add-tooltip text-muted" data-toggle="tooltip" data-container="body" data-placement="bottom" data-original-title="Steps for Enrolling Students in the District Roster:
+
+                            If your school has recently joined UWC, then all students in participating classes will need to be added to the DISTRICT.  Please contact your school administrator if this step has not been completed.  Uni-SPIRE will add all students after an Excel spreadsheet (found on the administrator’s site) has been submitted.
+
+                            If you receive a new student, use this form to add the one student to the DISTRICT ROSTER.
+                            "></i>
+                </h3>
+            </div>
+
+            <!-- Panel Body -->
+            <div class="panel-body">
+
+                <!-- Student Portfolio Table -->
+                <table id="tableSchoolRoster" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <th data-sort-initial="true">Last Name</th>
+                            <th>First Name</th>
+                            <th data-sort-ignore="true">Middle Name</th>
+                            <th>Student Number</th>
+                            <th data-sort-ignore="true">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Controls -->
+                    <div class="pad-btm form-inline">
+                        <div class="row">
+
+                            <!-- Table Control: Dropdown -->
+                            <div class="col-sm-6 text-xs-center hidden">
+                                <div class="form-group">
+                                    <label class="control-label">Evaluation Status</label>
+                                    <select id="tableSchoolRoster-filter-status" class="form-control">
+                                        <option value="">Show all</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Table Control: Search -->
+                            <div class="col-sm-6 col-xs-push-6 text-xs-center text-right">
+                                <div class="form-group">
+                                    <input id="tableSchoolRoster-foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Table Content -->
+                    <tbody>
+                        <tr>
+                            @foreach (var Student in Model.AllStudentsInSchool)
+                            {
+                            <tr>
+                                <td>@Student.LastName</td>
+                                <td>@Student.FirstName</td>
+                                <td>@Student.MiddleName</td>
+                                <td>@((Student.StudentNumber == "") ? "No Student Number" : Student.StudentNumber)</td>
+                                <td>
+                                    <a href="@Url.Action("EditStudentDistrict", new {studentID = Student.StudentID})" class="btn btn-sm btn-default" title="Edit Student.">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </a>
+                                    <a href="@Url.Action("DeleteStudent", new {studentID = Student.StudentID})" class="btn btn-sm btn-default" title="Delete Student." onclick="return confirm('Are you sure that you would like to delete this student?')">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                            }
+                            </tr>
+                        </tbody>
+
+                        <!-- Table Footer -->
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <div class="text-center">
+                                        <ul class="pagination"></ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+

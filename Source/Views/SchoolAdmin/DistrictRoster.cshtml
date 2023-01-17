@@ -1,0 +1,86 @@
+﻿@model Source.Models.UpdateRosterViewModel
+
+@{
+    ViewBag.Title = "District Roster";
+    Layout = "~/Views/Shared/_SchoolAdminLayout.cshtml";
+}
+<!-- Page Title -->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <!-- Class Records Panel -->
+        <div class="card">
+
+            <!-- Panel Heading -->
+            <div class="card-header">
+                @Html.ActionLink("Add Student", "AddStudent", "SchoolAdmin", null, new { @class = "btn btn-blueTradewind" })
+                <h3 class="card-title">
+                    Add Students New to District
+                    <i class="fa fa-info fa-rounded add-tooltip text-muted" data-toggle="tooltip" data-container="body" data-placement="bottom" data-original-title="Steps for Enrolling Students in the District Roster:
+
+                            If your school has recently joined UWC, then all students in participating classes will need to be added to the DISTRICT.  Please contact your school administrator if this step has not been completed.  Uni-SPIRE will add all students after an Excel spreadsheet (found on the administrator’s site) has been submitted.
+
+                            If you receive a new student, use this form to add the one student to the DISTRICT ROSTER.
+                            "></i>
+                </h3>
+            </div>
+
+            <!-- Panel Body -->
+            <div class="card-body">
+                @if (Model.AllStudentsInSchool.Count == 0)
+                {
+                    <h4>No students found in roster.</h4>
+                }
+                else
+                {
+                    <!-- Student Portfolio Table -->
+                    <table id="tableSchoolRoster" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Middle Name</th>
+                                <th>Student Number</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                @foreach (var Student in Model.AllStudentsInSchool)
+                                {
+                                <tr>
+                                    <td>@Student.LastName</td>
+                                    <td>@Student.FirstName</td>
+                                    <td>@Student.MiddleName</td>
+                                    <td>@((Student.StudentNumber == "") ? "No Student Number" : Student.StudentNumber)</td>
+                                    <td>
+                                        <a href="@Url.Action("EditStudentDistrict", new {studentID = Student.StudentID})" class="btn btn-sm btn-default" title="Edit Student.">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                        <a href="@Url.Action("DeleteStudent", new {studentID = Student.StudentID})" class="btn btn-sm btn-default" title="Delete Student." onclick="return confirm('Are you sure that you would like to delete this student?')">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    }
+            </div>
+            </div>
+
+        </div>
+    </div>
+<script type="text/javascript">
+$('#tableSchoolRoster').DataTable( {
+    responsive: true,
+    "langauge": {
+        "emptyTable": "No students in roster."
+    }
+} );
+</script>

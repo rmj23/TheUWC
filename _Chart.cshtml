@@ -1,0 +1,360 @@
+﻿@model Source.Models.ChartSelectionViewModel
+@{
+    bool NullCondition = false;
+}
+
+@*@section Styles {
+    <link rel="stylesheet" type="text/css" href="http://www.themeon.net/nifty/v2.5/plugins/dropzone/dropzone.min.css" />
+    <!-- Chartist Styles -->
+    <link href="@Url.Content("~/Bundles/ChartistJS/dist/scss/chartist.min.css")" rel="stylesheet" type="text/css" />
+    <style>.ct-series-f .ct-bar, .ct-series-f .ct-line, .ct-series-f .ct-point, .ct-series-f .ct-slice-donut {
+             stroke: #b1b1b1;
+        }</style>
+
+    <!-- Bootstrap Select Styles -->
+    <link href="@Url.Content("~/Bundles/BootstrapSelect/css/bootstrap-select.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Animate CSS -->
+    <link href="@Url.Content("~/Bundles/AnimateCSS/css/animate.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+
+    <!-- Bootstrap Select Scripts -->
+    <script src="@Url.Content("~/Bundles/BootstrapSelect/js/bootstrap-select.min.js")"></script>
+
+    <!-- Bootbox Modal Scripts -->
+    <script src="@Url.Content("~/Bundles/Nifty/v2.5/plugins/bootbox/js/bootbox.min.js")"></script>
+
+    <!-- Bootbstrap modals -->
+    <script src="@Url.Content("~/Bundles/Bootstrap/js/bootstrap.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <!-- Chartist Render-Blocking Scripts -->
+    <script src="@Url.Content("~/Bundles/ChartistJS/dist/chartist.min.js")"></script>
+}*@
+
+
+<!-- Main Content -->
+<h1 class="page-header text-overflow">Class Data</h1>
+<!-- Class Data Module -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height: 170px;">
+                @*<h3 class="panel-title">Class Data</h3>*@
+
+                <!-- Controls -->
+
+                @using (Html.BeginForm("Dashboard", "Teacher", FormMethod.Post))
+                {
+                    <div class="input-group pull-left" style="width:400px">
+                        <br>
+                        @Html.HiddenFor(model => model.State)
+                        <!-- Academic Year Selection Field -->
+                        @*<div class="form-group">
+                            <label class="col-sm-3 control-label" for="academicYear">Year: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => Model.YearID, Model.YearDropDown, 
+                                new { @class = "form-control", onchange = "$('#State').val('YearSelected');
+                                this.form.submit();" })
+                            </div>
+                        </div>
+                        <br />*@
+
+                        <!-- Class Selection Field -->
+                        <div class="form-group">
+                            @*//replaced to allow more freedom for styling/alignment
+                            <label class="col-sm-3 control-label" for="class">Class: </label> *@
+                            <div><h4 style="padding-left: 15px; margin-top: -5px">Class:</h4></div>
+                            <div class="col-sm-6">
+
+                                @Html.DropDownListFor(model => Model.CourseID, Model.CourseDropDown,
+                                    new { @class = "form-control",
+                                        onchange = "$('#State').val('CourseSelected');this.form.submit();" })
+
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Evaluation Period Selection Field -->
+                        <div class="form-group">
+                            @*//replaced to allow more freedom for styling/alignment
+                            <label class="col-sm-3 control-label" for="evaluationPeriod">Evaluation Period: </label>*@
+                            <div><h4 style="padding-left: 15px; margin-top: -5px">Evaluation Period:</h4></div>
+                            <div class="col-sm-6">
+
+                                @Html.DropDownListFor(model => Model.EvalPeriodID, Model.EvaluationPeriodDropDown,
+                                    new { @class = "form-control",
+                                        onchange = "$('#State').val('EvalPeriodSelected');this.form.submit();" })
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+
+            @* Checking to see if the chart ain't gonna work like we need it (ie no papers or null model) *@
+
+            @if (Model.Chart == null)
+            {
+                NullCondition = true;
+            }
+            @try
+            {
+                int x = Model.Chart.scores[0] + Model.Chart.scores[1] + Model.Chart.scores[2] + Model.Chart.scores[3] + 
+                    Model.Chart.scores[4];
+                if (x == 0)
+                {
+                    NullCondition = true;
+                }
+            }
+            catch
+            {
+                NullCondition = true;
+            }
+
+            @if (!(NullCondition))
+            {
+
+
+
+
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section ct-negative-labels" id="chart1"></div>
+                </div>
+
+                <div class="panel-footer panel-footer-default text-center">
+                    @Html.ActionLink("View Data", "ClassData", "Evaluation", new { @State = "EvalPeriodSelected",
+                        @YearID = Model.YearID, @CourseID = Model.CourseID, @EvalPeriodID = Model.EvalPeriodID }, 
+                        new { @class = "btn btn-default" })
+                    <button type="button" class="btn btn-default btn-print">Print Chart</button>
+                </div>
+
+
+            <!-- Below Basic Dialog Modal -->
+                <div class="modal fade" id="modal0" tabindex="-1" role="dialog" aria-labelledby="modal0Label">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span 
+                                    aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Student Roster - Below Bestasic @Model.Chart.percentages[0]</h4>
+                            </div>
+                            <div class="modal-body">
+                                <ul class='list-group'>
+                                    @foreach (var s in Model.Chart.papersOrdered[0])
+                                    {
+                                        <li class='list-group-item'>
+                                            @s
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default">Print</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Basic Dialog Modal -->
+                <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1Label">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span 
+                                    aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Student Roster - Basic @Model.Chart.percentages[1]</h4>
+                            </div>
+                            <div class="modal-body">
+                                <ul class='list-group'>
+                                    @foreach (var s in Model.Chart.papersOrdered[1])
+                                    {
+                                        <li class='list-group-item'>
+                                            @s
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default">Print</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Proficient Dialog Modal -->
+                <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2Label">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span 
+                                    aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Student Roster - Proficient @Model.Chart.percentages[2]</h4>
+                            </div>
+                            <div class="modal-body">
+                                <ul class='list-group'>
+                                    @foreach (var s in Model.Chart.papersOrdered[2])
+                                    {
+                                        <li class='list-group-item'>
+                                            @s
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default">Print</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Advanced Dialog Modal -->
+                <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="modal3Label">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span 
+                                    aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Student Roster - Advanced @Model.Chart.percentages[3]</h4>
+                            </div>
+                            <div class="modal-body">
+                                <ul class='list-group'>
+                                    @foreach (var s in Model.Chart.papersOrdered[3])
+                                    {
+                                        <li class='list-group-item'>
+                                            @s
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default">Print</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Advanced Plus Dialog Modal -->
+                <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="modal4Label">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span 
+                                    aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Student Roster - Advanced Plus @Model.Chart.percentages[4]</h4>
+                            </div>
+                            <div class="modal-body">
+                                <ul class='list-group'>
+                                    @foreach (var s in Model.Chart.papersOrdered[4])
+                                    {
+                                        <li class='list-group-item'>
+                                            @s
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default">Print</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+            else
+            {
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section ct-negative-labels" id="chart2"></div>
+                </div>
+                <div class="panel-footer panel-footer-default text-center">
+                </div>
+            }
+
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Script for Chart module  -->
+@if (!(NullCondition))
+{
+    <script>
+
+        $(function () {
+            var labelz = ['Below Basic', 'Basic', 'Proficient', 'Advanced', 'Advanced Plus'];
+            var data = {
+                series: [
+                    @Model.Chart.scores[0],
+                    @Model.Chart.scores[1],
+                    @Model.Chart.scores[2],
+                    @Model.Chart.scores[3],
+                    @Model.Chart.scores[4]
+                ]
+            };
+            var options = {
+                //labelDirection: 'explode',
+                ignoreEmptyValues: true, // don't render empty series
+                labelInterpolationFnc: function (value, i) {
+                    function getSum(total, num) { return total + num; }
+                    //calculate percentage while keeping labels as strings (labelz)
+                    var percentage = Math.round(value / data.series.reduce(getSum) * 100) + '%';  
+                    return labelz[i] + ' ' + percentage;
+                }
+            };
+            var sum = function (a, b) { return a + b };
+
+            /** Creates the Class Data Module chart***/
+            new Chartist.Pie('#chart1', data, options)
+
+
+            /* Below Basic */
+            $(document).on("click", ".ct-series-a", function () {
+                $('#modal0').modal('show')
+            });
+            /** Basic **/
+            $(document).on("click", ".ct-series-b", function () {
+                $('#modal1').modal('show')
+            });
+
+            /** Proficient **/
+            $(document).on("click", ".ct-series-c", function () {
+                $('#modal2').modal('show')
+            });
+
+            /** Advanced **/
+            $(document).on("click", ".ct-series-d", function () {
+                $('#modal3').modal('show')
+            });
+
+            /** Advanced Plus **/
+            $(document).on("click", ".ct-series-e", function () {
+                $('#modal4').modal('show')
+            });
+        });
+
+    </script>
+}
+else  /* render an empty chart if nullcondition */ 
+{
+    <script>
+        $(function () {
+            var data = {
+                labels: ['Oops! No papers graded for this class yet!'],
+                //series: [1]
+                series: [{value:1,className: 'ct-series-f'}]
+
+
+            };
+            new Chartist.Pie('#chart2', data)
+        });
+
+    </script>
+}

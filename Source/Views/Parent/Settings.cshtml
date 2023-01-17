@@ -1,0 +1,265 @@
+﻿@{
+    ViewBag.Title = "Your Settings";
+    Layout = "~/Views/Shared/_ParentLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Switchery CSS -->
+    <link rel="stylesheet" type="text/css" href="http://www.themeon.net/nifty/v2.5/plugins/switchery/switchery.min.css" />
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" type="text/css" href="http://www.themeon.net/nifty/v2.5/plugins/select2/css/select2.min.css" />
+}
+
+@section Scripts {
+
+    <!-- Switchery JS -->
+    <script src="http://www.themeon.net/nifty/v2.5/plugins/switchery/switchery.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="http://www.themeon.net/nifty/v2.5/plugins/select2/js/select2.min.js"></script>
+}
+
+@section RenderBlockingScripts {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title" class="hidden">
+    <h1 class="page-header text-overflow">Dashboard</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <!-- Account Settings and Module Settings -->
+    <div class="row">
+
+        <!-- Account Settings -->
+        <div class="col-md-6">
+            <div class="container-fluid">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Account Settings</h3>
+                    </div>
+
+                    @using (Html.BeginForm(null, null, FormMethod.Post))
+                    {
+
+                        <!--Horizontal Form-->
+                        <!--===================================================-->
+                        <section class="form-horizontal">
+                            <div class="panel-body">
+
+                                <ul class="list-group bg-trans">
+                                    <li class="pad-top list-header">
+                                        <p class="text-semibold text-main mar-no">Account Settings</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="pull-right">
+                                            <input class="toggle-switch" id="demo-switch-1" type="checkbox" checked="">
+                                            <label for="demo-switch-1"></label>
+                                        </div>
+                                        <p class="mar-no">Show my personal status</p>
+                                        <small class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</small>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="pull-right">
+                                            <input class="toggle-switch" id="demo-switch-2" type="checkbox" checked="">
+                                            <label for="demo-switch-2"></label>
+                                        </div>
+                                        <p class="mar-no">Show offline contact</p>
+                                        <small class="text-muted">Aenean commodo ligula eget dolor. Aenean massa.</small>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="pull-right">
+                                            <input class="toggle-switch" id="demo-switch-3" type="checkbox">
+                                            <label for="demo-switch-3"></label>
+                                        </div>
+                                        <p class="mar-no">Invisible mode </p>
+                                        <small class="text-muted">Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </small>
+                                    </li>
+                                </ul>
+
+                                <ul class="list-group pad-btm bg-trans">
+                                    <li class="list-header"><p class="text-semibold text-main mar-no">Public Settings</p></li>
+                                    <li class="list-group-item">
+                                        <div class="pull-right">
+                                            <input class="toggle-switch" id="demo-switch-4" type="checkbox" checked="">
+                                            <label for="demo-switch-4"></label>
+                                        </div>
+                                        Online status
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="pull-right">
+                                            <input class="toggle-switch" id="demo-switch-5" type="checkbox" checked="">
+                                            <label for="demo-switch-5"></label>
+                                        </div>
+                                        Show offline contact
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="pull-right">
+                                            <input class="toggle-switch" id="demo-switch-6" type="checkbox" checked="">
+                                            <label for="demo-switch-6"></label>
+                                        </div>
+                                        Show my device icon
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="panel-footer">
+                                <!-- Submit Button -->
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                                </div>
+                            </div>
+                        </section>
+                        <!--===================================================-->
+                        <!--End Horizontal Form-->
+                    }
+
+                </div>
+            </div>
+        </div>
+        <!-- ./Account Settings -->
+        <!-- Module Settings -->
+        <div class="col-md-6">
+            <div class="container-fluid">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Module Settings</h3>
+                    </div>
+
+                    @using (Html.BeginForm(null, null, FormMethod.Post))
+                    {
+
+                        <!--Horizontal Form-->
+                        <!--===================================================-->
+                        <section class="form-horizontal">
+                            <div class="panel-body">
+
+                                <ul class="list-group bg-trans">
+                                    <li class="pad-top list-header">
+                                        <p class="text-semibold text-main mar-no">Class Data Module</p>
+                                    </li>
+
+                                    <!-- Enable This Module -->
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <p class="mar-no">Enable This Module </p>
+                                                <small class="text-muted">Choose whether or not you want the Class Data Module to display on the Dashboard. </small>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <div class="pull-right">
+                                                    <input class="toggle-switch" id="demo-switch-3" type="checkbox" checked="">
+                                                    <label for="demo-switch-3"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- ./Enable This Module -->
+                                    <!-- Default Class -->
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-xs-8">
+                                                <p class="mar-no">Default Class</p>
+                                                <small class="text-muted">Select a default class so that when the Class Data Module is loaded in your Dashboard it loads data from your chosen class.</small>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <div class="pull-right">
+                                                    <select id="demo-select2-placeholder" class="form-control">
+                                                        <optgroup label="2016-2017">
+                                                            <option value="C1">Class 1</option>
+                                                            <option value="C2">Class 2</option>
+                                                        </optgroup>
+                                                        <optgroup label="2015-2016">
+                                                            <option value="C3">Class 3</option>
+                                                            <option value="C4">Class 4</option>
+                                                            <option value="C5">Class 5</option>
+                                                            <option value="C6">Class 6</option>
+                                                        </optgroup>
+                                                        <optgroup label="2014-2015">
+                                                            <option value="C7">Class 7</option>
+                                                            <option value="C8">Class 8</option>
+                                                            <option value="C9">Class 9</option>
+                                                            <option value="C10">Class 10</option>
+                                                            <option value="C11">Class 11</option>
+                                                            <option value="C12">Class 12</option>
+                                                            <option value="C13">Class 13</option>
+                                                            <option value="C14">Class 14</option>
+                                                            <option value="C15">Class 15</option>
+                                                        </optgroup>
+                                                        <optgroup label="2013-2014">
+                                                            <option value="C16">Class 16</option>
+                                                            <option value="C17">Class 17</option>
+                                                            <option value="C18">Class 18</option>
+                                                            <option value="C19">Class 19</option>
+                                                            <option value="C20">Class 20</option>
+                                                            <option value="C21">Class 21</option>
+                                                            <option value="C22">Class 22</option>
+                                                            <option value="C23">Class 23</option>
+                                                            <option value="C24">Class 24</option>
+                                                            <option value="C25">Class 25</option>
+                                                            <option value="C26">Class 26</option>
+                                                            <option value="C27">Class 27</option>
+                                                            <option value="C28">Class 28</option>
+                                                            <option value="C29">Class 29</option>
+                                                            <option value="C30">Class 30</option>
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <!-- ./Default Class -->
+
+                                </ul>
+
+                                <ul class="list-group pad-btm bg-trans">
+                                    <li class="list-header"><p class="text-semibold text-main mar-no">Some Other Module</p></li>
+
+                                    <!-- Enable This Module -->
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <p class="mar-no">Enable This Module </p>
+                                                <small class="text-muted">Choose whether or not you want the Class Data Module to display on the Dashboard. </small>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <div class="pull-right">
+                                                    <input class="toggle-switch" id="demo-switch-3" type="checkbox" checked="">
+                                                    <label for="demo-switch-3"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- ./Enable This Module -->
+
+                                </ul>
+
+                            </div>
+                            <div class="panel-footer">
+                                <!-- Submit Button -->
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                                </div>
+                            </div>
+                        </section>
+                        <!--===================================================-->
+                        <!--End Horizontal Form-->
+                    }
+
+                </div>
+            </div>
+        </div>
+        <!-- ./Module Settings -->
+
+    </div>
+    <!-- ./Account Settings and Module Settings -->
+
+</div>

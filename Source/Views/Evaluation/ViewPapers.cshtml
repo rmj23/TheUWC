@@ -1,0 +1,203 @@
+@model Source.Models.ViewPaperViewModel
+@{
+    ViewBag.Title = "UploadSuccess";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+
+
+@section Styles {
+
+}
+
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-danger"></div>
+    <h1 class="ml-3">Student's Portfolio</h1>
+    @if (ViewBag.Message != null)
+    {
+        <h4 class="text-center text-success">@ViewBag.Message</h4>
+    }
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="card-title">
+                            @Model.Student.FirstName @Model.Student.LastName's Portfolio
+                            <i data-toggle="tooltip" data-placement="bottom" class="fas fa-sm fa-info-circle" title="To score a paper that appears in the students portfolio, click on the paper's title or No Results box. If the paper title is not listed click on upload paper."></i>
+                        </h3>
+                    </div>
+                    <a @*href="@Url.Action("UploadPaper", "Evaluation", new {CourseID = Model.CourseID, State = Source.Models.AStudentSelectionViewModel.StudentSelectionState.StudentSelected,
+                         StudentID = Model.Student.StudentID })"*@>
+                    </a>
+                    <div class="col">
+                        <button class="btn btn-greenJewel float-right">
+                            <i class="fas fa-plus"></i> Upload Paper
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="demo-dt-basic1" width="100%">
+                    <!-- Roster Table Headings -->
+                    <thead>
+                        <tr>
+                            <th>Paper Title</th>
+                            <th>Class</th>
+                            <th>Evaluation Period</th>
+                            <th>Upload Date</th>
+                            <th>Evaluation Date</th>
+                            <th>Proficiency Band</th>
+                            <th>Holistic Band</th>
+                            <th>View Paper</th>
+                            <th>View Results</th>
+                            <th>Tasks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Paper in Model.AllPapers)
+                        {
+                            <tr>
+
+                                <td>@Paper.PaperTitle - @Paper.paperType - @Paper.Draft</td>
+                                <td>@Paper.CourseName</td>
+                                <td>@Paper.evalDescription</td>
+                                <td>@Paper.uploadDate.ToShortDateString()</td>
+
+                                <!-- IF PAPER IS NOT EVALUATED THEN DISPLAY NO DATE-->
+                                @if (Paper.evaluationDate == null)
+                                {
+                                    <td>No Date</td>
+
+                                }
+                                // IF PAPER IS EVALUATED THEN DISPLAY DATE
+                                else
+                                {
+                                    <td>@Paper.evaluationDate.Value.ToShortDateString()</td>
+
+                                }
+
+                                <td>@Paper.ProficiencyLevel</td>
+                                <td>@Paper.HolisticScoreLetter</td>
+
+                                <td>
+                                    <div class="">
+                                        <!-- IF THERE IS NO PAPER DISPLAY NOT UPLOADED -->
+                                        @if (Paper.Paper == null)
+                                        {
+                                            <!-- Button trigger modal -->
+                                            <button class="btn btn-warning" onclick="NoPaper(@Paper.PaperID, @Paper.StudentID, @Paper.EvaluationPeriodID, @Paper.CourseID)" data-toggle="modal" data-target="#exampleModalCenter">
+                                                No Paper
+                                            </button>
+                                        }
+                                        // ELSE THERS IS A PAPER SO GIVE A LINK TO DOWNLOAD
+                                        else
+                                        {
+
+                                            <button class="btn btn-greenJewel" onclick="window.open('@Url.Action("ViewIndividualPaper", new { id = Paper.PaperID })', '_blank')">
+                                                Download
+                                            </button>
+
+
+                                        }
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="text-center">
+                                        @if (Paper.evaluationDate == null)
+                                        {
+
+                                            <button title="Evaluate Paper" class="btn btn-orangeRoughy" onclick="window.location.href = '@Url.Action("EvaluatePaper", new { PaperID = Paper.PaperID, PaperTypeID = Paper.paperTypeID, ClassID = Paper.CourseID, StudentID = Paper.StudentID })'">
+                                                No Results
+                                            </button>
+
+                                        }
+                                        else
+                                        {
+
+                                            <button title="View Results" class="btn btn-greenJewel" onclick="window.location.href = '@Url.Action("ViewResults", new { PaperID = Paper.PaperID })'">
+                                                View Results
+                                            </button>
+                                        }
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="btn-group">
+                                        <button data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-primary" title="Add a Goal" onclick="window.location.href = '@Url.Action("InsertStudentGoals", "Instruction", new { State = Source.Models.APaperResultsSelection.PaperResultSelection.PaperSelected, PaperID = Paper.PaperID, YearID = Paper.YearID, CourseID = Model.CourseID, StudentID = Model.Student.StudentID })'">
+                                            <i class="fas fa-bullseye"></i>
+                                        </button>
+
+                                        <!-- use ajax to delete the record -->
+                                        <button id="deletePaperBtn" data-toggle="tooltip" data-placement="bottom" type="submit" class="btn btn-outline-secondary" title="Delete paper" onclick=" var answer = confirm('Are you sure you want to delete this paper?'); if (answer == true) { window.location.href = '@Url.Action("DeletePaper", "Evaluation", new { paperID = Paper.PaperID, courseID = Paper.CourseID, studentID = Paper.StudentID, yearID = Paper.YearID })' } else { return false; }">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+
+                                        <!-- IF PAPER IS NOT EVALUATED THEN GIVE A LINK -->
+                                        @if (Paper.evaluationDate == null)
+                                        {
+                                            <button data-toggle="tooltip" data-placement="bottom" title="Evaluate Paper" class="btn btn-outline-danger" onclick="window.location.href = '@Url.Action("EvaluatePaper", new { PaperID = Paper.PaperID, PaperTypeID = Paper.paperTypeID, ClassID = Paper.CourseID, StudentID = Paper.StudentID })'">
+                                                <i class="far fa-file"></i>
+                                            </button>
+
+                                        }
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+@using (Html.BeginForm("UploadPaperDataOnly", "Evaluation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                @Html.HiddenFor(x => x.Paper.PaperID)
+                @Html.HiddenFor(x => x.Paper.StudentID)
+                @Html.HiddenFor(x => x.Paper.EvaluationPeriodID)
+                @Html.HiddenFor(x => x.Paper.CourseID)
+                @Html.HiddenFor(x => x.Paper.YearID)
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Upload Paper</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-main text-bold mar-no">Please select the file that you would like to upload.</p>
+                    <p>We currently accept <strong>.PDF, .DOC, .DOCX, .JPEG, .JPG, and .PNG</strong> file types for papers. The maximum size for papers is 5MB.</p>
+                    <p>We also accept <strong>.MP4, .MPEG, and .MOV</strong> file types for video assignments. The maximum size for videos is 500MB.</p>
+                    <input id="file" style="display: inline;" name="file" type="file" accept="application/pdf, .doc, .docx, .jpg, .png, .mp4, .mpeg, .mov, .ppt">
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group-justified text-center">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        <button id="submitBtn" type="submit" name="submit" class="btn btn-outline-primary">Upload Paper </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+
+    <script src="~/Scripts/Teacher/ViewPapers.js"></script>
+}

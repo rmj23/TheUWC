@@ -1,0 +1,107 @@
+﻿@model Source.Models.EditParentViewModel
+@{
+    ViewBag.Title = "Edit Parent Account";
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+
+        <div class="card">
+            <div class="card-heading">
+                <h3 class="card-title">
+                    @Model.Parent.FirstName @((Model.Parent.MiddleName == "") ? Model.Parent.LastName : Model.Parent.MiddleName + " " + Model.Parent.LastName)
+                </h3>
+            </div>
+
+            <!--Horizontal Form-->
+            <!--===================================================-->
+            @using (Html.BeginForm("EditParent", "Teacher", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => Model.Parent.ID)
+                @Html.HiddenFor(model => Model.StudentID)
+                @Html.HiddenFor(model => Model.CourseID)
+
+                <section class="form-horizontal">
+                    <div class="card-body">
+                        
+                        <!-- Parent Prefix Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentPrefix">Prefix: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.Parent.Prefix, new List<SelectListItem>() {
+                                    new SelectListItem {Text = "N/A", Value = "N/A", Selected = true},
+                                    new SelectListItem {Text = "Mr.", Value = "Mr."},
+                                    new SelectListItem {Text = "Mrs.", Value = "Mrs."},
+                                    new SelectListItem {Text = "Ms.", Value = "Mrs."},
+                                    new SelectListItem {Text = "Dr.", Value = "Dr."}
+                                }, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <!-- Parent First Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentFirstName">First Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.Parent.FirstName, new {@class = "form-control", @id = "parentFirstName", @name = "parentFirstName"})
+                            </div>
+                        </div>
+
+                        <!-- Parent Last Name Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentLastName">Last Name: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.Parent.LastName, new {@class = "form-control", @id = "parentLastName", @name = "parentLastName"})
+                            </div>
+                        </div>
+                        
+                        <!-- Parent Suffix Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentSuffix">Suffix: </label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(model => model.Parent.Suffix, new List<SelectListItem>() {
+                                    new SelectListItem {Text = "N/A", Value = "N/A", Selected = true},
+                                    new SelectListItem {Text = "Jr.", Value = "Jr."},
+                                    new SelectListItem {Text = "Sr.", Value = "Sr."}
+                                }, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        
+                        <!-- Parent Email Field -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="parentEmail">Email: </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.Parent.Email, new { @class = "form-control", @id = "parentEmail", @name = "parentEmail" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-default">Update Parent</button>
+                        </div>
+                    </div>
+                </section>
+            }
+            <!--===================================================-->
+            <!--End Horizontal Form-->
+
+        </div>
+
+    </div>
+
+</div>
+

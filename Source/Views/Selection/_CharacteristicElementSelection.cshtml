@@ -1,0 +1,19 @@
+﻿@model Source.Models.ACharacteristicElementSelectionViewModel
+
+@Html.HiddenFor(model => model.State)
+
+<!-- Element Selection Field-->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="element">Element: </label>
+    <div class="col-sm-6">
+        @Html.DropDownListFor(model => model.ElementID, Model.ElementDropDown, new { @class = "form-control", onchange = "$('#State').val('ElementSelected');this.form.submit();"})
+    </div>
+</div>
+<!-- Characteristic Selection Field-->
+<div class="form-group">
+    <label class="col-sm-3 control-label" for="element">Element: </label>
+    <div class="col-sm-6">
+        @Html.DropDownListFor(model => model.CharacteristicID, Model.CharacteristicDropDown, new { @class = "form-control"})
+    </div>
+</div>
+

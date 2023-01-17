@@ -1,0 +1,46 @@
+﻿[
+  {
+    "outputFile": "Styles/Custom.css",
+    "inputFile": "Styles/Custom.scss"
+  },
+  {
+    "outputFile": "Styles/Main.css",
+    "inputFile": "Styles/Main.scss"
+  },
+  {
+    "outputFile": "Styles/Public/main.css",
+    "inputFile": "Styles/Public/main.scss"
+  },
+  {
+    "outputFile": "Styles/Teacher/main.css",
+    "inputFile": "Styles/Teacher/main.scss"
+  },
+  {
+    "outputFile": "Content/chartist-js-master/css/chartist.css",
+    "inputFile": "Content/chartist-js-master/css/chartist.scss"
+  },
+  {
+    "outputFile": "Content/chartist-js/scss/chartist.css",
+    "inputFile": "Content/chartist-js/scss/chartist.scss"
+  },
+  {
+    "outputFile": "Content/chartist-js/scss/settings/_chartist-settings.css",
+    "inputFile": "Content/chartist-js/scss/settings/_chartist-settings.scss"
+  },
+  {
+    "outputFile": "Content/chartist-js-master/dist/scss/chartist.css",
+    "inputFile": "Content/chartist-js-master/dist/scss/chartist.scss"
+  },
+  {
+    "outputFile": "Styles/Public/main2.css",
+    "inputFile": "Styles/Public/main2.scss"
+  },
+  {
+    "outputFile": "Bundles/ChartistJS/dist/scss/chartist.css",
+    "inputFile": "Bundles/ChartistJS/dist/scss/chartist.scss"
+  },
+  {
+    "outputFile": "Styles/Student/Student.css",
+    "inputFile": "Styles/Student/Student.scss"
+  }
+]

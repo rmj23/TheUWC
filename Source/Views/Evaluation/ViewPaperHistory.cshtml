@@ -1,0 +1,148 @@
+﻿@model Source.Models.ViewPaperViewModel
+@{
+    ViewBag.Title = "View Papers";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+    ViewBag.Foo = "Student's";
+}
+
+@section Styles {
+
+}
+
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+    <div class="p-3 mb-2 bg-warning"></div>
+    <h1 class="ml-1 ml-md-3">
+        <a class="link-header" @*href="@Url.Action("ViewPortfolio",
+                     new {State = Source.Models.ACourseStudentYearSelectionViewModel.CourseStudentYearSelectionState.CourseSelected,
+                         StudentID = Model.Student.StudentID,
+                         CourseID = Model.CourseID,
+                         YearID = Model.YearID
+                     })"*@>Student Paper History</a>
+    </h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container">
+        <!-- View Papers Table -->
+        <!-- Basic Data Tables -->
+        <!--===================================================-->
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <h3 class="col card-title">@Model.Student.FirstName @Model.Student.LastName - Papers</h3>
+                    <div class="col">
+                        <a href="@Url.Action("UploadPaper", "Evaluation")" class="btn btn-greenJewel float-right">
+                            <i class="fa fa-plus"></i> Upload Paper
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="viewPapersTable" width="100%">
+                    <!-- View Papers Table Headings -->
+                    <thead>
+                        <tr>
+                            <th>Paper Title</th>
+                            <th>Evaluation Period</th>
+                            @*<th>Upload Date</th>*@
+                            <th>Evaluation Date</th>
+                            <th>Class</th>
+                            <th>Holistic Band</th>
+                            <th>View Paper</th>
+                            <th>View Results</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Paper in Model.StudentPaperHistory)
+                        {
+                            if (Paper.Paper == null)
+                            {
+                                if (Paper.evaluationDate != null)
+                                {
+                                    <tr>
+                                        <td>@Paper.PaperTitle - @Paper.paperType - @Paper.Draft</td>
+                                        <td>@Paper.evalDescription</td>
+                                        @*<td>@Paper.uploadDate.ToShortDateString()</td>*@
+                                        <td>@Paper.evaluationDate.Value.ToShortDateString()</td>
+                                        <td>@Paper.CourseTitle</td>
+                                        <td>@Paper.HolisticScoreLetter</td>
+                                        <td><span class="text-danger font-weight-bold">Not Uploaded</span></td>
+                                        <td><button class="btn btn-outline-success">@Html.ActionLink("View Results", "ViewResults", new { PaperID = Paper.PaperID })</button></td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    string title = Paper.PaperTitle.ToString() + Paper.paperType.ToString() + Paper.Draft.ToString();
+
+                                    <tr>
+                                        <td>@Html.ActionLink(title, "EvaluatePaper", new { PaperID = Paper.PaperID, PaperTypeID = Paper.paperTypeID, ClassID = Model.CourseID })</td>
+                                        <td>@Paper.evalDescription</td>
+                                        @*<td>@Paper.uploadDate.ToShortDateString()</td>*@
+                                        <td>@Paper.evaluationDate</td>
+                                        <td>@Paper.CourseTitle</td>
+                                        <td>@Paper.HolisticScoreLetter</td>
+                                        <td><span class="text-danger font-weight-bold">Not Uploaded</span></td>
+                                        <td><span class="text-danger font-weight-bold">No Results</span></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                if (Paper.evaluationDate != null)
+                                {
+                                    <tr>
+                                        <td>@Paper.PaperTitle - @Paper.paperType - @Paper.Draft</td>
+                                        <td>@Paper.evalDescription</td>
+                                        @*<td>@Paper.uploadDate.ToShortDateString()</td>*@
+                                        <td>@Paper.evaluationDate.Value.ToShortDateString()</td>
+                                        <td>@Paper.CourseTitle</td>
+                                        <td>@Paper.HolisticScoreLetter</td>
+                                        <td><button class="btn btn-outline-success">@Html.ActionLink("Download", "ViewIndividualPaper", new { id = Paper.PaperID })</button></td>
+                                        <td><button class="btn btn-outline-success">@Html.ActionLink("View Results", "ViewResults", new { PaperID = Paper.PaperID })</button></td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    string title = Paper.PaperTitle.ToString() + Paper.paperType.ToString() + Paper.Draft.ToString();
+
+                                    <tr>
+                                        <td>@Html.ActionLink(title, "EvaluatePaper", new { PaperID = Paper.PaperID, PaperTypeID = Paper.paperTypeID, ClassID = Model.CourseID })</td>
+                                        <td>@Paper.evalDescription</td>
+                                        @*<td>@Paper.uploadDate.ToShortDateString()</td>*@
+                                        <td>@Paper.evaluationDate</td>
+                                        <td>@Paper.CourseTitle</td>
+                                        <td>@Paper.HolisticScoreLetter</td>
+                                        <td><span class="text-danger font-weight-bold">Not Uploaded</span></td>
+                                        <td><span class="text-danger font-weight-bold">No Results</span></td>
+                                    </tr>
+                                }
+                            }
+
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--===================================================-->
+    <!-- End Striped Table -->
+
+</div>
+@section Scripts {
+    <script>
+        $("#viewPapersTable").dataTable({
+            responsive: true,
+            "columnDefs": [{
+                "targets": [5, 6],
+                "orderable": false,
+                "width": "115px"
+            }]
+        });
+    </script>
+}

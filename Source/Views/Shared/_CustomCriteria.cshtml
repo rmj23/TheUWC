@@ -1,0 +1,336 @@
+﻿@model Source.Models.InsertProjectViewModel
+
+<!-- Panel-->
+<div class="panel">
+    <!-- Panel Heading -->
+    <div class="panel-heading">
+        <h3 class="panel-title">Custom Continuum Creator</h3>
+    </div>
+
+    <!-- Panel Body-->
+    <div class="panel-body">
+        <div class="form-horizontal">
+
+            <!-- Continuum Shift Controls -->
+            <div class="row">
+                <div class="col-xs-3 text-left">
+                    <button type="button" class="btn btn-default" id="btn-shift-left"><i class="fa fa-chevron-left" style="color: #BE4916"></i></button>
+                </div>
+                <div class="col-xs-6 text-center">
+                    <h3 class="text-main">
+                        @Model.CustomContinuum.CustomContinuumRow[0].Characteristic
+                    </h3>
+                </div>
+                <div class="col-xs-3 text-right">
+                    <button type="button" class="btn btn-default text-right btn-shift-right" onclick="javascript: void (0);"><i class="fa fa-chevron-right" style="color: #1E5F8B"></i></button>
+                </div>
+            </div>
+            @{ int grade = Model.ClassInfo.GradeNumber;
+                int date = DateTime.Now.Month;
+
+                <!-- TESTING 
+                <p>grade before: grade</p>
+                <p>semester: Model.ClassInfo.SemesterType</p>
+                -->
+                // continuum standards
+
+                // if it is a year long course
+                if (Model.ClassInfo.SemesterType == 1)
+                {
+                    // if it is a kindergarden class adjust time
+                    if (Model.ClassInfo.GradeNumber == 2)
+                    {
+                        // if it is between July and Oct
+                        if (date >= 7 && date <= 10)
+                        {
+                            grade = grade - 1;
+                        }
+                        // if it is between nov and feb
+                        else if (date == 11 || date == 12 || date == 1 || date == 2)
+                        {
+                            // grade stays the same
+                        }
+                        // if it is between march and june
+                        else if (date >= 3 && date <= 6)
+                        {
+                            grade = grade + 1;
+                        }
+                    }
+                    // if it is a first grade class til nineth grade
+                    else if (Model.ClassInfo.GradeNumber >= 3 && Model.ClassInfo.GradeNumber <= 11)
+                    {
+                        // if it is between july and dec
+                        if (date >= 7 && date <= 12)
+                        {
+                            // grade stays the same
+                        }
+                        else if (date >= 1 && date <= 6)
+                        {
+                            grade = grade + 1;
+                        }
+                    }
+
+                }
+                <!-- testing
+                <p>grade: grade</p>
+                <p>date: date</p>
+                -->
+                }
+            
+            <table class="table table-bordered table-hover table-responsive toggle-circle" id="customCriteriaTable">
+                <thead>
+                    <tr>
+
+                        @foreach (var column in Model.CustomContinuum.CustomContinuumRow)
+                        {
+                            
+
+                            string setView = "";
+                            // hightlights item if it is not the first or last
+                            if (grade != 1)
+                            {
+                                if (column.LevelID == grade)
+                                {
+                                    setView = "active";
+                                }
+                                else if (column.LevelID == grade - 1)
+                                {
+                                    setView = "prevActive";
+                                }
+                                else if (column.LevelID == grade+ 1)
+                                {
+                                    setView = "postActive";
+                                }
+                                else
+                                {
+                                    setView = "";
+                                }
+                            }
+                            //hightlights very first item in continuum
+                            else if (grade == 1)
+                            {
+                                if (column.LevelID == grade)
+                                {
+                                    setView = "active";
+                                }
+                                else if (column.LevelID == grade + 1)
+                                {
+                                    setView = "postActive";
+                                }
+                                else if (column.LevelID == grade + 2)
+                                {
+                                    setView = "postPostActive";
+                                }
+                                else
+                                {
+                                    setView = "";
+                                }
+                            }
+                            //highlights last item in continuum
+                            else if (grade == 14)
+                            {
+                                if (column.LevelID == grade)
+                                {
+                                    setView = "active";
+                                }
+                                else if (column.LevelID == grade - 1)
+                                {
+                                    setView = "prevActive";
+                                }
+                                else if (column.LevelID == grade - 2)
+                                {
+                                    setView = "prevPrevActive";
+                                }
+                                else
+                                {
+                                    setView = "";
+                                }
+                            }
+                            @* Table head for A - N and description of Grade Periods *@
+                            <th data-sort-ignore="true" class="continuumContentHeader text-center @setView">
+
+                                @column.Level<br />
+                                @column.TimeFrame
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                        @foreach (var column in Model.CustomContinuum.CustomContinuumRow)
+                        {
+                            string temp = "";
+                            string profLevel = "";
+                            string backgroundColor = "";
+                            // if grade level is not the first or last in the continuum
+                            if (grade != 1)
+                            {
+                                if (column.LevelID == grade)
+                                {
+                                    temp = "active";
+                                    profLevel = "Proficient";
+                                    backgroundColor = "bg-greenJewel";
+
+                                }
+                                else if (column.LevelID == grade - 1)
+                                {
+                                    temp = "prevActive";
+                                    profLevel = "Basic";
+                                    backgroundColor = "bg-yellowFuel";
+                                }
+                                else if (column.LevelID == grade + 1)
+                                {
+                                    temp = "postActive";
+                                    profLevel = "Advanced";
+                                    backgroundColor = "bg-blueTradewind";
+                                }
+                                else if (column.LevelID < grade - 1)
+                                {
+                                    temp = "";
+                                    profLevel = "Below Basic";
+                                    backgroundColor = "bg-orangeRoughy";
+                                }
+
+                                else if (column.LevelID > grade+ 1)
+                                {
+                                    temp = "";
+                                    profLevel = "Advanced+";
+                                    backgroundColor = "bg-blueBluemine";
+                                }
+                            }
+                            // if grade level is the first in the continuum
+                            else if (grade == 1)
+                            {
+                                if (column.LevelID == grade)
+                                {
+                                    temp = "active";
+                                    profLevel = "Proficient";
+                                    backgroundColor = "bg-greenJewel";
+                                }
+                                else if (column.LevelID == grade + 1)
+                                {
+                                    temp = "postActive";
+                                    profLevel = "Advanced";
+                                    backgroundColor = "bg-blueTradewind";
+                                }
+                                else if (column.LevelID == grade+ 2)
+                                {
+                                    temp = "postPostActive";
+                                    profLevel = "Advanced+";
+                                    backgroundColor = "bg-blueBluemine";
+                                }
+                                else
+                                {
+                                    temp = "";
+                                    profLevel = "Advanced+";
+                                    backgroundColor = "bg-blueBluemine";
+                                }
+                            }
+                            // if grade level is the last in the continuum
+                            else if (grade == 14)
+                            {
+                                if (column.LevelID == grade)
+                                {
+                                    temp = "active";
+                                    profLevel = "Proficient";
+                                    backgroundColor = "bg-greenJewel";
+                                }
+                                else if (column.LevelID == grade - 1)
+                                {
+                                    temp = "prevActive";
+                                    profLevel = "Basic";
+                                    backgroundColor = "bg-yellowFuel";
+                                }
+                                else if (column.LevelID == grade - 2)
+                                {
+                                    temp = "prevPrevActive";
+                                    profLevel = "Below Basic";
+                                    backgroundColor = "bg-orangeRoughy";
+                                }
+                                else
+                                {
+                                    temp = "";
+                                    profLevel = "Below Basic";
+                                    backgroundColor = "bg-orangeRoughy";
+                                }
+                            }
+                            <td class="@backgroundColor continuumContent text-center @temp">
+                                <p style="color: white">@profLevel</p>
+                                
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="min-height: 20em;">
+                        @for (int i = 0; i < Model.CustomContinuum.CustomContinuumRow.Count; i++)
+                        {
+                            string setView = "";
+                            if (grade != 1)
+                            {
+                                if (Model.CustomContinuum.CustomContinuumRow[i].LevelID == grade)
+                                {
+                                    setView = "active";
+                                }
+                                else if (Model.CustomContinuum.CustomContinuumRow[i].LevelID == grade - 1)
+                                {
+                                    setView = "prevActive";
+                                }
+                                else if (Model.CustomContinuum.CustomContinuumRow[i].LevelID == grade+ 1)
+                                {
+                                    setView = "postActive";
+                                }
+                                else
+                                {
+                                    setView = "";
+                                }
+                            }
+                            else if (grade == 1)
+                            {
+                                if (Model.CustomContinuum.CustomContinuumRow[i].LevelID == grade)
+                                {
+                                    setView = "active";
+                                }
+                                else if (Model.CustomContinuum.CustomContinuumRow[i].LevelID == grade + 1)
+                                {
+                                    setView = "postActive";
+                                }
+                                else if (Model.CustomContinuum.CustomContinuumRow[i].LevelID == grade + 2)
+                                {
+                                    setView = "postPostActive";
+                                }
+                                else
+                                {
+                                    setView = "";
+                                }
+                            }
+                            else if (grade == 14)
+                            {
+                                if (Model.CustomContinuum.CustomContinuumRow[i].LevelID == grade)
+                                {
+                                    setView = "active";
+                                }
+                                else if (Model.CustomContinuum.CustomContinuumRow[i].LevelID == grade - 1)
+                                {
+                                    setView = "prevActive";
+                                }
+                                else if (Model.CustomContinuum.CustomContinuumRow[i].LevelID == grade - 2)
+                                {
+                                    setView = "prevPrevActive";
+                                }
+                                else
+                                {
+                                    setView = "";
+                                }
+                            }
+                            <td class="continuumFooter @setView">
+                                @Html.TextAreaFor(model => model.CustomContinuum.CustomContinuumRow[i].Guideline, new { @style = "width: 100%; height: 20em;" })
+                            </td>
+                        }
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

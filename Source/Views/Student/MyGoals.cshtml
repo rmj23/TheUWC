@@ -1,0 +1,118 @@
+﻿@model Source.Models.MyGoalsViewModel
+@{
+    ViewBag.Title = "My Goals";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+@section Styles {
+
+    <!-- Footable CSS -->
+    <link href="@Url.Content("~/Bundles/Footable/css/footable.core.css")" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <!-- Footable JS -->
+    <script src="@Url.Content("~/Bundles/Footable/js/footable.all.min.js")"></script>
+}
+
+@section RenderBlockingScripts {
+
+    <script>
+        $(function () {
+
+            $('#tableStudentGoals').DataTable({
+                responsive: true,
+                "paging": true
+            });
+        });
+    </script>
+}
+
+<!-- Page Title -->
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+<!-- Main Content -->
+<div id="page-content">
+    <div class="container-fluid">
+        <!-- Student Goals card -->
+        <div class="card">
+            <!-- card Heading -->
+            <div class="card-header">
+                <h3 class="card-title">
+                    All of @ViewBag.Title
+                </h3>
+            </div>
+            <!-- card Body -->
+            <div class="card-body">
+                <!-- Class Goals Table -->
+                @if (Model.SelectStudentGoals.Count > 0)
+                {
+                    <table id="tableStudentGoals" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+
+                        <!-- Table Headings -->
+                        <thead>
+                            <tr>
+                                <th>Paper Title</th>
+                                <th>Course</th>
+                                <th>Writing Element</th>
+                                <th>Goal Description</th>
+                                <th data-sort-initial="descending">Date Assigned</th>
+                                <th data-sort-ignore="true">Deadline</th>
+                                <th data-sort-ignore="true">Date Completed</th>
+                            </tr>
+                        </thead>
+
+
+
+                        <!-- Table Content -->
+                        <tbody>
+                            @foreach (var x in Model.SelectStudentGoals)
+                            {
+                                if (x.DateFinished == null)
+                                {
+                                    <tr>
+
+                                        <td>@x.GoalPaperTitle</td>
+                                        <td>@x.CourseTitle</td>
+                                        <td>@x.GoalScoreType</td>
+                                        <td>@x.Description</td>
+                                        <td>@x.DateAdded.ToShortDateString()</td>
+                                        <td>@x.DeadlineDate.Value.ToShortDateString()</td>
+                                        <td>Not Completed</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@x.GoalPaperTitle</td>
+                                        <td>@x.CourseTitle</td>
+                                        <td>@x.GoalScoreType</td>
+                                        <td>@x.Description</td>
+                                        <td>@x.DateAdded.ToShortDateString()</td>
+                                        <td>@x.DeadlineDate.Value.ToShortDateString()</td>
+                                        <td>@x.DateFinished.Value.ToShortDateString()</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+
+
+
+                    </table>
+                }
+                else
+                {
+                    <div>
+                        <p>No goals have been assigned yet.</p>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

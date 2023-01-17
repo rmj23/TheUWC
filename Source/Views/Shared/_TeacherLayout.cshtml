@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>The Universal Writing Continuum - @ViewBag.Title</title>
+
+    <!--Favicon-->
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+
+    <!-- Regular Meta Info - used by search engines and browsers -->
+    <!-- COMMON TAGS -->
+    <meta charset="utf-8">
+    <title>The Universal Writing Continuum</title>
+
+    <!-- Search Engine -->
+    <meta name="description" content="The Universal Writing Continuum. Inspiring K-12 Writers. Share experiences, teach students to think and reflect, and writing will improve.  Add a knowledgeable teacher who provides demonstrations, gives meaningful feedback,  and encourages risk taking, and writing will soar.">
+    <meta name="image" content="https://test-writingcontinuum.azurewebsites.net/Images/stock/LogoColors.png">
+
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="The Universal Writing Continuum">
+    <meta itemprop="description" content="The Universal Writing Continuum. Inspiring K-12 Writers. Share experiences, teach students to think and reflect, and writing will improve.  Add a knowledgeable teacher who provides demonstrations, gives meaningful feedback,  and encourages risk taking, and writing will soar.">
+    <meta itemprop="image" content="https://test-writingcontinuum.azurewebsites.net/Images/stock/LogoColors.png">
+
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta name="og:title" content="The Universal Writing Continuum">
+    <meta name="og:description" content="The Universal Writing Continuum. Inspiring K-12 Writers. Share experiences, teach students to think and reflect, and writing will improve.  Add a knowledgeable teacher who provides demonstrations, gives meaningful feedback,  and encourages risk taking, and writing will soar.">
+    <meta name="og:image" content="https://test-writingcontinuum.azurewebsites.net/Images/stock/LogoColors.png">
+    <meta name="og:type" content="website">
+
+    <!-- Boostrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link href="~/Styles/Teacher/main.min.css" rel="stylesheet" />
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- data tables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-print-1.5.6/r-2.2.2/datatables.min.css" />
+
+    <!-- Page CSS-->
+    @RenderSection("Styles", false)
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="welcomeUserHeader">
+                <h5 class="my-auto">Hello @Convert.ToString(Session["UserFirstName"] + " " + Session["UserLastName"])!</h5>
+            </div>
+            <ul class="list-unstyled components">
+                <li class="sideNavHeaders">Navigation</li>
+                <li>
+                    <a href="@Url.Action("Dashboard", "Teacher")" class="sideNavLinks">
+                        <i class="fas fa-home fa-sm"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sideNavHeaders">Management</li>
+                <li>
+                    <a href="#ManageClassMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="classMenu">
+                        <i class="fas fa-circle fa-sm" style="color: #6ca9b0;"></i>
+                        <span>Manage Class</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="ManageClassMenu">
+                        <li>
+                            <a href="@Url.Action("AddClass", "Teacher")">
+                                <span class="dropDownLinks">Add Class</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("UpdateRoster", "Teacher")">
+                                <span class="dropDownLinks">Update District Roster</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("EnrollStudent", "Teacher")">
+                                <span class="dropDownLinks">Enroll Student</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ParentStudentAccounts", "Teacher")">
+                                <span class="dropDownLinks">Student/Parent Accounts</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#EvalMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="evalMenu">
+                        <i class="fas fa-circle fa-sm" style="color: #be4916;"></i>
+                        <span>Evaluation</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="EvalMenu">
+                        <li>
+                            <a href="@Url.Action("UploadPaper", "Evaluation")">
+                                <span class="dropDownLinks">Upload Paper</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ViewPortfolio", "Evaluation")">
+                                <span class="dropDownLinks">Student Portfolios</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#ReportsMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="reportsMenu">
+                        <i class="fas fa-circle fa-sm" style="color: #ebae26;"></i>
+                        <span>Reports</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="ReportsMenu">
+                        <li>
+                            <a href="@Url.Action("ClassData", "Evaluation")">
+                                <span class="dropDownLinks">Class Data</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("StudentProgress", "Teacher")">
+                                <span class="dropDownLinks">Student Progress</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("BenchmarkReports", "Teacher")">
+                                <span class="dropDownLinks">Benchmark Reports</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#InstructionMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="instructionMenu">
+                        <i class="fas fa-circle fa-sm" style="color: #12723a;"></i>
+                        <span>Instruction</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="InstructionMenu">
+                        <li>
+                            <a href="@Url.Action("ViewClassGoals", "Instruction")">
+                                <span class="dropDownLinks">Class Goals</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ViewStudentGoals", "Instruction")">
+                                <span class="dropDownLinks">Student Goals</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("LessonPlans", "Teacher")">
+                                <span class="dropDownLinks">Lesson Plans</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("InteractiveMentorTexts", "Instruction")">
+                                <span class="dropDownLinks">Interactive Mentor Texts</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ViewEngagement", "Instruction")">
+                                <span class="dropDownLinks">Engagements</span>
+                            </a>
+                        </li>
+                        @*<li>
+                                <a href="@Url.Action("ProjectIdeas", "Instruction")">
+                                    <span class="dropDownLinks">Project Ideas</span>
+                                </a>
+                            </li>*@
+                        @*<li>
+                                <a href="@Url.Action("CulminatingActivites", "Instruction")">
+                                    <span class="dropDownLinks">Culminating Activities</span>
+                                </a>
+                            </li>*@
+                        <li>
+                            <a href="@Url.Action("ConferenceNotes", "Instruction")">
+                                <span class="dropDownLinks">Conference Notes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @*<li>
+                        <a href="#BookshelfMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="bookshelfMenu">
+                            <i class="fas fa-circle fa-sm" style="color: mediumpurple;"></i>
+                            <span>Bookshelf</span>
+                            <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                        </a>
+                        <ul class="collapse list-unstyled" id="BookshelfMenu">
+                            <li>
+                                <a href="@Url.Action("BookshelfRequestQueue", "Teacher")">
+                                    <span class="dropDownLinks">Request Queue</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ViewBookShelf", "Student")">
+                                    <span class="dropDownLinks">View Bookshelf</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>*@
+                <li>
+                    <a href="#ResourcesMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="resourcesMenu">
+                        <i class="fas fa-circle fa-sm" style="color: #1e5f8b;"></i>
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="ResourcesMenu">
+                        <li>
+                            <a href="#AnchorPapers" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" style="margin: 0px;" id="anchorPaperMenu">
+                                <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                <span class="dropDownLinks">Anchor Papers</span>
+                            </a>
+                            <ul class="collapse list-unstyled" id="AnchorPapers">
+                                <li>
+                                    <a href="#APapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="apapers">
+                                        <span>A</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="APapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("A1.Narr.Three Billy Goats Gruff.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>A1 (Narrative)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("A2.Opin.You Are My Best Teacher.pdf", "Content/Teacher/Resources/AnchorPapers")', '_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>A2 (Opinion)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("A3.Infor.Orange Pumpkin.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>A3 (Informational)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#BPapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="bpapers">
+                                        <span>B</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="BPapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("B1.Opinion.I want to play baseball .pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>B1 (Opinion)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("B2.Narr.At School Today.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>B2 (Narrative)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("B3.Infor.Whales see with their ears.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>B3 (Informational)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#CPapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="cpapers">
+                                        <span>C</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="CPapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("C1.Opinion.TheRainbow.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>C1 (Opinion)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("C1. Narrative.My Kitten.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>C1 (Narrative)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("C2.Narrative.A story.A Bird Is a Bird.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>C2 (Narrative)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("C3.Narrative.Sheldon the Turtle.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>C3 (Narrative)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("C3.The Snake Book. Informational.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>C3 (Informational)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#DPapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="dpapers">
+                                        <span>D</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="DPapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("D1.Opinion.Reading.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>D1 (Argument)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("D3.Informational.Recipe for a Smoothie.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>D3 (Informational)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("A1.Narr.Three Billy Goats Gruff.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>D (Informational)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#EPapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="epapers">
+                                        <span>E</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="EPapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("E1.Argumentative.Nature in the Woods.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>E1 (Argumentative)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("E1.Informational.Nature in the Woods.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>E1 (Informational)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("E2.Narrative.Doug Dracula, the Pizza-eater.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>E2 (Narrative)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("E3. Informational.Diabetes.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>E3 (Informational)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("E.Response.Nana Upstairs and Nana Downstairs.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>E4 (Response)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#FPapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="fpapers">
+                                        <span>F</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="FPapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("F.Informational.Recreation in the future.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>F (Informational)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#GPapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="gpapers">
+                                        <span>G</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="GPapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("G.Opinion.Recycling will save the earth.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>G (Argumentative)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("G. Narrative.Gemstone Mining with Dad.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>G (Narrative)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#HPapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="hpapers">
+                                        <span>H</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="HPapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("H.Narrative.Battle Cry of Freedom.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>H (Narrative)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#IPapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="ipapers">
+                                        <span>I</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="IPapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("I.Argument.Letter to State Board of Education.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>I (Argumentative)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#JPapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="jpapers">
+                                        <span>J</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="JPapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("J.Poetry.Maria.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>J (Narrative)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#KPapers" data-toggle="collapse" aria-expanded="false" class="dropDownLinks" id="kpapers">
+                                        <span>K</span>
+                                        <i class="fas fa-chevron-down fa-xs customArrow"></i>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="KPapers">
+                                        <li>
+                                            <a class="anchorPaperLinks" href="#" onclick="window.open('@Url.Action("K.Argument.Risks Due to Obesity.pdf", "Content/Teacher/Resources/AnchorPapers")','_blank', 'location=yes,height=570, width=520, scrollbar = yes, status =yes')">
+                                                <span>K (Argumentative)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Glossary","Teacher")">
+                                <span class="dropDownLinks">Glossary</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("GraphicOrganizers","Teacher")">
+                                <span class="dropDownLinks">Graphic Organizers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("StudentChecklist","Teacher")">
+                                <span class="dropDownLinks">Students Self-Evaluation</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("WritingStandards","Teacher")">
+                                <span class="dropDownLinks">CCSS Standards</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#HelpMenu" data-toggle="collapse" aria-expanded="false" class="sideNavLinks" id="helpMenu">
+                        <i class="fas fa-book fa-sm"></i>
+                        <span>Help Center</span>
+                        <i class="fas fa-chevron-down fa-sm customArrow"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="HelpMenu">
+                        <li>
+                            <a href="@Url.Action("HelpVideos","Teacher")">
+                                <span class="dropDownLinks">Help Videos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Frequently Asked Questions.pdf","Content/Teacher/Resources")" target="_blank">
+                                <span class="dropDownLinks">Frequently Asked Questions</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="text-center mt-3 footer" style="font-size: 12px; color: #747e88;">Copyright&copy; 2011-@DateTime.Now.Year Uni-Spire</li>
+            </ul>
+        </nav>
+        <!-- top navigation-->
+        <div class="content">
+            <nav class="navbar navbar-expand fixed-top">
+                <div class="form-inline">
+                    <button class="btn btn-sm btn-outline-secondary mr-1" type="button" id="sidebarCollapse">
+                        <i class="fas fa-align-justify fa-lg"></i>
+                    </button>
+                    <span style="color: grey;" class="my-auto mr-1">
+                        <i class="fas fa-ellipsis-v fa-sm"></i>
+                    </span>
+                    <a class="navbar-brand mb-1" href="@Url.Action("Index", "Home")" target="_blank">
+                        <img src="~/Images/logo.png" alt="Uni-Spire Logo" class="navbar-logo" />
+                    </a>
+                </div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user fa-lg"></i>  @Convert.ToString(Session["UserFirstName"] + " " + Session["UserLastName"])
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-id-badge fa-sm col-xs"></i>
+                                <span class="col-sm-1">Profile</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-envelope fa-sm col-xs"></i>
+                                <span class="col-sm-1">Messages</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-exclamation fa-sm col-xs"></i>
+                                <span class="col-sm-1">Notifications</span>
+                            </a>
+                            <div class="dropdown-item">
+                                <div class="btn-group-justified">
+                                    <button class="btn btn-primary" onclick="window.location.href = '@Url.Action("Settings", "Teacher")';"@*onclick="alert('New feature  coming soon to help you manage your class much easier!! :)')"*@>
+                                        <i class="fas fa-cog"></i> Settings
+                                    </button>
+                                    <button class="btn btn-danger" onclick="window.location.href = '@Url.Action("Logout", "Authentication")'">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div id="" class="mainContent">
+            <div>
+                @RenderBody()
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Blocking Scripts-->
+    @RenderSection("RenderBlockingScripts", false)
+
+    <!-- Jquery-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <!-- jquery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+    <!-- DataTables-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-print-1.5.6/r-2.2.2/datatables.min.js"></script>
+    <!-- bootstrap 4-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- jquery scrollbar-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="~/Scripts/Shared/sideBarNav.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <!-- Page Scripts -->
+    @RenderSection("Scripts", false)
+
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+﻿@using Newtonsoft.Json
+@model Source.Models.ChartSelectionViewModel
+@{
+    bool NullCondition = false;
+}
+<!-- Main Content -->
+<h1 class="ml-1 mt-3">Class Holistic Data</h1>
+<!-- Class Data Module -->
+<div class="row">
+    <div class="col-6">
+        <div class="card h-100">
+            <div class="card-header">
+                @*<h3 class="panel-title">Class Data</h3>*@
+                <!-- Controls -->
+                @using (Html.BeginForm("Dashboard", "Teacher", FormMethod.Post))
+                {
+                    <div>
+                        <br />
+                        @Html.HiddenFor(model => model.State)
+                        <!-- Class Selection Field -->
+                        <div class="form-group row">
+                            @*//replaced to allow more freedom for styling/alignment
+                        <label class="col-sm-3 control-label" for="class">Class: </label> *@
+                            <h4 class="label">Class:</h4>
+                            <div class="">
+
+                                @Html.DropDownListFor(model => Model.CourseID, Model.CourseDropDown,
+                                    new
+                                    {
+                                        @class = "form-control",
+                                        onchange = "$('#State').val('CourseSelected');this.form.submit();"
+                                    })
+
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Evaluation Period Selection Field -->
+                        <div class="form-group row">
+                            @*//replaced to allow more freedom for styling/alignment
+                        <label class="col-sm-3 control-label" for="evaluationPeriod">Evaluation Period: </label>*@
+                            <h4 class="label">Evaluation Period:</h4>
+                            <div class="">
+
+                                @Html.DropDownListFor(model => Model.EvalPeriodID, Model.EvaluationPeriodDropDown,
+                                    new
+                                    {
+                                        @class = "form-control",
+                                        onchange = "$('#State').val('EvalPeriodSelected');this.form.submit();"
+                                    })
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+
+            @* Checking to see if the chart ain't gonna work like we need it (ie no papers or null model) *@
+
+            @*@if (Model.LevelList == null)
+            {
+                NullCondition = true;
+            }
+            @try
+            {
+                int x = Model.LevelList[0].Count + Model.LevelList[1].Count + Model.LevelList[2].Count + Model.LevelList[3].Count + Model.LevelList[4].Count;
+                if (x == 0)
+                {
+                    NullCondition = true;
+                }
+            }
+            catch
+            {
+                NullCondition = true;
+            }
+
+            @if (!(NullCondition))
+            {
+
+
+
+                <div class="card-body">
+                    <canvas id="classDataChart"></canvas>
+                </div>
+
+                <div class="card-footer text-center">
+                    @Html.ActionLink("View Data", "ClassData", "Evaluation", new
+               {
+                   @State = "EvalPeriodSelected",
+                   @YearID = Model.YearID,
+                   @CourseID = Model.CourseID,
+                   @EvalPeriodID = Model.EvalPeriodID
+               },
+                        new { @class = "btn btn-default" })
+                    <button type="button" class="btn btn-default btn-print">Print Chart</button>
+                </div>
+            }
+            else
+            {
+                <div class="card-body">
+                    <div class="ct-chart ct-golden-section ct-negative-labels" id="chart2"></div>
+                </div>
+                <div class="text-center">
+                </div>
+            }*@
+
+            <div class="card-body">
+                <canvas id="classDataChart"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+    
+</div>
+
+<!-- Script for Chart module  -->
+<script>
+    var ctx = document.getElementById('classDataChart');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'White'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 4, 2],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
+
+    <script>
+        @*var result = [
+            @Model.GroupedScores[0],
+            @Model.GroupedScores[1],
+            @Model.GroupedScores[2],
+            @Model.GroupedScores[3],
+            @Model.GroupedScores[4]
+        ];*@
+
+        @*var namesJsonList = [
+            @Html.Raw(JsonConvert.SerializeObject(Model.PlusArray)),
+            @Html.Raw(JsonConvert.SerializeObject(Model.AdvancedArray)),
+            @Html.Raw(JsonConvert.SerializeObject(Model.ProfArray)),
+            @Html.Raw(JsonConvert.SerializeObject(Model.BasicArray)),
+            @Html.Raw(JsonConvert.SerializeObject(Model.BelowArray))
+        ];*@
+
+        //var percentageList = [];
+        //var totalStudents = 0;
+        //for (i = 0; i < result.length; i++) {
+        //    if (result[i] != 0) {
+        //        percentageList.push(result[i]);
+        //        totalStudents = totalStudents + result[i];
+        //    }
+        //    else {
+        //        percentageList.push(0);
+        //    }
+        //}
+        //for (j = 0; j < percentageList.length; j++) {
+        //    percentageList[j] = Math.round(((percentageList[j] / totalStudents) * 100), 1) + '%';
+        //}
+        ///////////////////////////////////////////////////////////////////////////
+        ////
+        ////Get a reference to the chart
+        //var ctx1 = document.getElementById("classDataChart").getContext("2d");
+        ////Define the data structure for the chart
+        //var classDataChart = new Chart(ctx1, {
+        //    type: 'pie',
+        //    data: {
+        //        labels: ["Advanced +", "Advanced", "Proficient", "Basic", "Below Basic"],
+        //        datasets: [{
+        //            data: result,
+        //            backgroundColor: [
+        //                "#1E5F8B",
+        //                "#6CA9B0",
+        //                "#12723A",
+        //                "#EBAE26",
+        //                "#BE4916"
+        //            ],
+        //            borderWidth: 0,
+        //            data1: namesJsonList
+        //        }]
+        //    },
+        //    options: {
+        //        legend: {
+        //            display: true,
+        //            position: 'right'
+        //        },
+        //        responsive: true,
+        //        tooltips: {
+        //            callbacks: {
+        //                label: function (tooltipItem, data) {
+        //                    var dataset = data.datasets[tooltipItem.datasetIndex];
+        //                    var currentValue = dataset.data1[tooltipItem.index];
+        //                    return currentValue;
+        //                    //Displays the number of students
+        //                    //var currentValue = dataset.data[tooltipItem.index];
+        //                    //if (currentValue > 1) {
+        //                    //    console.log(dataset);
+        //                    //    return " " + currentValue + " Students";
+        //                    //}
+        //                    //else {
+        //                    //    console.log(dataset);
+        //                    //    return " " + currentValue + " Student";
+        //                }
+        //            }
+        //        }
+        //    },
+        //    plugins: [{
+        //        afterDatasetsDraw: function (chart, easing) {
+        //            // To only draw at the end of animation, check for easing === 1
+        //            var ctx = chart.ctx;
+        //            //Calculate Percentages
+        //            chart.data.datasets.forEach(function (dataset, i) {
+        //                var meta = chart.getDatasetMeta(i);
+        //                if (!meta.hidden) {
+        //                    meta.data.forEach(function (element, index) {
+        //                        // Draw the text in black, with the specified font
+        //                        ctx.fillStyle = 'rgb(0, 0, 0)';
+        //                        var fontSize = 16;
+        //                        var fontStyle = 'normal';
+        //                        var fontFamily = 'Helvetica Neue';
+        //                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+        //                        var percentList = window.percentageList;
+        //                        var dataString = percentList[index].toString();
+        //                        // Just naively convert to string for now
+        //                        //var dataString = dataset.data[index].toString();
+
+        //                        // Make sure alignment settings are correct
+        //                        ctx.textAlign = 'center';
+        //                        ctx.textBaseline = 'middle';
+
+        //                        var padding = 5;
+        //                        var position = element.tooltipPosition();
+
+        //                        //Check to see if 0. If 0 write blank.
+        //                        if (dataString == '0%') {
+        //                            ctx.fillText('', position.x, position.y - (fontSize / 2) - padding);
+        //                        }
+        //                        else {
+        //                            ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+        //                        }
+        //                    });
+        //                }
+        //            });
+        //        }
+        //    }]
+        //});
+
+    </script>
+
+    @*<script>
+        $(function () {
+            var data = {
+                labels: ['Oops! No papers graded for this class yet!'],
+                //series: [1]
+                series: [{value:1,className: 'ct-series-f'}]
+
+
+            };
+            new Chartist.Pie('#chart2', data)
+        });
+
+    </script>*@

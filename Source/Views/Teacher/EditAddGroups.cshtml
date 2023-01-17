@@ -1,0 +1,100 @@
+﻿@model Source.Models.GroupStudentViewModel
+
+@{
+    ViewBag.Title = "Project Management";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div id="page-title">
+    <h1 class="page-header text-overflow">@ViewBag.Title</h1>
+</div>
+
+<div id="page-content">
+    <div class="container-fluid">
+        <!-- Panel -->
+        <div class="panel">
+            <!-- Panel Heading -->
+            <div class="panel-heading">
+                <div class="panel-control">
+                    <!-- ADD A GROUP BUTTON FIX STYLE OF BUTTON -->
+                    <a href="@Url.Action("AddGroupPartial", "Teacher", new { projectid = Model.project.projectId })" class="btn btn-greenJewel fa fa-plus"> Add a group</a>
+                </div>
+                <div class="panel-title">
+                    <h3 class="panel-title">Add Groups to Project: @Model.project.projectName</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Students in my class -->
+        <div class="panel col-md-4">
+            <!--Heading-->
+            <div class="panel-heading">
+                <h3 class="panel-title">Students in My Class </h3>
+            </div>
+            <!--Body-->
+            <div class="panel-body">
+                <!-- Table for project -->
+
+                <table id="tableClassRoster" class="table table-bordered table-hover toggle-circle" data-page-size="10">
+                    <thead>
+                        <tr>
+                            <th data-sort-initial="true">Last Name</th>
+                            <th>First Name</th>
+                            <th data-sort-ignore="true">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Content -->
+                    <tbody>
+                        @foreach (var student in Model.classRoster)
+                        {
+                            <tr>
+                                <td>
+                                    @student.LastName
+                                </td>
+                                <td>
+                                    @student.FirstName
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Add", "AddStudentToGroup", new { studentID = student.StudentID, groupId = Model.activeGroupId, projectId = Model.project.projectId }, new { @class = "add-student-link" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                    <!-- Table Footer -->
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <div class="text-center">
+                                    <ul class="pagination"></ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!--Groups-->
+        @if (Model.groups != null)
+        {
+            if (Model.groups.Count != 0)
+            {
+                foreach (var group in Model.groups)
+                {
+                    Html.RenderPartial("_AddGroupPanel", group);
+
+                }
+            }
+        }
+
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <!-- Submit Button -->
+            <div class="form-group text-center">
+                <a href="@Url.Action("EditProjects", "Teacher", new { projectId = Model.project.projectId })" class="btn btn-primary">Done</a>
+            </div>
+        </div>
+    </div>
+</div>
