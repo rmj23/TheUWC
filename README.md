@@ -1,1 +1,2 @@
-# UWC-dev
+# TheUWC
+TheUWC (The Universal Writing Continuum) was a company started by a professor whom I helped to implement features. UWC was the first contract work I have done back in 2019. Myself, along with other college developers, work on this amazing application where it focused on improving elementary-12 grade writing skills. Unfortanley after a couple of years of developing, the professor could not afford the cost of mantaining this application. This application is where it all started for me. The curiousity in becoming a software engineer. This code base now contains some of my latest skills and knowledge about clean architecture.
